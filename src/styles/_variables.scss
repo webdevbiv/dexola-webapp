@@ -1,0 +1,25 @@
+// Background Color
+$primary-background-color: #060412;
+
+// Colors
+$white: #fff;
+$black: #000;
+$accent-blue: #204ffe;
+$dark-gray: #2f2f2f;
+$light-gray: rgba(179, 179, 179, 1);
+$warning-rose: #eb3795;
+$table-accent-blue: rgba(8, 11, 39, 1);
+
+// Fonts and typography
+$font-kanit: "Kanit", sans-serif;
+$font-roboto-mono: "RobotoMono", sans-serif;
+
+//Button
+$button-bg-color: #272a2e;
+$button-bg-color-hover: rgba(39, 42, 46, 0.9);
+$button-text-color: $white;
+
+// Breakpoints
+$breakpoint-small: 375px;
+$breakpoint-medium: 744px;
+$breakpoint-large: 1440px;
