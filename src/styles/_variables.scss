@@ -1,5 +1,10 @@
 // Background Color
 $primary-background-color: #060412;
+$gradient-background-color: linear-gradient(
+  180deg,
+  rgba(3, 12, 67, 1) 0%,
+  rgba(24, 46, 132, 1) 100%
+);
 
 // Colors
 $white: #fff;

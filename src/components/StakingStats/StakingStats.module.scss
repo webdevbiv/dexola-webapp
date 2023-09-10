@@ -1,0 +1,22 @@
+.container {
+  margin: 0 auto;
+  padding: 0 24px;
+
+  padding-top: 22px;
+}
+
+.title {
+  font-family: $font-kanit;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 34px;
+
+  color: $white;
+
+  padding-right: 43px;
+  margin-bottom: 26px;
+}
+
+.listStats {
+  display: flex;
+}
