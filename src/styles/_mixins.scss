@@ -12,5 +12,6 @@
   &:focus {
     background-color: rgba(39, 42, 46, 1);
     color: $light-gray;
+    outline: none;
   }
 }
