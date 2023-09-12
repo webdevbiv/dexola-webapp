@@ -7,16 +7,19 @@ import { StakingStats } from "../components/StakingStats/StakingStats";
 import { Footer } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
 import { Background } from "../components/Background/Background";
+import { HeaderBar } from "../components/HeaderBar/HeaderBar";
 
 export const SharedLayout = () => {
   return (
     <div>
-      <Header />
-      <Main>
+      <Header>
         <Background>
+          <HeaderBar />
           <StakingStats />
           <Nav />
         </Background>
+      </Header>
+      <Main>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
