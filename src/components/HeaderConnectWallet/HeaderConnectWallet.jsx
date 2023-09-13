@@ -1,11 +1,10 @@
-import s from "./HeaderButton.module.scss";
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useBalance } from "wagmi";
-import { disconnect } from "@wagmi/core";
 import { parseAndRound } from "../../utils/utils";
 import { TOKEN_ADDRESS } from "../../constants/constants";
+import s from "./HeaderConnectWallet.module.scss";
 
-export const HeaderButton = () => {
+export const HeaderConnectWallet = () => {
   // Open Web3Modal
   const { open } = useWeb3Modal();
 
@@ -33,20 +32,20 @@ export const HeaderButton = () => {
 
   return (
     <>
-      <button
-        className={s.button}
-        onClick={() => open()}
-      >
-        {isConnected ? (
-          <div onClick={async () => await disconnect()}>
-            {userBalanceOfSepolia
-              ? `${formattedWalletAmount} ${userBalanceOfSepolia.symbol}`
-              : "Invalid data"}
-          </div>
-        ) : (
-          "connect wallet"
-        )}
-      </button>
+      {isConnected ? (
+        <div onClick={() => open()}>
+          {userBalanceOfSepolia
+            ? `${formattedWalletAmount} ${userBalanceOfSepolia.symbol}`
+            : "Invalid data"}
+        </div>
+      ) : (
+        <button
+          className={s.button}
+          onClick={() => open()}
+        >
+          connect wallet
+        </button>
+      )}
     </>
   );
 };

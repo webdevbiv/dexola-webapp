@@ -1,4 +1,4 @@
-import { HeaderButton } from "../HeaderButton/HeaderButton";
+import { HeaderConnectWallet } from "../HeaderConnectWallet/HeaderConnectWallet";
 import { Logo } from "../Logo/Logo";
 import s from "./HeaderBar.module.scss";
 
@@ -6,7 +6,7 @@ export const HeaderBar = () => {
   return (
     <div className={s.container}>
       <Logo />
-      <HeaderButton />
+      <HeaderConnectWallet />
     </div>
   );
 };
