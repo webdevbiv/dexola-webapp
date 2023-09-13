@@ -3,18 +3,33 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useBalance } from "wagmi";
 import { disconnect } from "@wagmi/core";
 import { parseAndRound } from "../../utils/utils";
+import { TOKEN_ADDRESS } from "../../constants/constants";
 
 export const HeaderButton = () => {
   // Open Web3Modal
   const { open } = useWeb3Modal();
 
   //Wagmi data
-  const { address, isConnected } = useAccount();
-  const { data } = useBalance({
-    address: address,
+  const { address: userWalletAddress, isConnected } = useAccount();
+
+  const { data: userBalanceOfSepolia } = useBalance({
+    address: userWalletAddress,
+    watch: true,
   });
 
-  const formattedWalletAmount = parseAndRound(data?.formatted, 2);
+  const formattedWalletAmount = parseAndRound(
+    userBalanceOfSepolia?.formatted,
+    1
+  );
+
+  //StarRunner
+  const { data: userBalanceOfStarRunner } = useBalance({
+    address: userWalletAddress,
+    token: TOKEN_ADDRESS,
+    watch: true,
+  });
+
+  console.log(userBalanceOfSepolia, userBalanceOfStarRunner);
 
   return (
     <>
@@ -24,7 +39,9 @@ export const HeaderButton = () => {
       >
         {isConnected ? (
           <div onClick={async () => await disconnect()}>
-            {data ? `${formattedWalletAmount} ${data.symbol}` : "Invalid data"}
+            {userBalanceOfSepolia
+              ? `${formattedWalletAmount} ${userBalanceOfSepolia.symbol}`
+              : "Invalid data"}
           </div>
         ) : (
           "connect wallet"

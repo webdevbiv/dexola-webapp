@@ -10,8 +10,8 @@ import { sepolia } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const chains = [sepolia];
-const projectId = "ea15f088dcb0dfefa2ed41c4fc791055";
-const apiKey = "Wx9gDf9o5hfTEWEuq_d9vPYDLqGACKpM";
+const projectId = import.meta.env.VITE_PROJECT_ID;
+const apiKey = import.meta.env.VITE_ALCHEMY_KEY;
 
 const { publicClient } = configureChains(chains, [
   alchemyProvider({ apiKey }),
