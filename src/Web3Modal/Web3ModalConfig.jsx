@@ -7,11 +7,16 @@ import {
 import { Web3Modal } from "@web3modal/react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const chains = [sepolia];
 const projectId = "ea15f088dcb0dfefa2ed41c4fc791055";
+const apiKey = "Wx9gDf9o5hfTEWEuq_d9vPYDLqGACKpM";
 
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+const { publicClient } = configureChains(chains, [
+  alchemyProvider({ apiKey }),
+  w3mProvider({ projectId }),
+]);
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, chains }),
