@@ -4,3 +4,28 @@
   line-height: 24px;
   padding: 8px 25px 8px 25px;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.walletLogo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.walletValues {
+  font-family: $font-kanit;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17.94px;
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+}

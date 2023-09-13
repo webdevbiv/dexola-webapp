@@ -2,6 +2,8 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useBalance } from "wagmi";
 import { parseAndRound } from "../../utils/utils";
 import { TOKEN_ADDRESS } from "../../constants/constants";
+import srImg from "../../assets/images/crypto/sr.png";
+import sepImg from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
 
 export const HeaderConnectWallet = () => {
@@ -28,15 +30,35 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
-  console.log(userBalanceOfSepolia, userBalanceOfStarRunner);
+  // console.log(userBalanceOfSepolia, userBalanceOfStarRunner);
 
   return (
     <>
       {isConnected ? (
-        <div onClick={() => open()}>
-          {userBalanceOfSepolia
-            ? `${formattedWalletAmount} ${userBalanceOfSepolia.symbol}`
-            : "Invalid data"}
+        <div
+          className={s.container}
+          onClick={() => open()}
+        >
+          <img
+            src={srImg}
+            alt='sr'
+            className={s.walletLogo}
+          />
+          <div className={s.walletValues}>
+            {userBalanceOfStarRunner
+              ? `${userBalanceOfStarRunner.formatted} STRU`
+              : "Invalid data "}
+          </div>
+          <img
+            src={sepImg}
+            alt='sr'
+            className={s.walletLogo}
+          />
+          <div className={s.walletValues}>
+            {userBalanceOfSepolia
+              ? `${formattedWalletAmount} ETH`
+              : "Invalid data"}
+          </div>
         </div>
       ) : (
         <button

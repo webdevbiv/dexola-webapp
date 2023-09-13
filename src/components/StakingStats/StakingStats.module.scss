@@ -1,8 +1,6 @@
 .container {
   margin: 0 auto;
   padding: 0 24px;
-
-  padding-top: 22px;
 }
 
 .title {
@@ -19,4 +17,35 @@
 
 .listStats {
   display: flex;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.value {
+  font-family: $font-roboto-mono;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  margin-right: 4px;
+}
+
+.suffix {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  margin-right: 5px;
+}
+
+.infoIcon {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+}
+
+.label {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15.8px;
 }
