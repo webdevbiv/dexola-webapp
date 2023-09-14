@@ -34,11 +34,4 @@ main {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  position: relative;
-}
-
-footer {
-  position: absolute;
-  bottom: -106px;
-  width: 100%;
 }

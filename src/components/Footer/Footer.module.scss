@@ -1,0 +1,21 @@
+.container {
+  margin: 0 auto;
+  padding: 0 24px;
+  border-top: 1px solid $accent-blue;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 17px;
+}
+
+.text {
+  color: $light-gray;
+  text-decoration: none;
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14.5px;
+}
