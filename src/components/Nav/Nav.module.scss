@@ -1,0 +1,49 @@
+.container {
+  background-color: $primary-background-color;
+  border-radius: 16px 16px 0px 0px;
+  padding-top: 16px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-bottom: 1px solid $accent-blue;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18.5px;
+  color: $light-gray;
+  text-decoration: none;
+  padding: 16px 0;
+  position: relative;
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 6px;
+    background-color: $accent-blue;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0); // start with no width
+    transform-origin: center; // grow from the center
+    transition: transform 0.3s ease; // animate the transform property
+  }
+  &:hover,
+  &:focus {
+    outline: none;
+    color: $white;
+  }
+}
+
+.linkSelected {
+  color: $white;
+  &::after {
+    transform: scaleX(1); // full width on focus
+  }
+}

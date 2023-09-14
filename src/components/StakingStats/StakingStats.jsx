@@ -1,8 +1,8 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
-import { useContractRead } from "wagmi";
-import { TOKEN_ADDRESS, TOKEN_ABI } from "../../constants/constants";
-import { useEffect } from "react";
+import { useAccount } from "wagmi";
+import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
+import { useTokenContractRead } from "../../Hooks/useTokenContractRead";
 
 const StatItem = ({ value, label, suffix, showInfoIcon }) => (
   <li>
@@ -24,18 +24,16 @@ const StatItem = ({ value, label, suffix, showInfoIcon }) => (
 );
 
 export const StakingStats = () => {
-  const сontractRead = useContractRead({
-    address: TOKEN_ADDRESS,
-    abi: TOKEN_ABI,
-    functionName: "totalSupply",
-    watch: true,
-    onSuccess(data) {
-      console.log("Success", data);
-    },
-    onError(error) {
-      console.log("Error", error);
-    },
-  });
+  const { data: totalSupply } = useTokenContractRead("totalSupply");
+
+  const { data: getRewardForDuration } = useTokenContractRead(
+    "getRewardForDuration"
+  );
+
+  const { data: periodFinish } = useTokenContractRead("periodFinish");
+
+  const APR = calculateAPR(getRewardForDuration, totalSupply);
+  const days = calculateDaysRemaining(periodFinish);
 
   const statsData = [
     {
@@ -45,12 +43,12 @@ export const StakingStats = () => {
       showInfoIcon: true,
     },
     {
-      value: "8%",
-      label: "APY",
+      value: APR ? `≈${APR}%` : "≈0%",
+      label: "APR",
       showInfoIcon: true,
     },
     {
-      value: "0",
+      value: days ? days : "0",
       label: "Days",
     },
     {

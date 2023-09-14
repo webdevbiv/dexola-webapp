@@ -1,6 +1,6 @@
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useBalance } from "wagmi";
-import { parseAndRound } from "../../utils/utils";
+import { roundToDecimalPlaces } from "../../utils/utils";
 import { TOKEN_ADDRESS } from "../../constants/constants";
 import srImg from "../../assets/images/crypto/sr.png";
 import sepImg from "../../assets/images/crypto/sep.png";
@@ -18,7 +18,7 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
-  const formattedWalletAmount = parseAndRound(
+  const formattedWalletAmount = roundToDecimalPlaces(
     userBalanceOfSepolia?.formatted,
     1
   );

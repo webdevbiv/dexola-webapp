@@ -17,15 +17,16 @@ const { publicClient } = configureChains(chains, [
   alchemyProvider({ apiKey }),
   w3mProvider({ projectId }),
 ]);
+
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, chains }),
   publicClient,
 });
+
 const ethereumClient = new EthereumClient(wagmiConfig, chains);
 
 function Web3ModalConfig({ children }) {
-  console.log(`projectId: ${projectId}`);
   return (
     <>
       <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
