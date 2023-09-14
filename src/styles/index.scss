@@ -26,15 +26,19 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 main {
   flex: 1;
   display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  position: relative;
 }
 
 footer {
-  height: 60px;
+  position: absolute;
+  bottom: -106px;
+  width: 100%;
 }
