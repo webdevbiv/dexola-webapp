@@ -11,7 +11,7 @@ import { HeaderBar } from "../components/HeaderBar/HeaderBar";
 
 export const SharedLayout = () => {
   return (
-    <div>
+    <>
       <Header>
         <Background>
           <HeaderBar />
@@ -25,6 +25,6 @@ export const SharedLayout = () => {
         </Suspense>
       </Main>
       <Footer />
-    </div>
+    </>
   );
 };

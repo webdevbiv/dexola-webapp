@@ -1,0 +1,14 @@
+.header {
+  @include button();
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px 25px 8px 25px;
+}
+
+.main {
+  @include button();
+  font-size: 16px;
+  line-height: 24px;
+  width: 327px;
+  padding: 12px 92px;
+}

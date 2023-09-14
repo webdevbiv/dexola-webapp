@@ -4,6 +4,13 @@
 @import "./_variables.scss";
 @import "./_mixins.scss";
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 body {
   background-color: $black;
   font-family: $font-roboto-mono;
@@ -14,4 +21,20 @@ body {
 
 .background {
   background: $gradient-background-color;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+}
+
+footer {
+  height: 60px;
 }

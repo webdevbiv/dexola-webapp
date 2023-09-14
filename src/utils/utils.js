@@ -3,8 +3,8 @@ export function roundToDecimalPlaces(formatted, decimalPlaces) {
 }
 
 export function calculateAPR(rewardForPeriod, totalSupply) {
-  const aprValue = (rewardForPeriod / totalSupply) * BigInt(100);
-  return Number(aprValue);
+  const aprValue = (Number(rewardForPeriod) / Number(totalSupply)) * 100;
+  return aprValue.toFixed(0);
 }
 
 export function calculateDaysRemaining(periodFinish) {
