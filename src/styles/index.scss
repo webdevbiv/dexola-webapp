@@ -15,6 +15,10 @@ body {
 .background {
   background: $gradient-background-color;
 }
+html,
+body {
+  height: 100vh;
+}
 
 #root {
   display: flex;
