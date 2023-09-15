@@ -4,13 +4,6 @@
 @import "./_variables.scss";
 @import "./_mixins.scss";
 
-// html,
-// body {
-//   height: 100vh;
-//   margin: 0;
-//   // overflow: hidden;
-// }
-
 body {
   background-color: $black;
   font-family: $font-roboto-mono;
@@ -34,6 +27,6 @@ main {
 }
 
 .scroll {
-  flex: 1;
-  overflow-y: scroll;
+  height: 100%;
+  overflow-y: auto;
 }
