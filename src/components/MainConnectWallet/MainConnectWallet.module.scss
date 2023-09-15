@@ -1,11 +1,10 @@
 .container {
-  // flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   padding: 0 24px;
-  // height: calc(100vh - 270px);
+  height: calc(100vh - 270px);
 }
 
 .wrapper {
