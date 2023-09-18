@@ -1,11 +1,10 @@
 .container {
   margin: 0 auto;
   padding: 0 24px;
-  // height: calc(100vh - 270px);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  // width: 100%;
 }
 
 .wrapper {
@@ -13,9 +12,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 150px;
-  padding-bottom: 65px;
-  width: 100%;
+  // padding-top: 150px;
+  // padding-bottom: 65px;
+  // width: 100%;
 }
 
 .img {

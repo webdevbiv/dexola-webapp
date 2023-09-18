@@ -3,7 +3,7 @@ import img from "../../assets/images/icons/connect.svg";
 import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
 export const MainConnectWallet = () => {
   return (
-    <div className={s.container}>
+    <div className={`mainContainer ${s.container}`}>
       <div className={s.wrapper}>
         <img
           src={img}

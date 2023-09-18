@@ -30,9 +30,15 @@ header {
 }
 
 main {
+  flex: 1;
   margin-top: 310px;
+
   display: flex;
   flex-direction: column;
+}
+
+.mainContainer {
+  height: calc(100vh - 270px);
 }
 
 // .scroll {

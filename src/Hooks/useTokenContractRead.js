@@ -1,4 +1,4 @@
-import { TOKEN_ABI, TOKEN_ADDRESS } from "../constants/constants";
+import { CONTRACT, CONTRACT_ABI } from "../constants/constants";
 import { useContractRead } from "wagmi";
 
 export const useTokenContractRead = (
@@ -8,8 +8,8 @@ export const useTokenContractRead = (
   watch = false
 ) => {
   const config = {
-    address: TOKEN_ADDRESS,
-    abi: TOKEN_ABI,
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName,
     watch,
   };

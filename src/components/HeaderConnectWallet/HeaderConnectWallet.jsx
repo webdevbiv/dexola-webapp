@@ -1,12 +1,16 @@
 import { useAccount, useBalance } from "wagmi";
 import { roundToDecimalPlaces } from "../../utils/utils";
-import { TOKEN_ADDRESS } from "../../constants/constants";
+import { TOKEN } from "../../constants/constants";
 import srImg from "../../assets/images/crypto/sr.png";
 import sepImg from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
 import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
+import { useWeb3Modal } from "@web3modal/react";
 
 export const HeaderConnectWallet = () => {
+  // Web3Modal
+  const { open } = useWeb3Modal();
+
   //Wagmi data
   const { address: userWalletAddress, isConnected } = useAccount();
 
@@ -23,7 +27,7 @@ export const HeaderConnectWallet = () => {
   //StarRunner
   const { data: userBalanceOfStarRunner } = useBalance({
     address: userWalletAddress,
-    token: TOKEN_ADDRESS,
+    token: TOKEN,
     watch: true,
   });
 
