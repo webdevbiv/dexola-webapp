@@ -8,11 +8,11 @@ import { Footer } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
 import { Background } from "../components/Background/Background";
 import { HeaderBar } from "../components/HeaderBar/HeaderBar";
-import useWindowWidth from "../Hooks/useWindowWidth";
-import { MobileScroll } from "../components/MobileScroll/MobileScroll";
+// import useWindowWidth from "../Hooks/useWindowWidth";
+// import { MobileScroll } from "../components/MobileScroll/MobileScroll";
 
 export const SharedLayout = () => {
-  const windowWidth = useWindowWidth();
+  // const windowWidth = useWindowWidth();
 
   return (
     <>
@@ -23,14 +23,12 @@ export const SharedLayout = () => {
           <Nav />
         </Background>
       </Header>
-      <MobileScroll>
-        <Main>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
-        </Main>
-        <Footer />
-      </MobileScroll>
+      <Main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </Main>
+      <Footer />
     </>
   );
 };
