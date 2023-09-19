@@ -1,8 +1,7 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
-import { useAccount } from "wagmi";
 import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
-import { useTokenContractRead } from "../../Hooks/useTokenContractRead";
+import { useContractRead } from "../../Hooks/useContractRead";
 
 const StatItem = ({ value, label, suffix, showInfoIcon }) => (
   <li>
@@ -24,13 +23,13 @@ const StatItem = ({ value, label, suffix, showInfoIcon }) => (
 );
 
 export const StakingStats = () => {
-  const { data: totalSupply } = useTokenContractRead("totalSupply");
+  const { data: totalSupply } = useContractRead("totalSupply");
 
-  const { data: getRewardForDuration } = useTokenContractRead(
+  const { data: getRewardForDuration } = useContractRead(
     "getRewardForDuration"
   );
 
-  const { data: periodFinish } = useTokenContractRead("periodFinish");
+  const { data: periodFinish } = useContractRead("periodFinish");
 
   const APR = calculateAPR(getRewardForDuration, totalSupply);
   const days = calculateDaysRemaining(periodFinish);

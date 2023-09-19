@@ -1,7 +1,7 @@
 import { CONTRACT, CONTRACT_ABI } from "../constants/constants";
-import { useContractRead } from "wagmi";
+import { useContractRead as useContractReadWagmi } from "wagmi";
 
-export const useTokenContractRead = (
+export const useContractRead = (
   functionName,
   successMessage = false,
   errorMessage = false,
@@ -26,5 +26,5 @@ export const useTokenContractRead = (
     };
   }
 
-  return useContractRead(config);
+  return useContractReadWagmi(config);
 };
