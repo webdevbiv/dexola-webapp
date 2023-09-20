@@ -5,7 +5,6 @@ import { MainTitle } from "../components/MainTitle/MainTitle";
 function Stake() {
   return (
     <MainContainer>
-      <MainTitle pageName='Stake' />
       <MainStake />
     </MainContainer>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAccount, useWaitForTransaction } from "wagmi";
 import { parseEther } from "viem";
 import useUserBalanceOfStarRunner from "../../Hooks/useUserBalanceOfStarRunner";
@@ -7,20 +7,15 @@ import { useContractWrite } from "../../Hooks/useContractWrite";
 import { useContractRead } from "../../Hooks/useContractRead";
 
 import { CONTRACT } from "../../constants/constants";
-import dataC from "../../data/contractABI.json";
-import dataT from "../../data/tokenABI.json";
 import s from "./MainStake.module.scss";
-import { MainContainer } from "../MainContainer/MainContainer";
-
-console.log(dataC, dataT);
+import { MainTitle } from "../MainTitle/MainTitle";
 
 export const MainStake = () => {
   const [inputValue, setInputValue] = useState("");
   const { address: userWalletAddress } = useAccount();
   const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
-  // const rewardRate = ;
+  const rewardRate = useRewardRateForUser(inputValue);
   const amountApprove = parseEther(inputValue.toString());
-  const rewardRate = React.createContext(useRewardRateForUser(inputValue));
 
   // const { data: allowance } = useContractRead({
   //   functionName: "allowance",
@@ -29,6 +24,8 @@ export const MainStake = () => {
   //   args: [userWalletAddress, CONTRACT],
   // });
   // console.log(allowance);
+
+  console.log(rewardRate);
 
   const {
     data: approveData,
@@ -106,6 +103,10 @@ export const MainStake = () => {
 
   return (
     <>
+      <MainTitle
+        pageName='Stake'
+        rewardRate={rewardRate}
+      />
       <form
         onSubmit={handleSubmit}
         className={s.form}

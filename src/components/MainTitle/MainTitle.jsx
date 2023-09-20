@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import s from "./MainTitle.module.scss";
 
-export const MainTitle = ({ pageName, rewardRate }) => {
+export const MainTitle = ({ pageName, rewardRate = "0" }) => {
   return (
     <div className={s.titleWrapper}>
       <h2 className={s.title}>{pageName}</h2>
