@@ -15,3 +15,8 @@
     outline: none;
   }
 }
+
+@mixin buttonDisabled {
+  color: $light-gray;
+  cursor: wait;
+}

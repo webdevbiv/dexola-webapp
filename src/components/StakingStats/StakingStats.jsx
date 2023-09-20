@@ -2,6 +2,8 @@ import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
 import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useContractRead } from "../../Hooks/useContractRead";
+import { useAccount } from "wagmi";
+import { formatEther } from "viem";
 
 const StatItem = ({ value, label, suffix, showInfoIcon }) => (
   <li>
@@ -23,20 +25,37 @@ const StatItem = ({ value, label, suffix, showInfoIcon }) => (
 );
 
 export const StakingStats = () => {
-  const { data: totalSupply } = useContractRead("totalSupply");
+  const { address: userWalletAddress, isConnected } = useAccount();
 
-  const { data: getRewardForDuration } = useContractRead(
-    "getRewardForDuration"
-  );
+  const { data: userStakedBalanceOfStarRunner } = useContractRead({
+    functionName: "balanceOf",
+    args: [userWalletAddress],
+    suspense: true,
+  });
 
-  const { data: periodFinish } = useContractRead("periodFinish");
+  const { data: totalSupply } = useContractRead({
+    functionName: "totalSupply",
+  });
+
+  const { data: getRewardForDuration } = useContractRead({
+    functionName: "getRewardForDuration",
+  });
+
+  const { data: periodFinish } = useContractRead({
+    functionName: "periodFinish",
+  });
+
+  console.log(userStakedBalanceOfStarRunner);
 
   const APR = calculateAPR(getRewardForDuration, totalSupply);
   const days = calculateDaysRemaining(periodFinish);
 
   const statsData = [
     {
-      value: "0.00",
+      value:
+        userWalletAddress && userStakedBalanceOfStarRunner
+          ? formatEther(userStakedBalanceOfStarRunner)
+          : "0",
       label: "Staked balance",
       suffix: "stru",
       showInfoIcon: true,

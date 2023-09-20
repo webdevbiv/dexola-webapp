@@ -6,43 +6,42 @@ import {
 } from "../constants/constants";
 import { useContractWrite as useContractWriteWagmi } from "wagmi";
 
-export const useContractWrite = (
+export const useContractWrite = ({
   functionName,
   token = false,
   onSuccessCallback = null,
-  onErrorCallback = null
-) => {
-  let config = {};
+  onErrorCallback = null,
+  onSettledCallback = null,
+}) => {
+  const defaultSuccessCallback = (data) => {
+    console.log(`Success ${functionName}`, data);
+  };
 
-  if (token) {
-    config = {
-      address: TOKEN,
-      abi: TOKEN_ABI,
-      functionName,
-    };
-  } else {
-    config = {
-      address: CONTRACT,
-      abi: CONTRACT_ABI,
-      functionName,
-    };
-  }
+  const defaultErrorCallback = (error) => {
+    console.log(`Error ${functionName}`, error);
+  };
 
-  if (onSuccessCallback && typeof onSuccessCallback === "function") {
-    config.onSuccess = onSuccessCallback;
-  } else {
-    config.onSuccess = (data) => {
-      console.log(`Success ${functionName}`, data);
-    };
-  }
+  const defaultSettledCallback = (data) => {
+    console.log(`Settled ${functionName}`, data);
+  };
 
-  if (onErrorCallback && typeof onErrorCallback === "function") {
-    config.onError = onErrorCallback;
-  } else {
-    config.onError = (error) => {
-      console.log(`Error ${functionName}`, error);
-    };
-  }
+  const config = {
+    address: token ? TOKEN : CONTRACT,
+    abi: token ? TOKEN_ABI : CONTRACT_ABI,
+    functionName,
+    onSuccess:
+      typeof onSuccessCallback === "function"
+        ? onSuccessCallback
+        : defaultSuccessCallback,
+    onError:
+      typeof onErrorCallback === "function"
+        ? onErrorCallback
+        : defaultErrorCallback,
+    onSettled:
+      typeof onSettledCallback === "function"
+        ? onSettledCallback
+        : defaultSettledCallback,
+  };
 
   return useContractWriteWagmi(config);
 };
