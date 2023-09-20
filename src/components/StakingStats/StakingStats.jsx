@@ -30,7 +30,7 @@ export const StakingStats = () => {
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     functionName: "balanceOf",
     args: [userWalletAddress],
-    suspense: true,
+    watch: true,
   });
 
   const { data: totalSupply } = useContractRead({
@@ -45,17 +45,12 @@ export const StakingStats = () => {
     functionName: "periodFinish",
   });
 
-  console.log(userStakedBalanceOfStarRunner);
-
   const APR = calculateAPR(getRewardForDuration, totalSupply);
   const days = calculateDaysRemaining(periodFinish);
 
   const statsData = [
     {
-      value:
-        userWalletAddress && userStakedBalanceOfStarRunner
-          ? formatEther(userStakedBalanceOfStarRunner)
-          : "0",
+      value: isConnected ? formatEther(userStakedBalanceOfStarRunner) : "0",
       label: "Staked balance",
       suffix: "stru",
       showInfoIcon: true,
