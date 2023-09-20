@@ -14,12 +14,14 @@ export const useContractRead = ({
   errorMessage = false,
   watch = false,
   args = undefined,
+  enabled = true,
 }) => {
   const config = {
     address: token ? TOKEN : CONTRACT,
     abi: token ? TOKEN_ABI : CONTRACT_ABI,
     functionName,
     watch,
+    enabled,
     ...(args && { args }),
   };
 
