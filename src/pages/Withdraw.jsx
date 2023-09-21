@@ -1,5 +1,7 @@
+import { MainWithdraw } from "../components/MainWithdraw/MainWithdraw";
+
 function Withdraw() {
-  return <div>Withdraw</div>;
+  return <MainWithdraw />;
 }
 
 export default Withdraw;

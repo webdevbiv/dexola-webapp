@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-
-function useWindowWidth() {
+export const useWindowWidth = () => {
   const [windowWidth, setWindowWidth] = useState(undefined);
 
   useEffect(() => {
@@ -21,6 +20,4 @@ function useWindowWidth() {
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
   return windowWidth;
-}
-
-export default useWindowWidth;
+};
