@@ -3,8 +3,8 @@ import { useWeb3Modal } from "@web3modal/react";
 // import { roundToDecimalPlaces } from "../../utils/utils";
 // import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
 // import { useUserBalanceOfStarRunner } from "../../Hooks";
-import srImg from "../../assets/images/crypto/sr.png";
-import sepImg from "../../assets/images/crypto/sep.png";
+import starRunnerImg from "../../assets/images/crypto/sr.png";
+import sepoliaImg from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
 
 export const HeaderConnectWallet = () => {
@@ -13,6 +13,7 @@ export const HeaderConnectWallet = () => {
 
   //Wagmi data
   const { address: userWalletAddress, isConnected } = useAccount();
+  console.log(typeof userWalletAddress);
 
   const { data: userBalanceOfSepolia } = useBalance({
     address: userWalletAddress,
@@ -27,13 +28,13 @@ export const HeaderConnectWallet = () => {
   const userBalanceOfStarRunner = "0";
   return (
     <>
-      {isConnected ? (
+      {isConnected && userBalanceOfSepolia ? (
         <div
           className={s.container}
           onClick={() => open()}
         >
           <img
-            src={srImg}
+            src={starRunnerImg}
             alt='sr'
             className={s.walletLogo}
           />
@@ -43,7 +44,7 @@ export const HeaderConnectWallet = () => {
               : "Invalid data "}
           </div>
           <img
-            src={sepImg}
+            src={sepoliaImg}
             alt='sr'
             className={s.walletLogo}
           />

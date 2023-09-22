@@ -25,6 +25,8 @@ export const StakingStats = () => {
     enabled: isConnected,
   });
 
+  const formattedUserRewards = Number(formatEther(userRewards)).toFixed(2);
+
   const { data: totalSupply } = useContractRead({
     functionName: "totalSupply",
     watch: true,
@@ -67,7 +69,7 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: isConnected ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
+      value: isConnected ? formattedUserRewards : "0.00",
       label: "Rewards",
       suffix: "stru",
       showInfoIcon: true,
