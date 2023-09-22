@@ -3,8 +3,7 @@ import { MainConnectWallet } from "../components/MainConnectWallet/MainConnectWa
 export const ConnectWallet = () => {
   return (
     <>
-      {/* <MainConnectWallet /> */}
-      <div>Connect Wallet</div>
+      <MainConnectWallet />
     </>
   );
 };
