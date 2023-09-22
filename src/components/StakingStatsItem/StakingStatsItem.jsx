@@ -1,7 +1,7 @@
-import s from "./StakingStatsItem.module.scss";
+// import s from "./StakingStatsItem.module.scss";
 
-export const StatItem = ({ value, label, suffix, showInfoIcon, infoImg }) => {
-  return (
-    
-  );
-};
+// export const StatItem = ({ value, label, suffix, showInfoIcon, infoImg }) => {
+//   return (
+
+//   );
+// };
