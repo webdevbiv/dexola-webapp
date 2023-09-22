@@ -4,9 +4,13 @@ import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useContractRead } from "../../Hooks/useContractRead";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
+import { useEffect, useState } from "react";
 
 export const StakingStats = () => {
+  const [APR, setAPR] = useState(0);
+  const [daysRemaining, setDaysRemaining] = useState(0);
   const { address: userWalletAddress, isConnected } = useAccount();
+
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     functionName: "balanceOf",
     args: [userWalletAddress],
@@ -36,8 +40,15 @@ export const StakingStats = () => {
     watch: true,
   });
 
-  const APR = calculateAPR(getRewardForDuration, totalSupply);
-  const daysRemaining = calculateDaysRemaining(periodFinish);
+  useEffect(() => {
+    if ((getRewardForDuration, totalSupply)) {
+      setAPR(calculateAPR(getRewardForDuration, totalSupply));
+    }
+
+    if (periodFinish) {
+      setDaysRemaining(calculateDaysRemaining(periodFinish));
+    }
+  }, [getRewardForDuration, totalSupply, periodFinish]);
 
   const statsData = [
     {
