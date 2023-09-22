@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import s from "./MainTitle.module.scss";
 
-export const MainTitle = ({ pageName, rewardRate = "0" }) => {
+export const MainTitle = ({ pageName, rewardRate = 0 }) => {
   return (
     <div className={s.titleWrapper}>
       <h2 className={s.title}>{pageName}</h2>
@@ -18,5 +18,5 @@ export const MainTitle = ({ pageName, rewardRate = "0" }) => {
 
 MainTitle.propTypes = {
   pageName: PropTypes.string,
-  rewardRate: PropTypes.string,
+  rewardRate: PropTypes.number,
 };
