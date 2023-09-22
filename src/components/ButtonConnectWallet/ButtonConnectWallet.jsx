@@ -4,6 +4,7 @@ import { useWeb3Modal } from "@web3modal/react";
 const ButtonConnectWallet = ({ location = "header" }) => {
   // Open Web3Modal
   const { open } = useWeb3Modal();
+
   return (
     <button
       className={location === "header" ? s.header : s.main}

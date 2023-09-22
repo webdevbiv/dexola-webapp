@@ -19,7 +19,7 @@ export const SharedLayout = () => {
       <Header>
         <Background>
           <HeaderBar />
-          {/* <StakingStats /> */}
+          <StakingStats />
           <Nav />
         </Background>
       </Header>
