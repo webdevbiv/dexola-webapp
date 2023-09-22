@@ -13,7 +13,6 @@ export const HeaderConnectWallet = () => {
 
   //Wagmi data
   const { address: userWalletAddress, isConnected } = useAccount();
-  console.log(typeof userWalletAddress);
 
   const { data: userBalanceOfSepolia } = useBalance({
     address: userWalletAddress,
