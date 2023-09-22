@@ -6,12 +6,6 @@ export function roundToDecimalPlaces(formatted, decimalPlaces) {
 
 // Calculate APR
 export function calculateAPR(getRewardForDuration, totalSupply) {
-  console.log(
-    "getRewardForDuration",
-    typeof getRewardForDuration,
-    getRewardForDuration
-  );
-  console.log("totalSupply", typeof totalSupply, totalSupply);
   const formattedRewardForPeriod = formatEther(getRewardForDuration);
   const formattedTotalSupply = formatEther(totalSupply);
   const aprValue = (formattedRewardForPeriod / formattedTotalSupply) * 100;

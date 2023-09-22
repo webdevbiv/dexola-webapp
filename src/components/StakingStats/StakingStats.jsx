@@ -4,13 +4,9 @@ import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useContractRead } from "../../Hooks/useContractRead";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
-import { CONTRACT_ABI, TOKEN_ABI } from "../../constants/constants";
-console.log(TOKEN_ABI, CONTRACT_ABI);
 
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();
-  console.log(isConnected);
-
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     functionName: "balanceOf",
     args: [userWalletAddress],
