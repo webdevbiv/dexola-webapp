@@ -7,25 +7,6 @@ import { formatEther } from "viem";
 import { CONTRACT_ABI, TOKEN_ABI } from "../../constants/constants";
 console.log(TOKEN_ABI, CONTRACT_ABI);
 
-const StatItem = ({ value, label, suffix, showInfoIcon }) => (
-  <li>
-    <div>
-      <span className={s.value}>{value}</span>
-      {suffix && <span className={s.suffix}>{suffix}</span>}
-      {showInfoIcon && (
-        <img
-          src={infoImg}
-          alt='info'
-          className={s.infoIcon}
-        />
-      )}
-    </div>
-    <div>
-      <span className={s.label}>{label}</span>
-    </div>
-  </li>
-);
-
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();
 
@@ -98,10 +79,22 @@ export const StakingStats = () => {
       <div>
         <ul className={s.listStats}>
           {statsData.map((stat, index) => (
-            <StatItem
-              key={index}
-              {...stat}
-            />
+            <li key={index}>
+              <div>
+                <span className={s.value}>{stat.value}</span>
+                {stat.suffix && <span className={s.suffix}>{stat.suffix}</span>}
+                {stat.showInfoIcon && (
+                  <img
+                    src={infoImg}
+                    alt='info'
+                    className={s.infoIcon}
+                  />
+                )}
+              </div>
+              <div>
+                <span className={s.label}>{stat.label}</span>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
