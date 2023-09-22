@@ -14,8 +14,8 @@ const projectId = import.meta.env.VITE_PROJECT_ID;
 const apiKey = import.meta.env.VITE_ALCHEMY_KEY;
 
 const { publicClient } = configureChains(chains, [
-  alchemyProvider({ apiKey }),
   w3mProvider({ projectId }),
+  alchemyProvider({ apiKey }),
 ]);
 
 const wagmiConfig = createConfig({
