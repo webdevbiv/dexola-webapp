@@ -31,12 +31,14 @@ export const StakingStats = () => {
     functionName: "balanceOf",
     args: [userWalletAddress],
     watch: true,
+    enabled: isConnected,
   });
 
   const { data: userRewards } = useContractRead({
     functionName: "rewards",
     args: [userWalletAddress],
     watch: true,
+    enabled: isConnected,
   });
 
   const { data: totalSupply } = useContractRead({
