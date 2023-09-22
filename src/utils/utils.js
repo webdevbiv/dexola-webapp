@@ -1,13 +1,19 @@
-import { formatUnits } from "viem";
+import { formatEther } from "viem";
 
 export function roundToDecimalPlaces(formatted, decimalPlaces) {
   return parseFloat(formatted).toFixed(decimalPlaces);
 }
 
 // Calculate APR
-export function calculateAPR(rewardForPeriod, totalSupply) {
-  const formattedRewardForPeriod = formatUnits(rewardForPeriod);
-  const formattedTotalSupply = formatUnits(totalSupply);
+export function calculateAPR(getRewardForDuration, totalSupply) {
+  console.log(
+    "getRewardForDuration",
+    typeof getRewardForDuration,
+    getRewardForDuration
+  );
+  console.log("totalSupply", typeof totalSupply, totalSupply);
+  const formattedRewardForPeriod = formatEther(getRewardForDuration);
+  const formattedTotalSupply = formatEther(totalSupply);
   const aprValue = (formattedRewardForPeriod / formattedTotalSupply) * 100;
   const result = aprValue.toFixed(0);
   return result;

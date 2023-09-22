@@ -4,6 +4,8 @@ import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useContractRead } from "../../Hooks/useContractRead";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
+import { CONTRACT_ABI, TOKEN_ABI } from "../../constants/constants";
+console.log(TOKEN_ABI, CONTRACT_ABI);
 
 const StatItem = ({ value, label, suffix, showInfoIcon }) => (
   <li>
@@ -55,8 +57,15 @@ export const StakingStats = () => {
     functionName: "periodFinish",
     watch: true,
   });
+  // console.log(
+  //   `getRewardForDuration`,
+  //   getRewardForDuration,
+  //   `totalSupply`,
+  //   totalSupply
+  // );
 
   const APR = calculateAPR(getRewardForDuration, totalSupply);
+  console.log(APR);
   const daysRemaining = calculateDaysRemaining(periodFinish);
 
   const statsData = [
