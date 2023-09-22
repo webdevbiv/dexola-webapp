@@ -46,8 +46,8 @@ export const StakingStats = () => {
   //   totalSupply
   // );
 
-  // const APR = calculateAPR(getRewardForDuration, totalSupply);
-  const APR = "0";
+  const APR = calculateAPR(getRewardForDuration, totalSupply);
+  // const APR = "0";
   // console.log(APR);
   // const daysRemaining = calculateDaysRemaining(periodFinish);
   const daysRemaining = "0";
