@@ -1,8 +1,8 @@
 import { useAccount, useBalance } from "wagmi";
 import { useWeb3Modal } from "@web3modal/react";
-import { roundToDecimalPlaces } from "../../utils/utils";
-import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
-import { useUserBalanceOfStarRunner } from "../../Hooks";
+// import { roundToDecimalPlaces } from "../../utils/utils";
+// import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
+// import { useUserBalanceOfStarRunner } from "../../Hooks";
 import srImg from "../../assets/images/crypto/sr.png";
 import sepImg from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
