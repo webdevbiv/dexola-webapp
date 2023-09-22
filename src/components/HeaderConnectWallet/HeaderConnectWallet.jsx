@@ -19,9 +19,6 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
-  console.log(userBalanceOfSepolia.value);
-  console.log(userWalletAddress);
-
   const formattedWalletAmount = "0";
 
   //StarRunner
@@ -57,7 +54,8 @@ export const HeaderConnectWallet = () => {
           </div>
         </div>
       ) : (
-        <ButtonConnectWallet location='header' />
+        <div> Button</div>
+        // <ButtonConnectWallet location='header' />d
       )}
     </>
   );
