@@ -41,7 +41,7 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${userBalanceOfStarRunner.formatted} STRU`
+              ? `${Number(userBalanceOfStarRunner.formatted).toFixed(1)} STRU`
               : "Invalid data "}
           </div>
           <img

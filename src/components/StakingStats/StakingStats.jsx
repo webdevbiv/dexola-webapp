@@ -31,26 +31,27 @@ export const StakingStats = () => {
     functionName: "balanceOf",
     args: [userWalletAddress],
     watch: true,
-    enabled: isConnected,
   });
 
   const { data: userRewards } = useContractRead({
     functionName: "rewards",
     args: [userWalletAddress],
     watch: true,
-    enabled: isConnected,
   });
 
   const { data: totalSupply } = useContractRead({
     functionName: "totalSupply",
+    watch: true,
   });
 
   const { data: getRewardForDuration } = useContractRead({
     functionName: "getRewardForDuration",
+    watch: true,
   });
 
   const { data: periodFinish } = useContractRead({
     functionName: "periodFinish",
+    watch: true,
   });
 
   const APR = calculateAPR(getRewardForDuration, totalSupply);

@@ -4,3 +4,4 @@ export { useContractWrite } from "./useContractWrite";
 export { useRewardRateForUser } from "./useRewardRateForUser";
 export { useUserBalanceOfStarRunner } from "./useUserBalanceOfStarRunner";
 export { useWindowWidth } from "./useWindowWidth";
+export { useUserStakedBalance } from "./useUserStakedBalance";

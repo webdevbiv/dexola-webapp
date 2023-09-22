@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
 import s from "./MainForm.module.scss";
+
 export const MainForm = ({
   handleSubmit,
   handleChange,
+  isInputDisplayed = true,
   inputValue,
   isAnyLoading,
-  balanceOfStarRunner,
+  balanceToDisplay,
+  buttonText,
 }) => {
   return (
     <form
@@ -13,22 +16,19 @@ export const MainForm = ({
       className={s.form}
     >
       <div className={s.inputWrapper}>
-        <input
-          type='number'
-          placeholder='Enter stake amount'
-          name='amount'
-          value={inputValue}
-          onChange={handleChange}
-          min='1'
-          max='10000'
-          step='1'
-          className={s.input}
-        />
+        {isInputDisplayed && (
+          <input
+            type='number'
+            placeholder='Enter stake amount'
+            name='amount'
+            value={inputValue}
+            onChange={handleChange}
+            className={s.input}
+          />
+        )}
         <div className={s.balance}>
           <span className={s.label}>Available:</span>
-          <span className={s.balanceValue}>
-            {balanceOfStarRunner.formatted}
-          </span>
+          <span className={s.balanceValue}>{balanceToDisplay}</span>
           <span className={s.balanceUnit}>STRU</span>
         </div>
       </div>
@@ -38,7 +38,7 @@ export const MainForm = ({
           type='submit'
           className={`${s.button} ${isAnyLoading ? s.buttonDisabled : ""}`}
         >
-          stake
+          {buttonText}
         </button>
       </div>
     </form>
@@ -46,11 +46,11 @@ export const MainForm = ({
 };
 
 MainForm.propTypes = {
-  balanceOfStarRunner: PropTypes.shape({
-    formatted: PropTypes.any,
-  }),
+  balanceToDisplay: PropTypes.any,
   handleChange: PropTypes.any,
   handleSubmit: PropTypes.any,
   inputValue: PropTypes.any,
   isAnyLoading: PropTypes.any,
+  buttonText: PropTypes.any,
+  isInputDisplayed: PropTypes.any,
 };

@@ -35,9 +35,8 @@ export const sanitizeInputValue = (value) => {
   // Convert the string to a number for range checks
   let numValue = Number(value);
 
-  // Ensure the value is within the range [0, 10000]
+  // Ensure the value is within the range [0]
   if (numValue < 0) numValue = 0;
-  if (numValue > 10000) numValue = 10000;
 
   return String(numValue);
 };

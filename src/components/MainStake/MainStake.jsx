@@ -5,6 +5,7 @@ import {
   useUserBalanceOfStarRunner,
   useRewardRateForUser,
   useContractWrite,
+  useContractRead,
 } from "../../Hooks";
 
 import { CONTRACT } from "../../constants/constants";
@@ -16,19 +17,22 @@ import { sanitizeInputValue } from "../../utils/utils";
 export const MainStake = () => {
   const [inputValue, setInputValue] = useState("");
   const { address: userWalletAddress } = useAccount();
-  const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
-  const rewardRate = useRewardRateForUser(inputValue);
-  const amountApprove = parseEther(inputValue.toString());
+  const balanceToDisplay = Number(
+    useUserBalanceOfStarRunner(userWalletAddress).formatted
+  ).toFixed(1);
 
-  // const { data: allowance } = useContractRead({
-  //   functionName: "allowance",
-  //   token: true,
-  //   watch: true,
-  //   args: [userWalletAddress, CONTRACT],
-  // });
-  // console.log(allowance);
+  const amountToApprove = parseEther(inputValue.toString());
 
-  // console.log(rewardRate);
+  const { data: userStakedBalanceOfStarRunner } = useContractRead({
+    functionName: "balanceOf",
+    args: [userWalletAddress],
+    watch: true,
+  });
+
+  const rewardRate = useRewardRateForUser(
+    inputValue,
+    userStakedBalanceOfStarRunner
+  );
 
   const {
     data: approveData,
@@ -48,7 +52,7 @@ export const MainStake = () => {
     hash: approveData?.hash,
     onSettled(data, error) {
       console.log("Settled waitForApprove", { data, error });
-      stakeWrite({ args: [amountApprove] });
+      stakeWrite({ args: [amountToApprove] });
     },
   });
 
@@ -76,10 +80,10 @@ export const MainStake = () => {
     setInputValue(sanitizedValue);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await approveWrite({
-      args: [CONTRACT, amountApprove],
+    approveWrite({
+      args: [CONTRACT, amountToApprove],
     });
   };
 
@@ -100,7 +104,8 @@ export const MainStake = () => {
         handleChange={handleChange}
         inputValue={inputValue}
         isAnyLoading={isAnyLoading}
-        balanceOfStarRunner={userBalanceOfStarRunner}
+        balanceToDisplay={balanceToDisplay}
+        buttonText={"Stake"}
       />
     </MainContainer>
   );

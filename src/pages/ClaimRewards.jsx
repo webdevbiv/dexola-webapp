@@ -1,5 +1,7 @@
+import { MainClaimRewards } from "../components/MainClaimRewards/MainClaimRewards";
+
 function ClaimRewards() {
-  return <div>ClaimRewards</div>;
+  return <MainClaimRewards />;
 }
 
 export default ClaimRewards;
