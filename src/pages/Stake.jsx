@@ -4,7 +4,7 @@ import { MainTitle } from "../components/MainTitle/MainTitle";
 
 function Stake() {
   // return <MainStake />;
-  return <div>Main Stake</div>;
+  return <div>MainStake</div>;
 }
 
 export default Stake;

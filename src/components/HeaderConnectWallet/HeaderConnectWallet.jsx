@@ -19,14 +19,15 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
-  const formattedWalletAmount = roundToDecimalPlaces(
-    userBalanceOfSepolia?.formatted,
-    1
-  );
+  console.log(userBalanceOfSepolia.value);
+  console.log(userWalletAddress);
+
+  const formattedWalletAmount = "0";
 
   //StarRunner
-  const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
+  // const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
 
+  const userBalanceOfStarRunner = "0";
   return (
     <>
       {isConnected ? (
@@ -41,7 +42,7 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${Number(userBalanceOfStarRunner.formatted).toFixed(1)} STRU`
+              ? `${userBalanceOfStarRunner} STRU`
               : "Invalid data "}
           </div>
           <img
