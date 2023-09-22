@@ -13,8 +13,8 @@ export const useContractRead = ({
   successMessage = false,
   errorMessage = false,
   watch = false,
-  args = undefined,
   enabled = true,
+  args = undefined,
 }) => {
   const config = {
     address: token ? TOKEN : CONTRACT,

@@ -1,17 +1,21 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
 import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
-import { useContractRead } from "../../Hooks/useContractRead";
+import { useContractRead } from "wagmi";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
+import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
+console.log(CONTRACT_ABI);
 
 export const StakingStats = () => {
+  const { address: userWalletAddress, isConnected } = useAccount();
   const [APR, setAPR] = useState(0);
   const [daysRemaining, setDaysRemaining] = useState(0);
-  const { address: userWalletAddress, isConnected } = useAccount();
 
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "balanceOf",
     args: [userWalletAddress],
     watch: isConnected,
@@ -19,36 +23,46 @@ export const StakingStats = () => {
   });
 
   const { data: userRewards } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "rewards",
     args: [userWalletAddress],
     watch: isConnected,
     enabled: isConnected,
   });
 
-  const formattedUserRewards = Number(formatEther(userRewards)).toFixed(2);
-
   const { data: totalSupply } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "totalSupply",
     watch: true,
   });
 
   const { data: getRewardForDuration } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "getRewardForDuration",
     watch: true,
   });
 
   const { data: periodFinish } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "periodFinish",
     watch: true,
   });
+  console.log(isConnected);
+
+  console.log(userStakedBalanceOfStarRunner);
+
+  console.log(userRewards);
 
   useEffect(() => {
-    if ((getRewardForDuration, totalSupply)) {
-      setAPR(calculateAPR(getRewardForDuration, totalSupply));
-    }
-
     if (periodFinish) {
       setDaysRemaining(calculateDaysRemaining(periodFinish));
+    }
+    if (getRewardForDuration && totalSupply) {
+      setAPR(calculateAPR(getRewardForDuration, totalSupply));
     }
   }, [getRewardForDuration, totalSupply, periodFinish]);
 
@@ -69,7 +83,7 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: isConnected ? formattedUserRewards : "0.00",
+      value: isConnected ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
       label: "Rewards",
       suffix: "stru",
       showInfoIcon: true,
