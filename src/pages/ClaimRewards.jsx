@@ -1,4 +1,4 @@
-import { MainClaimRewards } from "../components/MainClaimRewards/MainClaimRewards";
+// import { MainClaimRewards } from "../components/MainClaimRewards/MainClaimRewards";
 
 function ClaimRewards() {
   return (

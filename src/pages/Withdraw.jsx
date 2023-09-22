@@ -1,4 +1,4 @@
-import { MainWithdraw } from "../components/MainWithdraw/MainWithdraw";
+// import { MainWithdraw } from "../components/MainWithdraw/MainWithdraw";
 
 function Withdraw() {
   return (
