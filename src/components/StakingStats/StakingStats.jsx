@@ -9,6 +9,7 @@ console.log(TOKEN_ABI, CONTRACT_ABI);
 
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();
+  console.log(isConnected);
 
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     functionName: "balanceOf",
@@ -45,9 +46,11 @@ export const StakingStats = () => {
   //   totalSupply
   // );
 
-  const APR = calculateAPR(getRewardForDuration, totalSupply);
-  console.log(APR);
-  const daysRemaining = calculateDaysRemaining(periodFinish);
+  // const APR = calculateAPR(getRewardForDuration, totalSupply);
+  const APR = "0";
+  // console.log(APR);
+  // const daysRemaining = calculateDaysRemaining(periodFinish);
+  const daysRemaining = "0";
 
   const statsData = [
     {
