@@ -18,12 +18,14 @@ export const MainForm = ({
       <div className={s.inputWrapper}>
         {isInputDisplayed && (
           <input
-            type='number'
+            type='text'
             placeholder='Enter stake amount'
             name='amount'
             value={inputValue}
             onChange={handleChange}
             className={s.input}
+            inputMode='numeric'
+            pattern='[0-9]*'
           />
         )}
         <div className={s.balance}>
@@ -46,11 +48,12 @@ export const MainForm = ({
 };
 
 MainForm.propTypes = {
-  balanceToDisplay: PropTypes.any,
-  handleChange: PropTypes.any,
-  handleSubmit: PropTypes.any,
-  inputValue: PropTypes.any,
-  isAnyLoading: PropTypes.any,
-  buttonText: PropTypes.any,
-  isInputDisplayed: PropTypes.any,
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  isInputDisplayed: PropTypes.bool,
+  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isAnyLoading: PropTypes.bool.isRequired,
+  balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  buttonText: PropTypes.string.isRequired,
 };

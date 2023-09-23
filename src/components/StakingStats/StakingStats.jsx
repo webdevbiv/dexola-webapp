@@ -6,7 +6,6 @@ import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
-console.log(CONTRACT_ABI);
 
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();

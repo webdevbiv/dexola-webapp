@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccount, useWaitForTransaction } from "wagmi";
 import { parseEther } from "viem";
 import {
   useUserBalanceOfStarRunner,
-  useRewardRateForUser,
   useContractWrite,
   useContractRead,
 } from "../../Hooks";
@@ -12,16 +11,19 @@ import { CONTRACT } from "../../constants/constants";
 import { MainTitle } from "../MainTitle/MainTitle";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
-import { sanitizeInputValue } from "../../utils/utils";
+import {
+  sanitizeInputValue,
+  calculateRewardRateForUser,
+} from "../../utils/utils";
 
 export const MainStake = () => {
   const [inputValue, setInputValue] = useState("");
+  const [userRewardRate, setUserRewardRate] = useState(0);
   const { address: userWalletAddress } = useAccount();
-  const balanceToDisplay = Number(
-    useUserBalanceOfStarRunner(userWalletAddress).formatted
-  ).toFixed(1);
-
-  console.log(balanceToDisplay);
+  const balanceToDisplay = useUserBalanceOfStarRunner({
+    userWalletAddress,
+    formatted: true,
+  });
 
   const amountToApprove = parseEther(inputValue.toString());
 
@@ -31,10 +33,15 @@ export const MainStake = () => {
     watch: true,
   });
 
-  const rewardRate = useRewardRateForUser(
-    inputValue,
-    userStakedBalanceOfStarRunner
-  );
+  const { data: periodFinish } = useContractRead({
+    functionName: "periodFinish",
+  });
+
+  const { data: rewardRate } = useContractRead({ functionName: "rewardRate" });
+
+  const { data: totalSupply } = useContractRead({
+    functionName: "totalSupply",
+  });
 
   const {
     data: approveData,
@@ -77,6 +84,25 @@ export const MainStake = () => {
     },
   });
 
+  useEffect(() => {
+    setUserRewardRate(
+      calculateRewardRateForUser(
+        inputValue,
+        userStakedBalanceOfStarRunner,
+        periodFinish,
+        rewardRate,
+        totalSupply
+      )
+    );
+  }, [
+    userRewardRate,
+    inputValue,
+    userStakedBalanceOfStarRunner,
+    periodFinish,
+    rewardRate,
+    totalSupply,
+  ]);
+
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
     setInputValue(sanitizedValue);
@@ -84,6 +110,8 @@ export const MainStake = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (inputValue > balanceToDisplay)
+      return console.log("Insufficient balance");
     approveWrite({
       args: [CONTRACT, amountToApprove],
     });
@@ -99,7 +127,7 @@ export const MainStake = () => {
     <MainContainer>
       <MainTitle
         pageName='Stake'
-        rewardRate={rewardRate}
+        rewardRate={userRewardRate}
       />
       <MainForm
         handleSubmit={handleSubmit}
@@ -112,65 +140,3 @@ export const MainStake = () => {
     </MainContainer>
   );
 };
-
-// import { useState } from "react";
-// import { useAccount } from "wagmi";
-// import { parseEther } from "viem";
-
-// // Hooks
-// import {
-//   useUserBalanceOfStarRunner,
-//   useRewardRateForUser,
-//   useApproveAndStake,
-// } from "../../Hooks";
-// import { sanitizeInputValue } from "../../utils/utils";
-
-// // Components
-// import { MainTitle } from "../MainTitle/MainTitle";
-// import { MainContainer } from "../MainContainer/MainContainer";
-// import { MainForm } from "../MainForm/MainForm";
-
-// // Constants
-// import { CONTRACT } from "../../constants/constants";
-
-// export const MainStake = () => {
-//   const [inputValue, setInputValue] = useState("");
-//   const { address: userWalletAddress } = useAccount();
-//   const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
-//   const rewardRate = useRewardRateForUser(inputValue);
-//   const amountApprove = parseEther(inputValue.toString());
-
-//   const { approveWrite, approveIsLoading, stakeIsLoading } =
-//     useApproveAndStake(amountApprove);
-
-//   const handleChange = (e) => {
-//     const sanitizedValue = sanitizeInputValue(e.target.value);
-//     setInputValue(sanitizedValue);
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     approveWrite({
-//       args: [CONTRACT, amountApprove],
-//     });
-//     setInputValue("");
-//   };
-
-//   const isAnyLoading = approveIsLoading || stakeIsLoading;
-
-//   return (
-//     <MainContainer>
-//       <MainTitle
-//         pageName='Stake'
-//         rewardRate={rewardRate}
-//       />
-//       <MainForm
-//         handleSubmit={handleSubmit}
-//         handleChange={handleChange}
-//         inputValue={inputValue}
-//         isAnyLoading={isAnyLoading}
-//         balanceOfStarRunner={userBalanceOfStarRunner}
-//       />
-//     </MainContainer>
-//   );
-// };

@@ -26,7 +26,10 @@ export const HeaderConnectWallet = () => {
   );
 
   //User balance of StarRunner
-  const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
+  const userBalanceOfStarRunner = useUserBalanceOfStarRunner({
+    userWalletAddress,
+    formatted: true,
+  });
 
   return (
     <>
@@ -43,7 +46,7 @@ export const HeaderConnectWallet = () => {
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
               ? `${userBalanceOfStarRunner} STRU`
-              : "Invalid data "}
+              : "0 STRU"}
           </div>
           <img
             src={sepoliaImg}

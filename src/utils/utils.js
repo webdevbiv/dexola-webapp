@@ -40,3 +40,41 @@ export const sanitizeInputValue = (value) => {
 
   return String(numValue);
 };
+
+export const calculateRewardRateForUser = (
+  inputValue,
+  userStakedBalanceOfStarRunner,
+  periodFinish,
+  rewardRate,
+  totalSupply
+) => {
+  const SECONDS_IN_A_WEEK = 7 * 24 * 60 * 60;
+
+  // Convert input values to numbers
+  const inputValueFormatted = Number(inputValue);
+  const userStakedBalanceOfStarRunnerFormatted = Number(
+    formatEther(userStakedBalanceOfStarRunner)
+  );
+  const periodFinishFormatted = Number(periodFinish);
+  const rewardRateFormatted = Number(formatEther(rewardRate));
+  const totalSupplyFormatted = Number(formatEther(totalSupply));
+
+  // Calculate total available rewards
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const remaining = periodFinishFormatted - currentTimestamp;
+  const weeksRemaining = Math.ceil(remaining / SECONDS_IN_A_WEEK);
+  const totalAvailableRewards = remaining * rewardRateFormatted;
+
+  // Calculate reward rate using the formula
+  const rewardRateForUser =
+    (userStakedBalanceOfStarRunnerFormatted * totalAvailableRewards) /
+      totalSupplyFormatted +
+    inputValueFormatted;
+
+  // Calculate reward rate per week and format as an integer
+  const rewardRateForUserPerWeek = Math.floor(
+    rewardRateForUser / weeksRemaining
+  );
+
+  return rewardRateForUserPerWeek;
+};
