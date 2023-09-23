@@ -23,6 +23,11 @@ export function calculateDaysRemaining(periodFinish) {
 
 //Sanitize input value
 export const sanitizeInputValue = (value) => {
+  // If the value is empty or consists of only whitespace, return an empty string
+  if (!value.trim()) {
+    return "";
+  }
+
   // Remove leading zeros
   value = value.replace(/^0+/, "");
 

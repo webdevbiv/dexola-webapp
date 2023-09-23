@@ -1,10 +1,10 @@
-// import { MainWithdraw } from "../components/MainWithdraw/MainWithdraw";
+import { MainWithdraw } from "../components/MainWithdraw/MainWithdraw";
 
 function Withdraw() {
   return (
     <>
-      {/* <MainWithdraw /> */}
-      <div>Main Withdraw</div>
+      <MainWithdraw />
+      {/* <div>Main Withdraw</div> */}
     </>
   );
 }
