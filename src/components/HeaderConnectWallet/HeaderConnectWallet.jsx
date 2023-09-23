@@ -28,7 +28,7 @@ export const HeaderConnectWallet = () => {
   const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
 
   const formattedBalanceOfStarRunner = roundToDecimalPlaces(
-    Math.floor(userBalanceOfStarRunner?.formatted),
+    userBalanceOfStarRunner?.formatted,
     0
   );
 

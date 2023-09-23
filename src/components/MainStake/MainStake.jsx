@@ -21,6 +21,8 @@ export const MainStake = () => {
     useUserBalanceOfStarRunner(userWalletAddress).formatted
   ).toFixed(1);
 
+  console.log(balanceToDisplay);
+
   const amountToApprove = parseEther(inputValue.toString());
 
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
