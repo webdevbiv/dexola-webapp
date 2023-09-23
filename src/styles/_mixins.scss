@@ -8,10 +8,12 @@
   cursor: pointer;
   color: $white;
   background-color: rgba(39, 42, 46, 1);
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: rgba(39, 42, 46, 1);
     color: $light-gray;
+    outline: none;
+  }
+  &:focus {
     outline: none;
   }
 }

@@ -95,7 +95,6 @@ export const MainStake = () => {
       )
     );
   }, [
-    userRewardRate,
     inputValue,
     userStakedBalanceOfStarRunner,
     periodFinish,
@@ -110,7 +109,7 @@ export const MainStake = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue > balanceToDisplay)
+    if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
     approveWrite({
       args: [CONTRACT, amountToApprove],
@@ -133,7 +132,7 @@ export const MainStake = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         inputValue={inputValue}
-        isAnyLoading={isAnyLoading}
+        // isAnyLoading={isAnyLoading}
         balanceToDisplay={balanceToDisplay}
         buttonText={"Stake"}
       />

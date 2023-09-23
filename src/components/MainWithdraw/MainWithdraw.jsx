@@ -44,8 +44,12 @@ export const MainWithdraw = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue > balanceToDisplay)
-      return console.log("Insufficient balance");
+    console.log(inputValue, balanceToDisplay);
+    if (Number(inputValue) > Number(balanceToDisplay)) {
+      console.log("Insufficient balance");
+      return;
+    }
+    console.log("withdraw");
     withdrawWrite({
       args: [amountToWithdraw],
     });

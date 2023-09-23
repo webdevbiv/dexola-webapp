@@ -22,30 +22,47 @@ export function calculateDaysRemaining(periodFinish) {
 }
 
 //Sanitize input value
+// export const sanitizeInputValue = (value) => {
+//   // If the value is empty or consists of only whitespace, return an empty string
+//   if (!value.trim()) {
+//     return "";
+//   }
+
+//   // Remove leading zeros
+//   value = value.replace(/^0+/, "");
+
+//   // Remove any negative signs
+//   value = value.replace("-", "");
+
+//   // Remove any decimal points
+//   value = value.split(".")[0];
+
+//   // Convert the string to a number for range checks
+//   let numValue = Number(value);
+
+//   // Ensure the value is within the range [0]
+//   if (numValue < 0) numValue = 0;
+
+//   return String(numValue);
+// };
+
 export const sanitizeInputValue = (value) => {
   // If the value is empty or consists of only whitespace, return an empty string
   if (!value.trim()) {
     return "";
   }
 
-  // Remove leading zeros
-  value = value.replace(/^0+/, "");
-
-  // Remove any negative signs
-  value = value.replace("-", "");
-
-  // Remove any decimal points
-  value = value.split(".")[0];
+  // Use a regular expression to remove non-numeric characters and leading zeros
+  value = value.replace(/[^0-9]/g, "").replace(/^0+/, "");
 
   // Convert the string to a number for range checks
   let numValue = Number(value);
 
   // Ensure the value is within the range [0]
-  if (numValue < 0) numValue = 0;
+  if (isNaN(numValue) || numValue < 0) numValue = 0;
 
   return String(numValue);
 };
-
 export const calculateRewardRateForUser = (
   inputValue,
   userStakedBalanceOfStarRunner,

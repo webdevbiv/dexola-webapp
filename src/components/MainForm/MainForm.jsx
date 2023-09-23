@@ -52,7 +52,7 @@ MainForm.propTypes = {
   handleChange: PropTypes.func,
   isInputDisplayed: PropTypes.bool,
   inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isAnyLoading: PropTypes.bool.isRequired,
+  isAnyLoading: PropTypes.bool,
   balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   buttonText: PropTypes.string.isRequired,
