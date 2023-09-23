@@ -21,22 +21,22 @@ export function calculateDaysRemaining(periodFinish) {
   return result;
 }
 
-// Sanitize input value
-// export const sanitizeInputValue = (value) => {
-//   // Remove leading zeros
-//   value = value.replace(/^0+/, "");
+//Sanitize input value
+export const sanitizeInputValue = (value) => {
+  // Remove leading zeros
+  value = value.replace(/^0+/, "");
 
-//   // Remove any negative signs
-//   value = value.replace("-", "");
+  // Remove any negative signs
+  value = value.replace("-", "");
 
-//   // Remove any decimal points
-//   value = value.split(".")[0];
+  // Remove any decimal points
+  value = value.split(".")[0];
 
-//   // Convert the string to a number for range checks
-//   let numValue = Number(value);
+  // Convert the string to a number for range checks
+  let numValue = Number(value);
 
-//   // Ensure the value is within the range [0]
-//   if (numValue < 0) numValue = 0;
+  // Ensure the value is within the range [0]
+  if (numValue < 0) numValue = 0;
 
-//   return String(numValue);
-// };
+  return String(numValue);
+};
