@@ -10,8 +10,8 @@ console.log(CONTRACT_ABI);
 
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();
-  const [APR, setAPR] = useState(0);
-  const [daysRemaining, setDaysRemaining] = useState(0);
+  const [APR, setAPR] = useState(null);
+  const [daysRemaining, setDaysRemaining] = useState(null);
 
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     address: CONTRACT,
@@ -19,7 +19,6 @@ export const StakingStats = () => {
     functionName: "balanceOf",
     args: [userWalletAddress],
     watch: isConnected,
-    enabled: isConnected,
   });
 
   const { data: userRewards } = useContractRead({
@@ -28,7 +27,6 @@ export const StakingStats = () => {
     functionName: "rewards",
     args: [userWalletAddress],
     watch: isConnected,
-    enabled: isConnected,
   });
 
   const { data: totalSupply } = useContractRead({
@@ -51,16 +49,12 @@ export const StakingStats = () => {
     functionName: "periodFinish",
     watch: true,
   });
-  console.log(isConnected);
-
-  console.log(userStakedBalanceOfStarRunner);
-
-  console.log(userRewards);
 
   useEffect(() => {
     if (periodFinish) {
       setDaysRemaining(calculateDaysRemaining(periodFinish));
     }
+
     if (getRewardForDuration && totalSupply) {
       setAPR(calculateAPR(getRewardForDuration, totalSupply));
     }
