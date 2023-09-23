@@ -26,6 +26,7 @@ export const MainForm = ({
             className={s.input}
             inputMode='numeric'
             pattern='[0-9]*'
+            maxLength='15'
           />
         )}
         <div className={s.balance}>

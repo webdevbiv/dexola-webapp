@@ -1,28 +1,31 @@
 import { useEffect, useState } from "react";
-import { useAccount, useWaitForTransaction } from "wagmi";
+import { useAccount, useBalance, useWaitForTransaction } from "wagmi";
 import { parseEther } from "viem";
-import {
-  useUserBalanceOfStarRunner,
-  useContractWrite,
-  useContractRead,
-} from "../../Hooks";
+import { useContractWrite, useContractRead } from "../../Hooks";
 
-import { CONTRACT } from "../../constants/constants";
+import { CONTRACT, TOKEN } from "../../constants/constants";
 import { MainTitle } from "../MainTitle/MainTitle";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
 import {
   sanitizeInputValue,
   calculateRewardRateForUser,
+  roundToDecimalPlaces,
 } from "../../utils/utils";
 
 export const MainStake = () => {
   const [inputValue, setInputValue] = useState("");
   const [userRewardRate, setUserRewardRate] = useState(0);
+  const [balanceToDisplay, setBalanceToDisplay] = useState(0);
   const { address: userWalletAddress } = useAccount();
-  const balanceToDisplay = useUserBalanceOfStarRunner({
-    userWalletAddress,
-    formatted: true,
+
+  const { data: userBalanceOfStarRunner } = useBalance({
+    address: userWalletAddress,
+    token: TOKEN,
+    watch: true,
+    onSuccess: (data) => {
+      setBalanceToDisplay(Math.floor(roundToDecimalPlaces(data?.formatted, 2)));
+    },
   });
 
   const amountToApprove = parseEther(inputValue.toString());
@@ -85,6 +88,7 @@ export const MainStake = () => {
   });
 
   useEffect(() => {
+    if (!userStakedBalanceOfStarRunner || !rewardRate) return;
     setUserRewardRate(
       calculateRewardRateForUser(
         inputValue,
@@ -116,24 +120,28 @@ export const MainStake = () => {
     });
   };
 
-  const isAnyLoading =
-    approveIsLoading ||
-    stakeIsLoading ||
-    waitForApproveIsLoading ||
-    waitForStakeIsLoading;
+  // const isAnyLoading =
+  //   approveIsLoading ||
+  //   stakeIsLoading ||
+  //   waitForApproveIsLoading ||
+  //   waitForStakeIsLoading;
 
   return (
     <MainContainer>
       <MainTitle
         pageName='Stake'
-        rewardRate={userRewardRate}
+        rewardRate={userRewardRate !== undefined ? userRewardRate : "0"}
       />
       <MainForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         inputValue={inputValue}
         // isAnyLoading={isAnyLoading}
-        balanceToDisplay={balanceToDisplay}
+        balanceToDisplay={
+          balanceToDisplay && userBalanceOfStarRunner
+            ? balanceToDisplay
+            : "0.00"
+        }
         buttonText={"Stake"}
       />
     </MainContainer>
