@@ -46,6 +46,7 @@ export const MainClaimRewards = () => {
     e.preventDefault();
 
     claimRewardsWrite();
+    setBalanceToDisplay("0.00");
   };
 
   const isAnyLoading = claimRewardsIsLoading || waitClaimRewardsIsLoading;
