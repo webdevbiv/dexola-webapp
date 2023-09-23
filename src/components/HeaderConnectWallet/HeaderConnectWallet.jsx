@@ -27,6 +27,11 @@ export const HeaderConnectWallet = () => {
   //StarRunner
   const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
 
+  const formattedBalanceOfStarRunner = roundToDecimalPlaces(
+    Math.floor(userBalanceOfStarRunner?.formatted),
+    0
+  );
+
   return (
     <>
       {isConnected ? (
@@ -41,7 +46,7 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${userBalanceOfStarRunner.formatted} STRU`
+              ? `${formattedBalanceOfStarRunner} STRU`
               : "Invalid data "}
           </div>
           <img
