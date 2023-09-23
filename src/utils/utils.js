@@ -1,7 +1,7 @@
 import { formatEther } from "viem";
 
 export function roundToDecimalPlaces(formatted, decimalPlaces) {
-  return Math.floor(parseFloat(formatted).toFixed(decimalPlaces));
+  return parseFloat(formatted).toFixed(decimalPlaces);
 }
 
 // Calculate APR

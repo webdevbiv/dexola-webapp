@@ -19,18 +19,14 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
+  // User balance of Sepolia
   const formattedBalanceOfSepolia = roundToDecimalPlaces(
     userBalanceOfSepolia?.formatted,
     2
   );
 
-  //StarRunner
+  //User balance of StarRunner
   const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
-
-  const formattedBalanceOfStarRunner = roundToDecimalPlaces(
-    userBalanceOfStarRunner?.formatted,
-    0
-  );
 
   return (
     <>
@@ -46,7 +42,7 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${formattedBalanceOfStarRunner} STRU`
+              ? `${userBalanceOfStarRunner} STRU`
               : "Invalid data "}
           </div>
           <img

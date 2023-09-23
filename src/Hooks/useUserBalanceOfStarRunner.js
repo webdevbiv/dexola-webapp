@@ -1,5 +1,6 @@
 import { useBalance } from "wagmi";
-import { TOKEN } from "../constants/constants"; // Update the path accordingly
+import { TOKEN } from "../constants/constants";
+import { roundToDecimalPlaces } from "../utils/utils";
 
 export const useUserBalanceOfStarRunner = (userWalletAddress) => {
   const { data: userBalanceOfStarRunner } = useBalance({
@@ -8,5 +9,10 @@ export const useUserBalanceOfStarRunner = (userWalletAddress) => {
     watch: true,
   });
 
-  return userBalanceOfStarRunner;
+  console.log(userBalanceOfStarRunner);
+  const formattedBalanceOfStarRunner = Math.floor(
+    roundToDecimalPlaces(userBalanceOfStarRunner?.formatted, 2)
+  );
+
+  return formattedBalanceOfStarRunner;
 };
