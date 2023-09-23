@@ -1,20 +1,27 @@
-import { useAccount, useWaitForTransaction } from "wagmi";
+import { useAccount, useContractRead, useWaitForTransaction } from "wagmi";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
 import { MainTitle } from "../MainTitle/MainTitle";
-import { useContractRead, useContractWrite } from "../../Hooks";
+import { useContractWrite } from "../../Hooks";
 import { formatEther } from "viem";
+import { useState } from "react";
+import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 
 export const MainClaimRewards = () => {
   const { address: userWalletAddress } = useAccount();
+  const [balanceToDisplay, setBalanceToDisplay] = useState("0.00");
 
   const { data: userRewards } = useContractRead({
-    functionName: "rewards",
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
+    functionName: "earned",
     args: [userWalletAddress],
     watch: true,
+    onSuccess: (data) => {
+      if (data) setBalanceToDisplay(Number(formatEther(data)).toFixed(2));
+    },
   });
 
-  const balanceToDisplay = Number(formatEther(userRewards)).toFixed(2);
   const {
     data: claimRewardsData,
     isLoading: claimRewardsIsLoading,
@@ -50,7 +57,7 @@ export const MainClaimRewards = () => {
         handleSubmit={handleSubmit}
         isInputDisplayed={false}
         isAnyLoading={isAnyLoading}
-        balanceToDisplay={balanceToDisplay}
+        balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0.00"}
         buttonText={"Claim rewards"}
       />
     </MainContainer>

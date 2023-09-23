@@ -24,7 +24,10 @@ export const MainStake = () => {
     token: TOKEN,
     watch: true,
     onSuccess: (data) => {
-      setBalanceToDisplay(Math.floor(roundToDecimalPlaces(data?.formatted, 2)));
+      if (data)
+        setBalanceToDisplay(
+          Math.floor(roundToDecimalPlaces(data?.formatted, 2))
+        );
     },
   });
 

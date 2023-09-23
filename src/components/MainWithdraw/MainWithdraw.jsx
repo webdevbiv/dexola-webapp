@@ -2,10 +2,16 @@ import { useState } from "react";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
 import { MainTitle } from "../MainTitle/MainTitle";
-import { useAccount, useWaitForTransaction } from "wagmi";
-import { useContractWrite, useUserStakedBalance } from "../../Hooks";
-import { parseEther } from "viem";
-import { sanitizeInputValue } from "../../utils/utils";
+import {
+  useAccount,
+  useBalance,
+  useContractRead,
+  useWaitForTransaction,
+} from "wagmi";
+import { useContractWrite } from "../../Hooks";
+import { formatEther, parseEther } from "viem";
+import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
+import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 // import { CONTRACT_ABI, TOKEN_ABI } from "../../constants/constants";
 
 // console.log(CONTRACT_ABI, TOKEN_ABI);
@@ -13,8 +19,18 @@ import { sanitizeInputValue } from "../../utils/utils";
 export const MainWithdraw = () => {
   const [inputValue, setInputValue] = useState("");
   const { address: userWalletAddress } = useAccount();
+  const [balanceToDisplay, setBalanceToDisplay] = useState(0);
   const amountToWithdraw = parseEther(inputValue.toString());
-  const balanceToDisplay = useUserStakedBalance(userWalletAddress);
+  const { data: userStakedBalanceOfStarRunner } = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
+    functionName: "balanceOf",
+    args: [userWalletAddress],
+    watch: true,
+    onSuccess: (data) => {
+      setBalanceToDisplay(formatEther(data));
+    },
+  });
 
   const {
     data: withdrawData,
@@ -56,7 +72,6 @@ export const MainWithdraw = () => {
   };
 
   const isAnyLoading = withdrawIsLoading || waitForWithdrawIsLoading;
-
   return (
     <MainContainer>
       <MainTitle pageName='Withdraw' />
@@ -65,7 +80,7 @@ export const MainWithdraw = () => {
         handleChange={handleChange}
         inputValue={inputValue}
         isAnyLoading={isAnyLoading}
-        balanceToDisplay={balanceToDisplay}
+        balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0"}
         buttonText={"Withdraw"}
       />
     </MainContainer>

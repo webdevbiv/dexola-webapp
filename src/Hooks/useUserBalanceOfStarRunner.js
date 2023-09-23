@@ -6,17 +6,17 @@ export const useUserBalanceOfStarRunner = ({
   userWalletAddress,
   formatted = false,
 }) => {
-  const { data: userBalanceOfStarRunner } = useBalance({
+  const { data: userBalanceOfStarRunner, isLoading } = useBalance({
     address: userWalletAddress,
     token: TOKEN,
     watch: true,
   });
 
-  const formattedBalanceOfStarRunner = Math.floor(
-    roundToDecimalPlaces(userBalanceOfStarRunner?.formatted, 2)
-  );
+  if (!isLoading && userBalanceOfStarRunner) {
+    return formatted
+      ? Math.floor(roundToDecimalPlaces(userBalanceOfStarRunner?.formatted, 2))
+      : userBalanceOfStarRunner.formatted;
+  }
 
-  return formatted
-    ? formattedBalanceOfStarRunner
-    : userBalanceOfStarRunner.formatted;
+  return null;
 };
