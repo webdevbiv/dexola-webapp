@@ -18,18 +18,22 @@ export const StakingStats = () => {
     abi: CONTRACT_ABI,
     functionName: "balanceOf",
     args: [userWalletAddress],
-    watch: isConnected,
+    watch: true,
     enabled: isConnected,
   });
+
+  console.log(userStakedBalanceOfStarRunner);
 
   const { data: userRewards } = useContractRead({
     address: CONTRACT,
     abi: CONTRACT_ABI,
     functionName: "rewards",
     args: [userWalletAddress],
-    watch: isConnected,
+    watch: true,
     enabled: isConnected,
   });
+
+  console.log(userRewards);
 
   const { data: totalSupply } = useContractRead({
     address: CONTRACT,
