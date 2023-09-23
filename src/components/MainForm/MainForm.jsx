@@ -49,7 +49,7 @@ export const MainForm = ({
 
 MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
   isInputDisplayed: PropTypes.bool,
   inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isAnyLoading: PropTypes.bool.isRequired,

@@ -54,7 +54,9 @@
   @include button();
   font-size: 16px;
   line-height: 24px;
-  padding: 12px 139px;
+  padding: 12px 0px;
+  width: 327px;
+  white-space: nowrap;
 }
 
 .buttonDisabled {

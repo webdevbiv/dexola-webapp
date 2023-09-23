@@ -1,10 +1,10 @@
-// import { MainClaimRewards } from "../components/MainClaimRewards/MainClaimRewards";
+import { MainClaimRewards } from "../components/MainClaimRewards/MainClaimRewards";
 
 function ClaimRewards() {
   return (
     <>
-      {/* <MainClaimRewards /> */}
-      <div>Claim Rewards</div>
+      <MainClaimRewards />
+      {/* <div>Claim Rewards</div> */}
     </>
   );
 }

@@ -54,8 +54,10 @@ export const HeaderConnectWallet = () => {
             className={s.walletLogo}
           />
           <div className={s.walletValues}>
-            {userBalanceOfSepolia
-              ? `${formattedBalanceOfSepolia} ETH`
+            {formattedBalanceOfSepolia
+              ? Number(formattedBalanceOfSepolia) % 1 === 0 // Check if it's a whole number
+                ? `${Math.floor(formattedBalanceOfSepolia)} ETH` // Display as a whole number
+                : `${formattedBalanceOfSepolia} ETH` // Display with decimals
               : "Invalid data"}
           </div>
         </div>
