@@ -1,8 +1,8 @@
 import { useAccount, useBalance } from "wagmi";
 import { useWeb3Modal } from "@web3modal/react";
-// import { roundToDecimalPlaces } from "../../utils/utils";
-// import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
-// import { useUserBalanceOfStarRunner } from "../../Hooks";
+import { roundToDecimalPlaces } from "../../utils/utils";
+import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
+import { useUserBalanceOfStarRunner } from "../../Hooks";
 import starRunnerImg from "../../assets/images/crypto/sr.png";
 import sepoliaImg from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
@@ -19,15 +19,17 @@ export const HeaderConnectWallet = () => {
     watch: true,
   });
 
-  const formattedWalletAmount = "0";
+  const formattedBalanceOfSepolia = roundToDecimalPlaces(
+    userBalanceOfSepolia?.formatted,
+    2
+  );
 
   //StarRunner
-  // const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
+  const userBalanceOfStarRunner = useUserBalanceOfStarRunner(userWalletAddress);
 
-  const userBalanceOfStarRunner = "0";
   return (
     <>
-      {isConnected && userBalanceOfSepolia ? (
+      {isConnected ? (
         <div
           className={s.container}
           onClick={() => open()}
@@ -39,7 +41,7 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${userBalanceOfStarRunner} STRU`
+              ? `${userBalanceOfStarRunner.formatted} STRU`
               : "Invalid data "}
           </div>
           <img
@@ -49,13 +51,12 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfSepolia
-              ? `${formattedWalletAmount} ETH`
+              ? `${formattedBalanceOfSepolia} ETH`
               : "Invalid data"}
           </div>
         </div>
       ) : (
-        <div> Button</div>
-        // <ButtonConnectWallet location='header' />d
+        <ButtonConnectWallet location='header' />
       )}
     </>
   );

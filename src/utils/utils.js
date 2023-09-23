@@ -1,8 +1,8 @@
 import { formatEther } from "viem";
 
-// export function roundToDecimalPlaces(formatted, decimalPlaces) {
-//   return parseFloat(formatted).toFixed(decimalPlaces);
-// }
+export function roundToDecimalPlaces(formatted, decimalPlaces) {
+  return parseFloat(formatted).toFixed(decimalPlaces);
+}
 
 // Calculate APR
 export function calculateAPR(getRewardForDuration, totalSupply) {
