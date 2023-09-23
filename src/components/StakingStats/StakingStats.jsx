@@ -6,7 +6,6 @@ import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
-console.log(CONTRACT_ABI);
 
 export const StakingStats = () => {
   const { address: userWalletAddress, isConnected } = useAccount();
@@ -22,8 +21,6 @@ export const StakingStats = () => {
     enabled: isConnected,
   });
 
-  console.log(userStakedBalanceOfStarRunner);
-
   const { data: userRewards } = useContractRead({
     address: CONTRACT,
     abi: CONTRACT_ABI,
@@ -32,8 +29,6 @@ export const StakingStats = () => {
     watch: isConnected,
     enabled: isConnected,
   });
-
-  console.log(userRewards);
 
   const { data: totalSupply } = useContractRead({
     address: CONTRACT,
@@ -59,12 +54,10 @@ export const StakingStats = () => {
   useEffect(() => {
     if (periodFinish) {
       setDaysRemaining(calculateDaysRemaining(periodFinish));
-      // setDaysRemaining(0);
     }
 
     if (getRewardForDuration && totalSupply) {
       setAPR(calculateAPR(getRewardForDuration, totalSupply));
-      // setAPR(0);
     }
   }, [getRewardForDuration, totalSupply, periodFinish]);
 
