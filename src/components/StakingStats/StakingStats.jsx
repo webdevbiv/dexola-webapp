@@ -1,6 +1,6 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
-// import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
+import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useContractRead } from "wagmi";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
@@ -54,13 +54,13 @@ export const StakingStats = () => {
 
   useEffect(() => {
     if (periodFinish) {
-      // setDaysRemaining(calculateDaysRemaining(periodFinish));
-      setDaysRemaining(0);
+      setDaysRemaining(calculateDaysRemaining(periodFinish));
+      // setDaysRemaining(0);
     }
 
     if (getRewardForDuration && totalSupply) {
-      // setAPR(calculateAPR(getRewardForDuration, totalSupply));
-      setAPR(0);
+      setAPR(calculateAPR(getRewardForDuration, totalSupply));
+      // setAPR(0);
     }
   }, [getRewardForDuration, totalSupply, periodFinish]);
 
