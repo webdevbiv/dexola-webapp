@@ -18,7 +18,7 @@ export const StakingStats = () => {
     abi: CONTRACT_ABI,
     functionName: "balanceOf",
     args: [userWalletAddress],
-    watch: true,
+    watch: isConnected,
     enabled: isConnected,
   });
 
@@ -29,7 +29,7 @@ export const StakingStats = () => {
     abi: CONTRACT_ABI,
     functionName: "rewards",
     args: [userWalletAddress],
-    watch: true,
+    watch: isConnected,
     enabled: isConnected,
   });
 
@@ -70,7 +70,9 @@ export const StakingStats = () => {
 
   const statsData = [
     {
-      value: isConnected ? formatEther(userStakedBalanceOfStarRunner) : "0",
+      value: userStakedBalanceOfStarRunner
+        ? formatEther(userStakedBalanceOfStarRunner)
+        : "0",
       label: "Staked balance",
       suffix: "stru",
       showInfoIcon: true,
@@ -85,7 +87,7 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: isConnected ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
+      value: userRewards ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
       label: "Rewards",
       suffix: "stru",
       showInfoIcon: true,
