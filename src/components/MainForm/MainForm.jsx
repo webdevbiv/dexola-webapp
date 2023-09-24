@@ -30,7 +30,7 @@ export const MainForm = ({
           />
         )}
         <div className={s.balance}>
-          <span className={s.label}>Available:</span>
+          <span className={s.balanceLabel}>Available:</span>
           <span className={s.balanceValue}>{balanceToDisplay}</span>
           <span className={s.balanceUnit}>STRU</span>
         </div>

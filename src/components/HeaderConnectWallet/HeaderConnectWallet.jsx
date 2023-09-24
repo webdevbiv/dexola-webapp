@@ -2,12 +2,15 @@ import { useAccount, useBalance } from "wagmi";
 import { useWeb3Modal } from "@web3modal/react";
 import { roundToDecimalPlaces } from "../../utils/utils";
 import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
-import { useUserBalanceOfStarRunner } from "../../Hooks";
-import starRunnerImg from "../../assets/images/crypto/sr.png";
-import sepoliaImg from "../../assets/images/crypto/sep.png";
+import { useUserBalanceOfStarRunner, useWindowWidth } from "../../Hooks";
+
+import starRunnerImg from "../../assets/images/crypto/sr.webp";
+import sepoliaImg from "../../assets/images/crypto/sep.webp";
 import s from "./HeaderConnectWallet.module.scss";
+import { MEDIUM_WIDTH } from "../../constants/constants";
 
 export const HeaderConnectWallet = () => {
+  const windowWidth = useWindowWidth();
   // Web3Modal
   const { open } = useWeb3Modal();
 
@@ -59,6 +62,12 @@ export const HeaderConnectWallet = () => {
                 ? `${Math.floor(formattedBalanceOfSepolia)} ETH` // Display as a whole number
                 : `${formattedBalanceOfSepolia} ETH` // Display with decimals
               : "Invalid data"}
+            {windowWidth >= MEDIUM_WIDTH && userWalletAddress && (
+              <div className={s.walletAddress}>
+                <span>|</span>
+                <span>{userWalletAddress.slice(0, 16)}...</span>
+              </div>
+            )}
           </div>
         </div>
       ) : (

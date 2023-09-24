@@ -11,6 +11,10 @@
   width: 24px;
   height: 24px;
   margin-right: 8px;
+  @media screen and (min-width: $breakpoint-medium) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .walletValues {
@@ -18,9 +22,28 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 1.38;
+  text-transform: uppercase;
+
   &:not(:last-child) {
     margin-right: 12px;
   }
   @media screen and (min-width: $breakpoint-medium) {
+    display: flex;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.14;
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+}
+
+.walletAddress {
+  display: flex;
+
+  span {
+    &:not(:last-child) {
+      margin: 0px 8px;
+    }
   }
 }
