@@ -5,6 +5,12 @@ $gradient-background-color: linear-gradient(
   rgba(3, 12, 67, 1) 0%,
   rgba(24, 46, 132, 1) 100%
 );
+$gradient-background-color-medium: radial-gradient(
+  ellipse at 50% 100%,
+  rgba(45, 71, 192, 1) 0%,
+  rgba(13, 25, 96, 1) 52%,
+  rgba(0, 7, 46, 1) 100%
+);
 
 // Colors
 $white: #fff;
