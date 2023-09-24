@@ -17,8 +17,10 @@
   font-family: $font-kanit;
   font-weight: 500;
   font-size: 13px;
-  line-height: 17.94px;
+  line-height: 1.38;
   &:not(:last-child) {
     margin-right: 12px;
+  }
+  @media screen and (min-width: $breakpoint-medium) {
   }
 }

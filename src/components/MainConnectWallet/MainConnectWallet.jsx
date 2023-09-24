@@ -12,8 +12,7 @@ export const MainConnectWallet = () => {
             alt='wallet not connected'
           />
           <h2 className={s.title}>
-            To start staking you need <br />
-            to connect you wallet first
+            To start staking you need to connect you wallet first
           </h2>
         </div>
         <ButtonConnectWallet location='main' />

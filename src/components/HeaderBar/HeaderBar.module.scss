@@ -5,4 +5,7 @@
   justify-content: space-between;
   padding-top: 13px;
   padding-bottom: 28px;
+  @media screen and (min-width: $breakpoint-medium) {
+    padding: 11px 48px;
+  }
 }

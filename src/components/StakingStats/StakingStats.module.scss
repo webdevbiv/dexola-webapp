@@ -1,51 +1,91 @@
 .container {
   margin: 0 auto;
   padding: 0 24px;
+
+  @media screen and (min-width: $breakpoint-medium) {
+    padding: 0 48px;
+  }
 }
 
 .title {
   font-family: $font-kanit;
   font-weight: 500;
   font-size: 28px;
-  line-height: 34px;
+  line-height: 1.2;
 
   color: $white;
 
   padding-right: 43px;
   margin-bottom: 26px;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 40px;
+    line-height: 1.4;
+
+    padding-top: 28px;
+    margin-bottom: 18px;
+  }
 }
 
 .listStats {
   display: flex;
   justify-content: space-between;
   padding-bottom: 24px;
+  @media screen and (min-width: $breakpoint-medium) {
+    padding-bottom: 32px;
+    padding-right: 190px;
+  }
 }
 
 .value {
   font-family: $font-roboto-mono;
   font-weight: 700;
   font-size: 18px;
-  line-height: 24px;
+  line-height: 1.3;
+
   margin-right: 4px;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 28px;
+    line-height: 1.7;
+
+    margin-right: 8px;
+  }
 }
 
 .suffix {
   font-family: $font-roboto-mono;
   font-weight: 400;
   font-size: 12px;
-  line-height: 20px;
-  margin-right: 5px;
-}
+  line-height: 1.7;
 
-.infoIcon {
-  cursor: pointer;
-  width: 11px;
-  height: 11px;
+  margin-right: 5px;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.25;
+
+    margin-right: 8px;
+  }
 }
 
 .label {
   font-family: $font-roboto-mono;
   font-weight: 400;
   font-size: 12px;
-  line-height: 15.8px;
+  line-height: 1.3;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: -0.32px;
+  }
+}
+
+.infoIcon {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+  @media screen and (min-width: $breakpoint-medium) {
+    width: 16px;
+    height: 16px;
+    fill: $white;
+    path-stroke: $white;
+  }
 }
