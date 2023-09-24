@@ -11,7 +11,7 @@ export const MainClaimRewards = () => {
   const { address: userWalletAddress } = useAccount();
   const [balanceToDisplay, setBalanceToDisplay] = useState("0.00");
 
-  const { data: userRewards } = useContractRead({
+  const userRewards = useContractRead({
     address: CONTRACT,
     abi: CONTRACT_ABI,
     functionName: "earned",
@@ -58,7 +58,9 @@ export const MainClaimRewards = () => {
         handleSubmit={handleSubmit}
         isInputDisplayed={false}
         isAnyLoading={isAnyLoading}
-        balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0.00"}
+        balanceToDisplay={
+          balanceToDisplay && userRewards ? balanceToDisplay : "0.00"
+        }
         buttonText={"Claim rewards"}
       />
     </MainContainer>
