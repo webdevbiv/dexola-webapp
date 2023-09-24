@@ -32,8 +32,13 @@
   padding-bottom: 24px;
   @media screen and (min-width: $breakpoint-medium) {
     padding-bottom: 32px;
-    padding-right: 190px;
+    justify-content: start;
+    gap: 40px;
   }
+}
+
+.item {
+  // display: flex;
 }
 
 .value {
@@ -43,6 +48,7 @@
   line-height: 1.3;
 
   margin-right: 4px;
+  margin-bottom: 4px;
   @media screen and (min-width: $breakpoint-medium) {
     font-size: 28px;
     line-height: 1.7;
@@ -75,6 +81,7 @@
     font-size: 16px;
     line-height: 1;
     letter-spacing: -0.32px;
+    white-space: nowrap;
   }
 }
 

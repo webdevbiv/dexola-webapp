@@ -93,7 +93,10 @@ export const StakingStats = () => {
       <div>
         <ul className={s.listStats}>
           {statsData.map((stat, index) => (
-            <li key={index}>
+            <li
+              key={index}
+              className={s.item}
+            >
               <div>
                 <span className={s.value}>{stat.value}</span>
                 {stat.suffix && <span className={s.suffix}>{stat.suffix}</span>}
