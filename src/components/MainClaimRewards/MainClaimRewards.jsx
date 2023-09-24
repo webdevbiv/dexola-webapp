@@ -39,6 +39,7 @@ export const MainClaimRewards = () => {
     hash: claimRewardsData?.hash,
     onSettled(data, error) {
       console.log("Settled waitClaimRewards", { data, error });
+      setBalanceToDisplay("0.00");
     },
   });
 
@@ -46,7 +47,6 @@ export const MainClaimRewards = () => {
     e.preventDefault();
 
     claimRewardsWrite();
-    setBalanceToDisplay("0.00");
   };
 
   const isAnyLoading = claimRewardsIsLoading || waitClaimRewardsIsLoading;
