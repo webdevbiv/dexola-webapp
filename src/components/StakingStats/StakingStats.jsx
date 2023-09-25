@@ -1,13 +1,15 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
 import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
+import { useWindowWidth } from "../../hooks";
 import { useContractRead } from "wagmi";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
-import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
+import { CONTRACT, CONTRACT_ABI, LARGE_WIDTH } from "../../constants/constants";
 
 export const StakingStats = () => {
+  const windowWidth = useWindowWidth();
   const { address: userWalletAddress, isConnected } = useAccount();
   const [APR, setAPR] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(null);
@@ -97,10 +99,10 @@ export const StakingStats = () => {
               key={index}
               className={s.item}
             >
-              <div>
+              <div className={s.valueWrapper}>
                 <span className={s.value}>{stat.value}</span>
                 {stat.suffix && <span className={s.suffix}>{stat.suffix}</span>}
-                {stat.showInfoIcon && (
+                {stat.showInfoIcon && windowWidth < LARGE_WIDTH && (
                   <img
                     src={infoImg}
                     alt='info'
@@ -108,8 +110,15 @@ export const StakingStats = () => {
                   />
                 )}
               </div>
-              <div>
+              <div className={s.labelWrapper}>
                 <span className={s.label}>{stat.label}</span>
+                {stat.showInfoIcon && windowWidth >= LARGE_WIDTH && (
+                  <img
+                    src={infoImg}
+                    alt='info'
+                    className={s.infoIcon}
+                  />
+                )}
               </div>
             </li>
           ))}

@@ -9,6 +9,9 @@
     padding: 0 48px;
     padding-bottom: 48px;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 120px;
+  }
 }
 
 .wrapper {
@@ -22,6 +25,9 @@
   @media screen and (min-width: $breakpoint-medium) {
     padding: 63px 69.5px 62px 69.5px;
     border: 1px solid $accent-blue;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 63px 344.5px 62px 344.5px;
   }
 }
 

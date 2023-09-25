@@ -12,6 +12,10 @@
     border-radius: 0px 0px 0px 0px;
     border-bottom: none;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 120px;
+    padding-top: 40px;
+  }
 }
 
 .nav {
@@ -52,9 +56,12 @@
   }
 
   @media screen and (min-width: $breakpoint-medium) {
+    font-weight: 500;
     font-size: 16px;
     line-height: 1.4;
     padding: 16px 32px;
+  }
+  @media screen and (min-width: $breakpoint-large) {
   }
 }
 

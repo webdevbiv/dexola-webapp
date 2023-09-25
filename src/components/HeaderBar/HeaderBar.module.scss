@@ -8,4 +8,7 @@
   @media screen and (min-width: $breakpoint-medium) {
     padding: 11px 48px 0px 48px;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 11px 40px 0px 40px;
+  }
 }

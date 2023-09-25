@@ -8,6 +8,9 @@
     line-height: 1.5;
     padding: 12px 40px;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    letter-spacing: 0.32px;
+  }
 }
 
 .main {

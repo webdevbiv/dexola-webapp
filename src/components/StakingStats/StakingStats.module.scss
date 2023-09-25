@@ -5,6 +5,10 @@
   @media screen and (min-width: $breakpoint-medium) {
     padding: 0 48px;
   }
+
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 120px;
+  }
 }
 
 .title {
@@ -17,6 +21,7 @@
 
   padding-right: 43px;
   margin-bottom: 26px;
+
   @media screen and (min-width: $breakpoint-medium) {
     font-size: 40px;
     line-height: 1.4;
@@ -24,21 +29,43 @@
     padding-top: 28px;
     margin-bottom: 18px;
   }
+
+  @media screen and (min-width: $breakpoint-large) {
+    font-size: 48px;
+
+    padding-top: 32px;
+    margin-bottom: 16px;
+  }
 }
 
 .listStats {
   display: flex;
   justify-content: space-between;
   padding-bottom: 24px;
+
   @media screen and (min-width: $breakpoint-medium) {
     padding-bottom: 32px;
     justify-content: start;
     gap: 40px;
   }
+
+  @media screen and (min-width: $breakpoint-large) {
+    padding-bottom: 48px;
+  }
 }
 
 .item {
-  // display: flex;
+  @media screen and (min-width: $breakpoint-large) {
+    display: inline-flex;
+  }
+}
+
+.valueWrapper {
+  @media screen and (min-width: $breakpoint-large) {
+    display: flex;
+    align-items: end;
+    margin-right: 12px;
+  }
 }
 
 .value {
@@ -55,6 +82,12 @@
 
     margin-right: 8px;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    font-size: 36px;
+    line-height: 1;
+
+    margin-bottom: 0px;
+  }
 }
 
 .suffix {
@@ -62,6 +95,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 1.7;
+  text-transform: uppercase;
 
   margin-right: 5px;
   @media screen and (min-width: $breakpoint-medium) {
@@ -69,6 +103,18 @@
     line-height: 1.25;
 
     margin-right: 8px;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    font-size: 16px;
+    line-height: 1;
+    margin-right: 0;
+  }
+}
+
+.labelWrapper {
+  @media screen and (min-width: $breakpoint-large) {
+    display: inline-flex;
+    align-items: end;
   }
 }
 
@@ -83,6 +129,10 @@
     letter-spacing: -0.32px;
     white-space: nowrap;
   }
+  @media screen and (min-width: $breakpoint-large) {
+    font-size: 16px;
+    margin-right: 8px;
+  }
 }
 
 .infoIcon {
@@ -94,5 +144,9 @@
     height: 16px;
     fill: $white;
     path-stroke: $white;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    width: 24px;
+    height: 24px;
   }
 }
