@@ -1,7 +1,7 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
 import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
-import { useWindowWidth } from "../../hooks/index";
+import { useWindowWidth } from "../../Hooks/";
 import { useContractRead } from "wagmi";
 import { useAccount } from "wagmi";
 import { formatEther } from "viem";
