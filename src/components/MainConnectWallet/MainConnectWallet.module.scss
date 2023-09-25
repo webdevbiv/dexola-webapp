@@ -11,6 +11,8 @@
   }
   @media screen and (min-width: $breakpoint-large) {
     padding: 0 120px;
+    width: $breakpoint-large;
+    margin: 0 auto;
   }
 }
 

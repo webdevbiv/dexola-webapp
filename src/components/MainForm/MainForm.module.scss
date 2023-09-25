@@ -82,6 +82,7 @@
 .buttonWrapper {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
   @media screen and (min-width: $breakpoint-medium) {
     margin-top: 62px;
     justify-content: start;
@@ -99,6 +100,23 @@
   @media screen and (min-width: $breakpoint-medium) {
     padding: 12px 40px;
     width: auto;
+  }
+}
+
+.withdrawAllClaimRewardsButton {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: $white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  padding: 12px 40px;
+  &:hover {
+    color: $accent-blue;
   }
 }
 

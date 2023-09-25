@@ -13,8 +13,7 @@
     border-bottom: none;
   }
   @media screen and (min-width: $breakpoint-large) {
-    padding: 0 120px;
-    padding-top: 40px;
+    padding: 0;
   }
 }
 
@@ -23,6 +22,12 @@
   justify-content: space-between;
   @media screen and (min-width: $breakpoint-medium) {
     justify-content: flex-start;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 120px;
+    width: $breakpoint-large;
+    margin: 0 auto;
+    padding-top: 40px;
   }
 }
 

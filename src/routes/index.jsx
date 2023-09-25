@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 import { lazy } from "react";
 
 import { ConnectWallet } from "../pages/ConnectWallet";
+import { LoadingSpinner } from "../components/LoadingSpinner/LoadingSpinner";
 
 const Stake = lazy(() => import("../pages/Stake"));
 const Withdraw = lazy(() => import("../pages/Withdraw"));

@@ -8,6 +8,7 @@ import { Footer } from "../components/Footer/Footer";
 import { Main } from "../components/Main/Main";
 import { Background } from "../components/Background/Background";
 import { HeaderBar } from "../components/HeaderBar/HeaderBar";
+import { LoadingSpinner } from "../components/LoadingSpinner/LoadingSpinner";
 // import useWindowWidth from "../Hooks/useWindowWidth";
 // import { MobileScroll } from "../components/MobileScroll/MobileScroll";
 
@@ -24,7 +25,7 @@ export const SharedLayout = () => {
         </Background>
       </Header>
       <Main>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <Outlet />
         </Suspense>
       </Main>

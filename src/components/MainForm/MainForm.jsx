@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import s from "./MainForm.module.scss";
+import { useWindowWidth } from "../../Hooks/";
+import { LARGE_WIDTH } from "../../constants/constants";
 
 export const MainForm = ({
   handleSubmit,
@@ -10,6 +12,8 @@ export const MainForm = ({
   balanceToDisplay,
   buttonText,
 }) => {
+  const windowWidth = useWindowWidth();
+  console.log(buttonText, windowWidth);
   return (
     <form
       onSubmit={handleSubmit}
@@ -43,6 +47,12 @@ export const MainForm = ({
         >
           {buttonText}
         </button>
+        {buttonText.toLowerCase() === "withdraw" &&
+          windowWidth > LARGE_WIDTH && (
+            <button className={s.withdrawAllClaimRewardsButton}>
+              withdraw all & claim rewards
+            </button>
+          )}
       </div>
     </form>
   );

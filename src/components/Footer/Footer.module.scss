@@ -6,9 +6,7 @@
     padding: 0 48px;
   }
   @media screen and (min-width: $breakpoint-large) {
-    padding: 0 40px;
-    padding-top: 16px;
-    padding-bottom: 26px;
+    padding: 0;
   }
 }
 
@@ -19,6 +17,13 @@
   padding-bottom: 17px;
   @media screen and (min-width: $breakpoint-medium) {
     padding: 16px 0;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 40px;
+    padding-top: 16px;
+    padding-bottom: 26px;
+    width: $breakpoint-large;
+    margin: 0 auto;
   }
 }
 

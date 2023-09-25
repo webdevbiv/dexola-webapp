@@ -15,6 +15,7 @@
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.15.0",
     "sass": "^1.66.1",
     "viem": "^1.10.9",

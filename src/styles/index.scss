@@ -32,7 +32,12 @@ header {
   width: 100%;
   @media screen and (min-width: $breakpoint-medium) {
     position: static;
+
     overflow: visible;
+  }
+
+  @media screen and (min-width: $breakpoint-large) {
+    width: auto;
   }
 }
 

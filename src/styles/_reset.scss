@@ -146,3 +146,9 @@ input[type="search"]::-webkit-search-results-decoration {
   outline: 2px solid blue;
   outline-offset: 2px;
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
