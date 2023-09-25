@@ -16,6 +16,7 @@ export const Footer = () => {
           <p className={s.text}>© All rights reserved</p>
         </div>
       </div>
+      <div className='gradientBackground'></div>
     </footer>
   );
 };

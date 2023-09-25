@@ -23,9 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  @media screen and (min-width: $breakpoint-large) {
-    background: $gradient-background-color-large;
-  }
+  overflow: scroll;
 }
 
 header {
@@ -54,5 +52,24 @@ main {
   min-height: calc(100vh - 310px);
   @media screen and (min-width: $breakpoint-medium) {
     min-height: auto;
+  }
+}
+
+footer {
+  @media screen and (min-width: $breakpoint-large) {
+    position: relative;
+  }
+}
+
+.gradientBackground {
+  @media screen and (min-width: $breakpoint-large) {
+    position: absolute;
+    bottom: 0; /* Stick it to the bottom of the viewport */
+    left: 0; /* Align it to the left edge */
+    width: 100%; /* Make it span the entire viewport width */
+    height: 600px; /* Set the desired height for the gradient */
+    z-index: -1;
+    pointer-events: none;
+    background: $gradient-background-color-large;
   }
 }
