@@ -7,6 +7,7 @@ import { useAccount } from "wagmi";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
 import { CONTRACT, CONTRACT_ABI, LARGE_WIDTH } from "../../constants/constants";
+import { Tooltip } from "../Tooltip/Tooltip";
 
 export const StakingStats = () => {
   const windowWidth = useWindowWidth();
@@ -69,13 +70,17 @@ export const StakingStats = () => {
         ? formatEther(userStakedBalanceOfStarRunner)
         : "0",
       label: "Staked balance",
+      id: "stakedBalance",
       suffix: "stru",
       showInfoIcon: true,
+      text: "Staking rewards get allocated on this sum",
     },
     {
       value: APR ? `≈${APR}%` : "≈0%",
+      id: "apr",
       label: "APR",
       showInfoIcon: true,
+      text: "Displays the average for APR. Interest rate is calculated for each amount of tokens.",
     },
     {
       value: daysRemaining ? daysRemaining : "0",
@@ -84,8 +89,10 @@ export const StakingStats = () => {
     {
       value: userRewards ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
       label: "Rewards",
+      id: "rewards",
       suffix: "stru",
       showInfoIcon: true,
+      text: "Rewards get allocated every second",
     },
   ];
 
@@ -113,11 +120,12 @@ export const StakingStats = () => {
               <div className={s.labelWrapper}>
                 <span className={s.label}>{stat.label}</span>
                 {stat.showInfoIcon && windowWidth >= LARGE_WIDTH && (
-                  <img
-                    src={infoImg}
-                    alt='info'
-                    className={s.infoIcon}
-                  />
+                  <>
+                    <Tooltip
+                      text={stat.text}
+                      id={stat.id}
+                    />
+                  </>
                 )}
               </div>
             </li>

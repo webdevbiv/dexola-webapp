@@ -1,0 +1,15 @@
+.infoIcon {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+  @media screen and (min-width: $breakpoint-medium) {
+    width: 16px;
+    height: 16px;
+    fill: $white;
+    path-stroke: $white;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    width: 24px;
+    height: 24px;
+  }
+}
