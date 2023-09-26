@@ -64,7 +64,7 @@ export const MainForm = ({
 MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onWithdrawAllClaimRewardsClick: PropTypes.func,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func,
   isInputDisplayed: PropTypes.bool,
   isAnyLoading: PropTypes.bool,
   inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

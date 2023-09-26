@@ -107,7 +107,11 @@ export const MainWithdraw = () => {
         onWithdrawAllClaimRewardsClick={handleWithdrawAllClaimRewardsClick}
         inputValue={inputValue}
         isAnyLoading={isAnyLoading}
-        balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0"}
+        balanceToDisplay={
+          balanceToDisplay && userStakedBalanceOfStarRunner
+            ? balanceToDisplay
+            : "0"
+        }
         buttonText={"Withdraw"}
       />
     </MainContainer>
