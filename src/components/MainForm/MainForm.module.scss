@@ -117,6 +117,10 @@
   padding: 12px 40px;
   &:hover {
     color: $accent-blue;
+    outline: none;
+  }
+  &:focus {
+    outline: none;
   }
 }
 
