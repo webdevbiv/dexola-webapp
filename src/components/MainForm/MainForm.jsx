@@ -13,7 +13,6 @@ export const MainForm = ({
   buttonText,
 }) => {
   const windowWidth = useWindowWidth();
-  console.log(buttonText, windowWidth);
   return (
     <form
       onSubmit={handleSubmit}

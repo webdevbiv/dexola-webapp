@@ -5,7 +5,9 @@ import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
 import { useUserBalanceOfStarRunner, useWindowWidth } from "../../Hooks";
 
 import starRunnerImg from "../../assets/images/crypto/sr.webp";
+import starRunnerImgMobile from "../../assets/images/crypto/sr.png";
 import sepoliaImg from "../../assets/images/crypto/sep.webp";
+import sepoliaImgMobile from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
 import { MEDIUM_WIDTH } from "../../constants/constants";
 
@@ -14,7 +16,7 @@ export const HeaderConnectWallet = () => {
   // Web3Modal
   const { open } = useWeb3Modal();
 
-  //Wagmi data
+  //Wagmi User Account data
   const { address: userWalletAddress, isConnected } = useAccount();
 
   const { data: userBalanceOfSepolia } = useBalance({
@@ -42,7 +44,9 @@ export const HeaderConnectWallet = () => {
           onClick={() => open()}
         >
           <img
-            src={starRunnerImg}
+            src={
+              windowWidth < MEDIUM_WIDTH ? starRunnerImgMobile : starRunnerImg
+            }
             alt='sr'
             className={s.walletLogo}
           />
@@ -52,15 +56,15 @@ export const HeaderConnectWallet = () => {
               : "0 STRU"}
           </div>
           <img
-            src={sepoliaImg}
+            src={windowWidth < MEDIUM_WIDTH ? sepoliaImgMobile : sepoliaImg}
             alt='sr'
             className={s.walletLogo}
           />
           <div className={s.walletValues}>
             {formattedBalanceOfSepolia
-              ? Number(formattedBalanceOfSepolia) % 1 === 0 // Check if it's a whole number
-                ? `${Math.floor(formattedBalanceOfSepolia)} ETH` // Display as a whole number
-                : `${formattedBalanceOfSepolia} ETH` // Display with decimals
+              ? Number(formattedBalanceOfSepolia) % 1 === 0
+                ? `${Math.floor(formattedBalanceOfSepolia)} ETH`
+                : `${formattedBalanceOfSepolia} ETH`
               : "Invalid data"}
             {windowWidth >= MEDIUM_WIDTH && userWalletAddress && (
               <div className={s.walletAddress}>
