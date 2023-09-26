@@ -22,7 +22,7 @@ export const MainForm = ({
         {isInputDisplayed && (
           <input
             type='text'
-            placeholder='Enter stake amount'
+            placeholder={`Enter ${buttonText.toLowerCase()} amount`}
             name='amount'
             value={inputValue}
             onChange={handleChange}
