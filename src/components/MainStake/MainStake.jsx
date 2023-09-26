@@ -116,6 +116,7 @@ export const MainStake = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
     approveWrite({

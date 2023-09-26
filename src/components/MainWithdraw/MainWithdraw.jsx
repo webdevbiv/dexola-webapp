@@ -12,9 +12,6 @@ import { useContractWrite } from "../../Hooks";
 import { formatEther, parseEther } from "viem";
 import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
-// import { CONTRACT_ABI, TOKEN_ABI } from "../../constants/constants";
-
-// console.log(CONTRACT_ABI, TOKEN_ABI);
 
 export const MainWithdraw = () => {
   const [inputValue, setInputValue] = useState("");
@@ -53,6 +50,29 @@ export const MainWithdraw = () => {
     },
   });
 
+  // Withdraw All & Claim Rewards
+  const {
+    data: withdrawAllClaimRewardsData,
+    isLoading: withdrawAllClaimRewardsIsLoading,
+    isSuccess: withdrawAllClaimRewardsIsSuccess,
+    write: withdrawAllClaimRewardsWrite,
+  } = useContractWrite({
+    functionName: "exit",
+  });
+
+  const {
+    data: waitForWithdrawAllClaimRewards,
+    isError: waitForWithdrawAllClaimRewardsIsError,
+    isLoading: waitForWithdrawAllClaimRewardsIsLoading,
+  } = useWaitForTransaction({
+    hash: withdrawAllClaimRewardsData?.hash,
+    onSettled(data, error) {
+      console.log("Settled waitForWithdrawAllClaimRewards", { data, error });
+      setInputValue("");
+    },
+  });
+
+  // Handle Actions
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
     setInputValue(sanitizedValue);
@@ -60,15 +80,21 @@ export const MainWithdraw = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValue, balanceToDisplay);
+    if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay)) {
       console.log("Insufficient balance");
       return;
     }
-    console.log("withdraw");
+    console.log("withdraw payment");
     withdrawWrite({
       args: [amountToWithdraw],
     });
+  };
+
+  const handleWithdrawAllClaimRewardsClick = (e) => {
+    e.preventDefault();
+    console.log("withdrawAllClaimRewards");
+    withdrawAllClaimRewardsWrite();
   };
 
   const isAnyLoading = withdrawIsLoading || waitForWithdrawIsLoading;
@@ -78,6 +104,7 @@ export const MainWithdraw = () => {
       <MainForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
+        onWithdrawAllClaimRewardsClick={handleWithdrawAllClaimRewardsClick}
         inputValue={inputValue}
         isAnyLoading={isAnyLoading}
         balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0"}

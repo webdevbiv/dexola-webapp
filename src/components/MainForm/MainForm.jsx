@@ -11,6 +11,7 @@ export const MainForm = ({
   isAnyLoading,
   balanceToDisplay,
   buttonText,
+  onWithdrawAllClaimRewardsClick,
 }) => {
   const windowWidth = useWindowWidth();
   return (
@@ -47,8 +48,11 @@ export const MainForm = ({
           {buttonText}
         </button>
         {buttonText.toLowerCase() === "withdraw" &&
-          windowWidth > LARGE_WIDTH && (
-            <button className={s.withdrawAllClaimRewardsButton}>
+          windowWidth >= LARGE_WIDTH && (
+            <button
+              className={s.withdrawAllClaimRewardsButton}
+              onClick={onWithdrawAllClaimRewardsClick}
+            >
               withdraw all & claim rewards
             </button>
           )}
@@ -59,10 +63,11 @@ export const MainForm = ({
 
 MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func,
+  onWithdrawAllClaimRewardsClick: PropTypes.func,
+  handleChange: PropTypes.func.isRequired,
   isInputDisplayed: PropTypes.bool,
-  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isAnyLoading: PropTypes.bool,
+  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   buttonText: PropTypes.string.isRequired,
