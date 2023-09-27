@@ -71,7 +71,6 @@ export const MainStake = () => {
   const {
     data: approveData,
     isLoading: approveIsLoading,
-    isSuccess: approveIsSuccess,
     write: approveWrite,
   } = useContractWrite({
     address: TOKEN,
@@ -84,11 +83,7 @@ export const MainStake = () => {
     },
   });
 
-  const {
-    data: waitForApprove,
-    isError: waitForApproveIsError,
-    isLoading: waitForApproveIsLoading,
-  } = useWaitForTransaction({
+  const { isLoading: waitForApproveIsLoading } = useWaitForTransaction({
     hash: approveData?.hash,
     onSettled() {
       stakeWrite({ args: [amountToApprove] });
@@ -101,7 +96,6 @@ export const MainStake = () => {
 
   const {
     data: stakeData,
-    isLoading: stakeIsLoading,
     isSuccess: stakeIsSuccess,
     write: stakeWrite,
   } = useContractWrite({
@@ -114,11 +108,7 @@ export const MainStake = () => {
     },
   });
 
-  const {
-    data: waitForStake,
-    isError: waitForStakeIsError,
-    isLoading: waitForStakeIsLoading,
-  } = useWaitForTransaction({
+  const { isLoading: waitForStakeIsLoading } = useWaitForTransaction({
     hash: stakeData?.hash,
     onSettled() {
       setToastType("success");
@@ -173,6 +163,7 @@ export const MainStake = () => {
   //   stakeIsLoading ||
   //   waitForApproveIsLoading ||
   //   waitForStakeIsLoading;
+
   return (
     <MainContainer>
       <MainTitle

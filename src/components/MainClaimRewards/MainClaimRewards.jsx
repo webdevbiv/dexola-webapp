@@ -32,7 +32,6 @@ export const MainClaimRewards = () => {
   const {
     data: claimRewardsData,
     isLoading: claimRewardsIsLoading,
-    isSuccess: claimRewardsIsSuccess,
     write: claimRewardsWrite,
   } = useContractWrite({
     address: CONTRACT,
@@ -43,20 +42,17 @@ export const MainClaimRewards = () => {
     },
   });
 
-  const {
-    data: waitClaimRewards,
-    isError: waitClaimRewardsIsError,
-    isLoading: waitClaimRewardsIsLoading,
-  } = useWaitForTransaction({
-    hash: claimRewardsData?.hash,
-    onSettled() {
-      setToastType("success");
-      setBalanceToDisplay("0.00");
-    },
-    onError() {
-      setToastType("error");
-    },
-  });
+  const { data: waitClaimRewards, isLoading: waitClaimRewardsIsLoading } =
+    useWaitForTransaction({
+      hash: claimRewardsData?.hash,
+      onSettled() {
+        setToastType("success");
+        setBalanceToDisplay("0.00");
+      },
+      onError() {
+        setToastType("error");
+      },
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -9,7 +9,7 @@ import {
   useContractWrite,
 } from "wagmi";
 import { formatEther, parseEther } from "viem";
-import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
+import { sanitizeInputValue } from "../../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 import { Toast } from "../Toast/Toast";
 
@@ -80,7 +80,6 @@ export const MainWithdraw = () => {
   // Withdraw All & Claim Rewards
   const {
     data: withdrawAllClaimRewardsData,
-    isLoading: withdrawAllClaimRewardsIsLoading,
     isSuccess: withdrawAllClaimRewardsIsSuccess,
     write: withdrawAllClaimRewardsWrite,
   } = useContractWrite({
@@ -95,7 +94,6 @@ export const MainWithdraw = () => {
 
   const {
     data: waitForWithdrawAllClaimRewards,
-    isError: waitForWithdrawAllClaimRewardsIsError,
     isLoading: waitForWithdrawAllClaimRewardsIsLoading,
   } = useWaitForTransaction({
     hash: withdrawAllClaimRewardsData?.hash,
@@ -127,10 +125,17 @@ export const MainWithdraw = () => {
     });
   };
 
+  console.log(
+    `balanceToDisplay`,
+    typeof balanceToDisplay,
+    `rewards`,
+    typeof rewards
+  );
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
     setToastType("pending");
-    userRewards && setToastValue(balanceToDisplay + rewards);
+    userRewards && setToastValue(Number(balanceToDisplay) + Number(rewards));
+
     withdrawAllClaimRewardsWrite();
   };
 
