@@ -9,7 +9,7 @@
   width: fit-content;
 
   opacity: 1;
-  z-index: 1;
+  z-index: -1;
 
   // outline: 1px solid $accent-blue;
   @media screen and (min-width: $breakpoint-medium) {
@@ -129,7 +129,7 @@
   line-height: 1.7;
 }
 
-.successValue {
+.pendingValue {
   font-family: $font-roboto-mono;
   font-size: 14px;
   font-weight: 700;
