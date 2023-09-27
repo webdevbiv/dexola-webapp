@@ -15,7 +15,7 @@ export const Toast = ({ toastType, value, pageName }) => {
       setIsVisible(true);
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 400000);
+      }, 4000);
 
       return () => {
         clearTimeout(timer);

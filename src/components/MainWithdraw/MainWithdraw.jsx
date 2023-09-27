@@ -18,6 +18,7 @@ export const MainWithdraw = () => {
   const [balanceToDisplay, setBalanceToDisplay] = useState(0);
   const [toastType, setToastType] = useState("");
   const [toastValue, setToastValue] = useState(0);
+  const [rewards, setRewards] = useState(0);
   const amountToWithdraw = parseEther(inputValue.toString());
 
   const { address: userWalletAddress } = useAccount();
@@ -30,6 +31,17 @@ export const MainWithdraw = () => {
     watch: true,
     onSuccess: (data) => {
       setBalanceToDisplay(formatEther(data));
+    },
+  });
+
+  const userRewards = useContractRead({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
+    functionName: "earned",
+    args: [userWalletAddress],
+    watch: true,
+    onSuccess: (data) => {
+      if (data) setRewards(Number(formatEther(data)).toFixed(2));
     },
   });
 
@@ -75,6 +87,10 @@ export const MainWithdraw = () => {
     address: CONTRACT,
     abi: CONTRACT_ABI,
     functionName: "exit",
+    onError() {
+      setToastType("error");
+      setInputValue("");
+    },
   });
 
   const {
@@ -85,6 +101,7 @@ export const MainWithdraw = () => {
     hash: withdrawAllClaimRewardsData?.hash,
     onSettled(data, error) {
       console.log("Settled waitForWithdrawAllClaimRewards", { data, error });
+      setToastType("success");
       setInputValue("");
     },
   });
@@ -112,7 +129,8 @@ export const MainWithdraw = () => {
 
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
-    console.log("withdrawAllClaimRewards");
+    setToastType("pending");
+    userRewards && setToastValue(balanceToDisplay + rewards);
     withdrawAllClaimRewardsWrite();
   };
 

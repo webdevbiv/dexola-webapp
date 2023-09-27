@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import s from "./MainForm.module.scss";
 import { useWindowWidth } from "../../Hooks/";
 import { LARGE_WIDTH } from "../../constants/constants";
-import { Toast } from "../Toast/Toast";
 
 export const MainForm = ({
   handleSubmit,
@@ -15,6 +14,7 @@ export const MainForm = ({
   onWithdrawAllClaimRewardsClick,
 }) => {
   const windowWidth = useWindowWidth();
+
   return (
     <form
       onSubmit={handleSubmit}
