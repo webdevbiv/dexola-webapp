@@ -173,7 +173,6 @@ export const MainStake = () => {
   //   stakeIsLoading ||
   //   waitForApproveIsLoading ||
   //   waitForStakeIsLoading;
-  console.log(inputValue);
   return (
     <MainContainer>
       <MainTitle

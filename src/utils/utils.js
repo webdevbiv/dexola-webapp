@@ -77,7 +77,6 @@ export const calculateRewardRateForUser = (
 
   // Convert input values to numbers
   const inputValueFormatted = Number(inputValue);
-  console.log(`inputValueFormatted`, inputValueFormatted);
   const userStakedBalanceOfStarRunnerFormatted = Number(
     formatEther(userStakedBalanceOfStarRunner)
   );
