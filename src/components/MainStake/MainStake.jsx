@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
-import { useAccount, useBalance, useWaitForTransaction } from "wagmi";
+import {
+  useAccount,
+  useBalance,
+  useWaitForTransaction,
+  useContractWrite,
+} from "wagmi";
 import { parseEther } from "viem";
-import { useContractWrite, useContractRead } from "../../Hooks";
+import { useContractRead } from "../../Hooks";
 
-import { CONTRACT, TOKEN } from "../../constants/constants";
+import {
+  CONTRACT,
+  CONTRACT_ABI,
+  TOKEN,
+  TOKEN_ABI,
+} from "../../constants/constants";
 import { MainTitle } from "../MainTitle/MainTitle";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
@@ -12,11 +22,15 @@ import {
   calculateRewardRateForUser,
   roundToDecimalPlaces,
 } from "../../utils/utils";
+import { Toast } from "../Toast/Toast";
 
 export const MainStake = () => {
   const [inputValue, setInputValue] = useState("");
   const [userRewardRate, setUserRewardRate] = useState(0);
   const [balanceToDisplay, setBalanceToDisplay] = useState(0);
+  const [toastType, setToastType] = useState("");
+  const [toastValue, setToastValue] = useState(0);
+
   const { address: userWalletAddress } = useAccount();
 
   const { data: userBalanceOfStarRunner } = useBalance({
@@ -55,8 +69,14 @@ export const MainStake = () => {
     isSuccess: approveIsSuccess,
     write: approveWrite,
   } = useContractWrite({
+    address: TOKEN,
+    abi: TOKEN_ABI,
     functionName: "approve",
     token: true,
+    onError() {
+      setToastType("error");
+      setInputValue("");
+    },
   });
 
   const {
@@ -65,9 +85,12 @@ export const MainStake = () => {
     isLoading: waitForApproveIsLoading,
   } = useWaitForTransaction({
     hash: approveData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForApprove", { data, error });
+    onSettled() {
       stakeWrite({ args: [amountToApprove] });
+    },
+    onError() {
+      setToastType("error");
+      setInputValue("");
     },
   });
 
@@ -76,7 +99,15 @@ export const MainStake = () => {
     isLoading: stakeIsLoading,
     isSuccess: stakeIsSuccess,
     write: stakeWrite,
-  } = useContractWrite({ functionName: "stake" });
+  } = useContractWrite({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
+    functionName: "stake",
+    onError() {
+      setToastType("error");
+      setInputValue("");
+    },
+  });
 
   const {
     data: waitForStake,
@@ -84,8 +115,12 @@ export const MainStake = () => {
     isLoading: waitForStakeIsLoading,
   } = useWaitForTransaction({
     hash: stakeData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForStake", { data, error });
+    onSettled() {
+      setToastType("success");
+      setInputValue("");
+    },
+    onError() {
+      setToastType("error");
       setInputValue("");
     },
   });
@@ -119,6 +154,8 @@ export const MainStake = () => {
     if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
+    setToastValue(inputValue);
+    setToastType("pending");
     approveWrite({
       args: [CONTRACT, amountToApprove],
     });
@@ -147,6 +184,11 @@ export const MainStake = () => {
             : "0.00"
         }
         buttonText={"Stake"}
+      />
+      <Toast
+        toastType={toastType}
+        value={toastValue}
+        pageName='stake'
       />
     </MainContainer>
   );

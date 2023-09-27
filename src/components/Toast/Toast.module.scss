@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 157px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  width: fit-content;
+
+  opacity: 1;
+  z-index: 1;
+
+  // outline: 1px solid $accent-blue;
+  @media screen and (min-width: $breakpoint-medium) {
+    bottom: -42px;
+    left: 71%;
+  }
+  @media screen and (min-width: $breakpoint-large) {
+    bottom: -70px;
+    left: 83%;
+  }
+}
+
+.icon {
+  height: 32px;
+  width: 32px;
+  margin-right: 16px;
+}
+
+.message {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+// Success Toast
+.successTextWrapper {
+  width: 177px;
+  @media screen and (min-width: $breakpoint-medium) {
+    display: flex;
+    white-space: nowrap;
+  }
+}
+.successText {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+.successValue {
+  font-family: $font-roboto-mono;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 700;
+  text-transform: uppercase;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+// Error Toast
+
+.errorText {
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: $breakpoint-medium) {
+    flex-direction: row;
+    white-space: nowrap;
+  }
+}
+
+.errorTextFirst {
+  font-family: $font-roboto-mono;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+}
+
+.errorTextSecond {
+  font-family: $font-roboto-mono;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+  }
+}
+
+// Pending Toast
+.spinnerPath {
+  animation: spin 1s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.pendingTextWrapper {
+  display: flex;
+  white-space: nowrap;
+}
+
+.pendingText {
+  font-family: $font-roboto-mono;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.successValue {
+  font-family: $font-roboto-mono;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+  text-transform: uppercase;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

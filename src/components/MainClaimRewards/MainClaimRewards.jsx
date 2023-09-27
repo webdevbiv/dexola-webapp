@@ -1,15 +1,22 @@
-import { useAccount, useContractRead, useWaitForTransaction } from "wagmi";
+import {
+  useAccount,
+  useContractRead,
+  useWaitForTransaction,
+  useContractWrite,
+} from "wagmi";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
 import { MainTitle } from "../MainTitle/MainTitle";
-import { useContractWrite } from "../../Hooks";
 import { formatEther } from "viem";
 import { useState } from "react";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
+import { Toast } from "../Toast/Toast";
 
 export const MainClaimRewards = () => {
   const { address: userWalletAddress } = useAccount();
   const [balanceToDisplay, setBalanceToDisplay] = useState("0.00");
+  const [toastType, setToastType] = useState("");
+  const [toastValue, setToastValue] = useState(0);
 
   const userRewards = useContractRead({
     address: CONTRACT,
@@ -28,7 +35,12 @@ export const MainClaimRewards = () => {
     isSuccess: claimRewardsIsSuccess,
     write: claimRewardsWrite,
   } = useContractWrite({
+    address: CONTRACT,
+    abi: CONTRACT_ABI,
     functionName: "claimReward",
+    onError() {
+      setToastType("error");
+    },
   });
 
   const {
@@ -37,15 +49,19 @@ export const MainClaimRewards = () => {
     isLoading: waitClaimRewardsIsLoading,
   } = useWaitForTransaction({
     hash: claimRewardsData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitClaimRewards", { data, error });
+    onSettled() {
+      setToastType("success");
       setBalanceToDisplay("0.00");
+    },
+    onError() {
+      setToastType("error");
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setToastType("pending");
+    setToastValue(balanceToDisplay);
     claimRewardsWrite();
   };
 
@@ -62,6 +78,11 @@ export const MainClaimRewards = () => {
           balanceToDisplay && userRewards ? balanceToDisplay : "0.00"
         }
         buttonText={"Claim rewards"}
+      />
+      <Toast
+        toastType={toastType}
+        value={toastValue}
+        pageName='claimRewards'
       />
     </MainContainer>
   );
