@@ -131,7 +131,6 @@ export const MainStake = () => {
   });
 
   useEffect(() => {
-    console.log(Boolean(rewardRate));
     if (!userStakedBalanceOfStarRunnerIsSuccess || !rewardRateIsSuccess) return;
     setUserRewardRate(
       calculateRewardRateForUser(
