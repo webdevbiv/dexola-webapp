@@ -47,7 +47,10 @@ export const MainStake = () => {
 
   const amountToApprove = parseEther(inputValue.toString());
 
-  const { data: userStakedBalanceOfStarRunner } = useContractRead({
+  const {
+    data: userStakedBalanceOfStarRunner,
+    isSuccess: userStakedBalanceOfStarRunnerIsSuccess,
+  } = useContractRead({
     functionName: "balanceOf",
     args: [userWalletAddress],
     watch: true,
@@ -57,7 +60,9 @@ export const MainStake = () => {
     functionName: "periodFinish",
   });
 
-  const { data: rewardRate } = useContractRead({ functionName: "rewardRate" });
+  const { data: rewardRate, isSuccess: rewardRateIsSuccess } = useContractRead({
+    functionName: "rewardRate",
+  });
 
   const { data: totalSupply } = useContractRead({
     functionName: "totalSupply",
@@ -126,7 +131,8 @@ export const MainStake = () => {
   });
 
   useEffect(() => {
-    if (!userStakedBalanceOfStarRunner || !rewardRate) return;
+    console.log(Boolean(rewardRate));
+    if (!userStakedBalanceOfStarRunnerIsSuccess || !rewardRateIsSuccess) return;
     setUserRewardRate(
       calculateRewardRateForUser(
         inputValue,
@@ -142,6 +148,8 @@ export const MainStake = () => {
     periodFinish,
     rewardRate,
     totalSupply,
+    userStakedBalanceOfStarRunnerIsSuccess,
+    rewardRateIsSuccess,
   ]);
 
   const handleChange = (e) => {
@@ -166,7 +174,7 @@ export const MainStake = () => {
   //   stakeIsLoading ||
   //   waitForApproveIsLoading ||
   //   waitForStakeIsLoading;
-
+  console.log(inputValue);
   return (
     <MainContainer>
       <MainTitle
