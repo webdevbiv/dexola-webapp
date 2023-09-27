@@ -29,6 +29,7 @@ header {
   position: fixed;
   top: 0;
   overflow: hidden;
+  z-index: 1;
   width: 100%;
   @media screen and (min-width: $breakpoint-medium) {
     position: static;
