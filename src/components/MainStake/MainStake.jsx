@@ -144,6 +144,7 @@ export const MainStake = () => {
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
     setInputValue(sanitizedValue);
+    // setInputValue(e.target.value);
   };
 
   const handleSubmit = (e) => {
