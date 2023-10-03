@@ -97,6 +97,7 @@ export const MainStake = () => {
   const {
     data: stakeData,
     isSuccess: stakeIsSuccess,
+    isLoading: stakeIsLoading,
     write: stakeWrite,
   } = useContractWrite({
     address: CONTRACT,
@@ -144,7 +145,6 @@ export const MainStake = () => {
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
     setInputValue(sanitizedValue);
-    // setInputValue(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -159,11 +159,11 @@ export const MainStake = () => {
     });
   };
 
-  // const isAnyLoading =
-  //   approveIsLoading ||
-  //   stakeIsLoading ||
-  //   waitForApproveIsLoading ||
-  //   waitForStakeIsLoading;
+  const isAnyLoading =
+    approveIsLoading ||
+    stakeIsLoading ||
+    waitForApproveIsLoading ||
+    waitForStakeIsLoading;
 
   return (
     <MainContainer>
@@ -175,7 +175,7 @@ export const MainStake = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         inputValue={inputValue}
-        // isAnyLoading={isAnyLoading}
+        isAnyLoading={isAnyLoading}
         balanceToDisplay={
           balanceToDisplay && userBalanceOfStarRunner
             ? balanceToDisplay
