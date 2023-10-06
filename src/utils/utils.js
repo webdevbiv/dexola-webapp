@@ -26,47 +26,28 @@ export function calculateDaysRemaining(periodFinish) {
 
 // Sanitize input value
 export const sanitizeInputValue = (value) => {
-  // If the value is empty or consists of only whitespace, return an empty string
-  // if (!value.trim()) {
-  //   return "";
-  // }
+  // Ensure the input is a string
+  const stringValue = String(value);
 
-  // Remove leading zeros
-  // value = value.replace(/^0+/, "");
+  // Remove any non-numeric characters except the decimal point
+  const sanitizedValue = stringValue.replace(/[^\d.]/g, "");
 
-  // Remove any negative signs
-  // value = value.replace("-", "");
+  // Limit the number of characters after the decimal point to 6
+  const decimalIndex = sanitizedValue.indexOf(".");
+  if (decimalIndex !== -1) {
+    const integerPart = sanitizedValue.slice(0, decimalIndex);
+    const decimalPart = sanitizedValue.slice(
+      decimalIndex + 1,
+      decimalIndex + 7
+    ); // Allow only 6 characters after "."
+    return `${integerPart}.${decimalPart}`;
+  }
 
-  // Remove any decimal points
-  // value = value.split(".")[0];
+  // Limit the sanitized value to 15 characters
+  const limitedValue = sanitizedValue.slice(0, 15);
 
-  // Convert the string to a number for range checks
-  // let numValue = Number(value);
-
-  // Ensure the value is within the range [0]
-  // if (numValue < 0) numValue = 0;
-
-  // return String(numValue);
-  return value;
+  return limitedValue;
 };
-
-// export const sanitizeInputValue = (value) => {
-//   // If the value is empty or consists of only whitespace, return an empty string
-//   if (!value.trim()) {
-//     return "";
-//   }
-
-//   // Use a regular expression to remove non-numeric characters and leading zeros
-//   value = value.replace(/[^0-9]/g, "").replace(/^0+/, "");
-
-//   // Convert the string to a number for range checks
-//   let numValue = Number(value);
-
-//   // Ensure the value is within the range [0]
-//   if (isNaN(numValue) || numValue < 0) numValue = 0;
-
-//   return String(numValue);
-// };
 
 export const calculateRewardRateForUser = (
   inputValue,
@@ -99,9 +80,8 @@ export const calculateRewardRateForUser = (
     inputValueFormatted;
 
   // Calculate reward rate per week and format as an integer
-  const rewardRateForUserPerWeek = Math.floor(
-    rewardRateForUser / weeksRemaining
-  );
+  const rewardRateForUserPerWeek = rewardRateForUser / weeksRemaining;
 
+  console.log(rewardRateForUserPerWeek);
   return rewardRateForUserPerWeek;
 };

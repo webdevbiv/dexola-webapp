@@ -18,5 +18,5 @@ export const MainTitle = ({ pageName, rewardRate = 0 }) => {
 
 MainTitle.propTypes = {
   pageName: PropTypes.string.isRequired,
-  rewardRate: PropTypes.number,
+  rewardRate: PropTypes.string,
 };

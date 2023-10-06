@@ -23,15 +23,12 @@ export const MainForm = ({
       <div className={s.inputWrapper}>
         {isInputDisplayed && (
           <input
-            type='number'
+            type='text'
             placeholder={`Enter ${buttonText.toLowerCase()} amount`}
             name='amount'
             value={inputValue}
             onChange={handleChange}
             className={s.input}
-            // inputMode='numeric'
-            // pattern='[0-9]*'
-            maxLength='15'
           />
         )}
         <div className={s.balance}>

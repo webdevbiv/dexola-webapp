@@ -107,6 +107,7 @@ export const MainWithdraw = () => {
   // Handle Actions
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
+
     setInputValue(sanitizedValue);
   };
 
@@ -124,13 +125,6 @@ export const MainWithdraw = () => {
       args: [amountToWithdraw],
     });
   };
-
-  console.log(
-    `balanceToDisplay`,
-    typeof balanceToDisplay,
-    `rewards`,
-    typeof rewards
-  );
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
     setToastType("pending");

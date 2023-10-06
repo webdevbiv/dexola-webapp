@@ -169,7 +169,11 @@ export const MainStake = () => {
     <MainContainer>
       <MainTitle
         pageName='Stake'
-        rewardRate={userRewardRate !== undefined ? userRewardRate : "0"}
+        rewardRate={
+          userRewardRate !== undefined && userRewardRate !== 0
+            ? parseFloat(userRewardRate.toFixed(6)).toString()
+            : "0"
+        }
       />
       <MainForm
         handleSubmit={handleSubmit}
