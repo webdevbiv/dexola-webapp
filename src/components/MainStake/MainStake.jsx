@@ -147,8 +147,8 @@ export const MainStake = () => {
     setInputValue(sanitizedValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    console.log("submit");
     if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
