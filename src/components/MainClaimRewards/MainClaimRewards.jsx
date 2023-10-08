@@ -26,7 +26,6 @@ export const MainClaimRewards = () => {
     watch: true,
     onSuccess: (data) => {
       if (data) setBalanceToDisplay(formatEther(data));
-      console.log(formatEther(data));
     },
   });
 

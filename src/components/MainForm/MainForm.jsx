@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
-import { Formik, Field, ErrorMessage, Form } from "formik";
+import { Form, Field, ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
-import s from "./MainForm.module.scss";
 import { useWindowWidth } from "../../Hooks/";
-import { LARGE_WIDTH } from "../../constants/constants";
 import { roundToDecimalPlaces } from "../../utils/utils";
+import { LARGE_WIDTH } from "../../constants/constants";
+import s from "./MainForm.module.scss";
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
-    .typeError("Please enter a valid number")
+    .typeError("Amount is required")
     .positive("Amount must be positive")
     .max(
       999999999999999,

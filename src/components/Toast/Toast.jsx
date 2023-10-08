@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import s from "./Toast.module.scss";
 import toastSuccess from "../../assets/images/icons/toast_success.svg";
 import toastError from "../../assets/images/icons/toast_error.svg";
-import { useEffect, useState } from "react";
 
 export const Toast = ({ toastType, value, pageName }) => {
   const [isVisible, setIsVisible] = useState(false);

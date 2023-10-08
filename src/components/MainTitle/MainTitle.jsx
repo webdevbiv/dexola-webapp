@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import s from "./MainTitle.module.scss";
 import { roundToDecimalPlaces } from "../../utils/utils";
 
-export const MainTitle = ({ pageName, rewardRate = 0 }) => {
+export const MainTitle = ({ pageName, rewardRate }) => {
   return (
     <div className={s.titleWrapper}>
       <h2 className={s.title}>{pageName}</h2>
@@ -10,7 +10,7 @@ export const MainTitle = ({ pageName, rewardRate = 0 }) => {
         <div>
           <span className={s.label}>Reward rate:</span>
           <span className={s.labelValue}>
-            {roundToDecimalPlaces(rewardRate, 4)}
+            {rewardRate ? roundToDecimalPlaces(rewardRate, 4) : 0}
           </span>
           <span className={s.labelUnit}>stru/week</span>
         </div>

@@ -20,7 +20,6 @@ import { MainForm } from "../MainForm/MainForm";
 import {
   sanitizeInputValue,
   calculateRewardRateForUser,
-  roundToDecimalPlaces,
 } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
 
@@ -162,15 +161,12 @@ export const MainStake = () => {
     waitForStakeIsLoading;
 
   // console.log(`balanceToDisplay`, balanceToDisplay, typeof balanceToDisplay);
+  // console.log(`userRewardRate`, userRewardRate, typeof userRewardRate);
   return (
     <MainContainer>
       <MainTitle
         pageName='Stake'
-        rewardRate={
-          userRewardRate !== undefined && userRewardRate !== 0
-            ? userRewardRate
-            : "0"
-        }
+        rewardRate={userRewardRate ? userRewardRate : 0}
       />
       <MainForm
         handleSubmit={handleSubmit}

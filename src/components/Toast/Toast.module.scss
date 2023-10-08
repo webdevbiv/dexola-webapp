@@ -6,15 +6,13 @@
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  width: fit-content;
 
   opacity: 1;
   z-index: -1;
 
-  // outline: 1px solid $accent-blue;
   @media screen and (min-width: $breakpoint-medium) {
     bottom: -42px;
-    left: 71%;
+    left: 65%;
   }
   @media screen and (min-width: $breakpoint-large) {
     bottom: -70px;
@@ -41,12 +39,12 @@
 
 // Success Toast
 .successTextWrapper {
-  width: 177px;
   @media screen and (min-width: $breakpoint-medium) {
     display: flex;
     white-space: nowrap;
   }
 }
+
 .successText {
   font-family: $font-roboto-mono;
   font-weight: 400;
