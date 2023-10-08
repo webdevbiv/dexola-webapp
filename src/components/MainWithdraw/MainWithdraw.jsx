@@ -66,8 +66,7 @@ export const MainWithdraw = () => {
     isLoading: waitForWithdrawIsLoading,
   } = useWaitForTransaction({
     hash: withdrawData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForWithdraw", { data, error });
+    onSettled() {
       setToastType("success");
       setInputValue("");
     },
@@ -107,13 +106,10 @@ export const MainWithdraw = () => {
   // Handle Actions
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
-
     setInputValue(sanitizedValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay)) {
       console.log("Insufficient balance");

@@ -85,3 +85,10 @@ export const calculateRewardRateForUser = (
   console.log(rewardRateForUserPerWeek);
   return rewardRateForUserPerWeek;
 };
+
+export const sanitizeToDisplay = (value) => {
+  const formattedValue = formatEther(value);
+  const number = parseFloat(formattedValue);
+  const truncatedNumber = Math.floor(number * 10000) / 10000;
+  return truncatedNumber.toFixed(4);
+};

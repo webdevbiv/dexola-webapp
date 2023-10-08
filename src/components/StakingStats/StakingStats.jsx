@@ -1,6 +1,10 @@
 import s from "./StakingStats.module.scss";
 import infoImg from "../../assets/images/icons/info.svg";
-import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
+import {
+  calculateAPR,
+  calculateDaysRemaining,
+  sanitizeToDisplay,
+} from "../../utils/utils";
 import { useWindowWidth } from "../../Hooks/";
 import { useContractRead } from "wagmi";
 import { useAccount } from "wagmi";
@@ -67,7 +71,8 @@ export const StakingStats = () => {
   const statsData = [
     {
       value: userStakedBalanceOfStarRunner
-        ? formatEther(userStakedBalanceOfStarRunner)
+        ? // ? formatEther(userStakedBalanceOfStarRunner)
+          sanitizeToDisplay(userStakedBalanceOfStarRunner)
         : "0",
       label: "Staked balance",
       id: "stakedBalance",
@@ -87,7 +92,7 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: userRewards ? Number(formatEther(userRewards)).toFixed(4) : "0.00",
+      value: userRewards ? sanitizeToDisplay(userRewards) : "0",
       label: "Rewards",
       id: "rewards",
       suffix: "stru",

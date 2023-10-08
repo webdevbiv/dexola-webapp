@@ -33,7 +33,6 @@ export const MainForm = ({
 }) => {
   const windowWidth = useWindowWidth();
   console.log(balanceToDisplay);
-
   return (
     <Formik
       initialValues={{
@@ -60,8 +59,8 @@ export const MainForm = ({
                   onChange={(e) => {
                     handleChange(e);
                     const newValue = e.target.value;
-                    setFieldValue("amount", newValue);
-                    setFieldValue("balance", balanceToDisplay);
+                    setFieldValue("amount", Number(newValue));
+                    setFieldValue("balance", Number(balanceToDisplay));
                   }}
                   value={inputValue}
                   placeholder={`Enter ${buttonText.toLowerCase()} amount`}
@@ -79,7 +78,7 @@ export const MainForm = ({
               <span className={s.balanceValue}>
                 {Number(balanceToDisplay) === 0
                   ? "0.00"
-                  : Number(balanceToDisplay).toFixed(4)}
+                  : Number(balanceToDisplay).toFixed(4).toString()}
               </span>
               <span className={s.balanceUnit}>STRU</span>
             </div>
