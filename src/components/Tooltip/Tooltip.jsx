@@ -1,9 +1,20 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Tooltip as TooltipReact } from "react-tooltip";
+import { TooltipModal } from "../TooltipModal/TooltipModal";
+import { useWindowWidth } from "../../Hooks";
+import { MEDIUM_WIDTH } from "../../constants/constants";
 import infoImg from "../../assets/images/icons/info.svg";
 import s from "./Tooltip.module.scss";
 
 export const Tooltip = ({ text, id }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const windowWidth = useWindowWidth();
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   const defaultStyle = {
     backgroundColor: "rgba(255, 255, 255, 1)",
     background: "rgba(255, 255, 255, 1)",
@@ -25,26 +36,51 @@ export const Tooltip = ({ text, id }) => {
   }
 
   return (
-    <div className={s.container}>
-      <a id={id}>
-        <img
-          src={infoImg}
-          alt='info'
-          className={s.infoIcon}
-        />
-      </a>
-      <TooltipReact
-        anchorSelect={`#${id}`}
-        place='top'
-        style={{
-          ...defaultStyle,
-          maxWidth: maxWidth,
-        }}
-        opacity={1}
-      >
-        <div>{text}</div>
-      </TooltipReact>
-    </div>
+    <>
+      {windowWidth >= MEDIUM_WIDTH ? (
+        <div className={s.container}>
+          <a id={id}>
+            <img
+              src={infoImg}
+              alt='info'
+              className={s.infoIcon}
+            />
+          </a>
+          <TooltipReact
+            anchorSelect={`#${id}`}
+            place='top'
+            style={{
+              ...defaultStyle,
+              maxWidth: maxWidth,
+            }}
+            opacity={1}
+          >
+            <div>{text}</div>
+          </TooltipReact>
+        </div>
+      ) : (
+        <>
+          <div
+            className={s.container}
+            onClick={toggleModal}
+          >
+            <img
+              src={infoImg}
+              alt='info'
+              className={s.infoIcon}
+            />
+          </div>
+          {isModalOpen && (
+            <TooltipModal
+              onClick={toggleModal}
+              text={text}
+              isActive={isModalOpen}
+              id={id}
+            />
+          )}
+        </>
+      )}
+    </>
   );
 };
 
