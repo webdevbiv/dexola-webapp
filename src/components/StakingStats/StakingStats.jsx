@@ -7,7 +7,12 @@ import {
   roundToDecimalPlaces,
 } from "../../utils/utils";
 import { useWindowWidth } from "../../Hooks/";
-import { CONTRACT, CONTRACT_ABI, LARGE_WIDTH } from "../../constants/constants";
+import {
+  CONTRACT,
+  CONTRACT_ABI,
+  LARGE_WIDTH,
+  MEDIUM_WIDTH,
+} from "../../constants/constants";
 import { Tooltip } from "../Tooltip/Tooltip";
 import s from "./StakingStats.module.scss";
 
@@ -69,7 +74,9 @@ export const StakingStats = () => {
   const statsData = [
     {
       value: userStakedBalanceOfStarRunner
-        ? roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 4)
+        ? windowWidth < MEDIUM_WIDTH
+          ? roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 1)
+          : roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 4)
         : "0",
       label: "Staked balance",
       id: "stakedBalance",
@@ -90,7 +97,9 @@ export const StakingStats = () => {
     },
     {
       value: userRewards
-        ? roundToDecimalPlaces(formatEther(userRewards), 4)
+        ? windowWidth < MEDIUM_WIDTH
+          ? roundToDecimalPlaces(formatEther(userRewards), 1)
+          : roundToDecimalPlaces(formatEther(userRewards), 4)
         : "0",
       label: "Rewards",
       id: "rewards",
