@@ -25,12 +25,7 @@ export const Tooltip = ({ text, id }) => {
   }
 
   return (
-    <div
-      className={s.container}
-      style={{
-        opacity: "1",
-      }}
-    >
+    <div className={s.container}>
       <a id={id}>
         <img
           src={infoImg}

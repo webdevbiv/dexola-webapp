@@ -87,7 +87,7 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: userRewards ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
+      value: userRewards ? Number(formatEther(userRewards)).toFixed(4) : "0.00",
       label: "Rewards",
       id: "rewards",
       suffix: "stru",

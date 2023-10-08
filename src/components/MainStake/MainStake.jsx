@@ -38,10 +38,7 @@ export const MainStake = () => {
     token: TOKEN,
     watch: true,
     onSuccess: (data) => {
-      if (data)
-        setBalanceToDisplay(
-          Math.floor(roundToDecimalPlaces(data?.formatted, 2))
-        );
+      if (data) setBalanceToDisplay(data?.formatted);
     },
   });
 
@@ -148,8 +145,7 @@ export const MainStake = () => {
   };
 
   const handleSubmit = () => {
-    console.log("submit");
-    if (inputValue === "") return console.log("Please enter a value");
+    if (inputValue === "") return;
     if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
     setToastValue(inputValue);

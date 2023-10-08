@@ -1,76 +1,3 @@
-// import PropTypes from "prop-types";
-// import s from "./MainForm.module.scss";
-// import { useWindowWidth } from "../../Hooks/";
-// import { LARGE_WIDTH } from "../../constants/constants";
-
-// export const MainForm = ({
-//   handleSubmit,
-//   handleChange,
-//   isInputDisplayed = true,
-//   inputValue,
-//   isAnyLoading,
-//   balanceToDisplay,
-//   buttonText,
-//   onWithdrawAllClaimRewardsClick,
-// }) => {
-//   const windowWidth = useWindowWidth();
-
-//   return (
-//     <form
-//       onSubmit={handleSubmit}
-//       className={s.form}
-//     >
-//       <div className={s.inputWrapper}>
-//         {isInputDisplayed && (
-//           <input
-//             type='text'
-//             placeholder={`Enter ${buttonText.toLowerCase()} amount`}
-//             name='amount'
-//             value={inputValue}
-//             onChange={handleChange}
-//             className={s.input}
-//           />
-//         )}
-//         <div className={s.balance}>
-//           <span className={s.balanceLabel}>Available:</span>
-//           <span className={s.balanceValue}>{balanceToDisplay}</span>
-//           <span className={s.balanceUnit}>STRU</span>
-//         </div>
-//       </div>
-//       <div className={s.buttonWrapper}>
-//         <button
-//           disabled={isAnyLoading}
-//           type='submit'
-//           className={`${s.button} ${isAnyLoading ? s.buttonDisabled : ""}`}
-//         >
-//           {buttonText}
-//         </button>
-//         {buttonText.toLowerCase() === "withdraw" &&
-//           windowWidth >= LARGE_WIDTH && (
-//             <button
-//               className={s.withdrawAllClaimRewardsButton}
-//               onClick={onWithdrawAllClaimRewardsClick}
-//             >
-//               withdraw all & claim rewards
-//             </button>
-//           )}
-//       </div>
-//     </form>
-//   );
-// };
-
-// MainForm.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired,
-//   onWithdrawAllClaimRewardsClick: PropTypes.func,
-//   handleChange: PropTypes.func,
-//   isInputDisplayed: PropTypes.bool,
-//   isAnyLoading: PropTypes.bool,
-//   inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//   balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-//     .isRequired,
-//   buttonText: PropTypes.string.isRequired,
-// };
-
 import PropTypes from "prop-types";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
@@ -86,6 +13,12 @@ const validationSchema = Yup.object().shape({
       999999999999999,
       "Amount must be less than or equal to 999999999999999"
     )
+    .test("balance", "Insufficient funds", function () {
+      const { amount, balance } = this.parent;
+      console.log(`value: ${amount} balance: ${balance}`);
+      console.log(this.parent);
+      return amount <= balance;
+    })
     .required("Amount is required"),
 });
 
@@ -99,13 +32,13 @@ export const MainForm = ({
   onWithdrawAllClaimRewardsClick,
 }) => {
   const windowWidth = useWindowWidth();
+  console.log(balanceToDisplay);
 
-  // console.log(handleSubmit);
-  // console.log(inputValue);
   return (
     <Formik
       initialValues={{
-        amount: inputValue,
+        amount: "",
+        balance: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -128,6 +61,7 @@ export const MainForm = ({
                     handleChange(e);
                     const newValue = e.target.value;
                     setFieldValue("amount", newValue);
+                    setFieldValue("balance", balanceToDisplay);
                   }}
                   value={inputValue}
                   placeholder={`Enter ${buttonText.toLowerCase()} amount`}
@@ -142,7 +76,11 @@ export const MainForm = ({
             )}
             <div className={s.balance}>
               <span className={s.balanceLabel}>Available:</span>
-              <span className={s.balanceValue}>{balanceToDisplay}</span>
+              <span className={s.balanceValue}>
+                {Number(balanceToDisplay) === 0
+                  ? "0.00"
+                  : Number(balanceToDisplay).toFixed(4)}
+              </span>
               <span className={s.balanceUnit}>STRU</span>
             </div>
           </div>
