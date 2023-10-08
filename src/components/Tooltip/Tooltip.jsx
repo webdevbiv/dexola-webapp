@@ -9,10 +9,15 @@ import s from "./Tooltip.module.scss";
 
 export const Tooltip = ({ text, id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const windowWidth = useWindowWidth();
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden"; // Disable scrolling on the body
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto"; // Enable scrolling on the body
   };
 
   const defaultStyle = {
@@ -62,7 +67,7 @@ export const Tooltip = ({ text, id }) => {
         <>
           <div
             className={s.container}
-            onClick={toggleModal}
+            onClick={openModal}
           >
             <img
               src={infoImg}
@@ -72,7 +77,7 @@ export const Tooltip = ({ text, id }) => {
           </div>
           {isModalOpen && (
             <TooltipModal
-              onClick={toggleModal}
+              onClick={closeModal}
               text={text}
               isActive={isModalOpen}
               id={id}
