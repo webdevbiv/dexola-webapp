@@ -1,17 +1,15 @@
-import s from "./StakingStats.module.scss";
-import infoImg from "../../assets/images/icons/info.svg";
+import { useEffect, useState } from "react";
+import { useAccount, useContractRead } from "wagmi";
+import { formatEther } from "viem";
 import {
   calculateAPR,
   calculateDaysRemaining,
-  sanitizeToDisplay,
+  roundToDecimalPlaces,
 } from "../../utils/utils";
 import { useWindowWidth } from "../../Hooks/";
-import { useContractRead } from "wagmi";
-import { useAccount } from "wagmi";
-import { formatEther } from "viem";
-import { useEffect, useState } from "react";
 import { CONTRACT, CONTRACT_ABI, LARGE_WIDTH } from "../../constants/constants";
 import { Tooltip } from "../Tooltip/Tooltip";
+import s from "./StakingStats.module.scss";
 
 export const StakingStats = () => {
   const windowWidth = useWindowWidth();
@@ -71,8 +69,7 @@ export const StakingStats = () => {
   const statsData = [
     {
       value: userStakedBalanceOfStarRunner
-        ? // ? formatEther(userStakedBalanceOfStarRunner)
-          sanitizeToDisplay(userStakedBalanceOfStarRunner)
+        ? roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 4)
         : "0",
       label: "Staked balance",
       id: "stakedBalance",
@@ -92,7 +89,9 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: userRewards ? sanitizeToDisplay(userRewards) : "0",
+      value: userRewards
+        ? roundToDecimalPlaces(formatEther(userRewards), 4)
+        : "0",
       label: "Rewards",
       id: "rewards",
       suffix: "stru",

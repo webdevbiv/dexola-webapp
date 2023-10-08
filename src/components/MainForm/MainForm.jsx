@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import s from "./MainForm.module.scss";
 import { useWindowWidth } from "../../Hooks/";
 import { LARGE_WIDTH } from "../../constants/constants";
-import { sanitizeToDisplay } from "../../utils/utils";
+import { roundToDecimalPlaces } from "../../utils/utils";
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
@@ -62,8 +62,8 @@ export const MainForm = ({
                   onChange={(e) => {
                     handleChange(e);
                     const newValue = e.target.value;
-                    setFieldValue("amount", Number(newValue));
-                    setFieldValue("balance", Number(balanceToDisplay));
+                    setFieldValue("amount", parseFloat(newValue));
+                    setFieldValue("balance", parseFloat(balanceToDisplay));
                   }}
                   value={inputValue}
                   placeholder={`Enter ${buttonText.toLowerCase()} amount`}
@@ -79,22 +79,41 @@ export const MainForm = ({
             <div className={s.balance}>
               <span className={s.balanceLabel}>Available:</span>
               <span className={s.balanceValue}>
-                {Number(balanceToDisplay) === 0 ? "0.00" : balanceToDisplay}
+                {Number(balanceToDisplay) === 0
+                  ? "0.00"
+                  : roundToDecimalPlaces(balanceToDisplay, 4)}
               </span>
               <span className={s.balanceUnit}>STRU</span>
             </div>
           </div>
           <div className={s.buttonWrapper}>
-            <button
-              type='submit'
-              className={`${s.button} ${isSubmitting ? s.buttonDisabled : ""}`}
-              disabled={isSubmitting}
-            >
-              {buttonText}
-            </button>
+            {buttonText.toLowerCase() === "claim rewards" ? (
+              <button
+                type='button'
+                className={`${s.button} ${
+                  isSubmitting ? s.buttonDisabled : ""
+                }`}
+                disabled={isSubmitting}
+                onClick={handleSubmit}
+              >
+                {buttonText}
+              </button>
+            ) : (
+              <button
+                type='submit'
+                className={`${s.button} ${
+                  isSubmitting ? s.buttonDisabled : ""
+                }`}
+                disabled={isSubmitting}
+              >
+                {buttonText}
+              </button>
+            )}
+
             {buttonText.toLowerCase() === "withdraw" &&
               windowWidth >= LARGE_WIDTH && (
                 <button
+                  type='button'
                   className={s.withdrawAllClaimRewardsButton}
                   onClick={onWithdrawAllClaimRewardsClick}
                 >

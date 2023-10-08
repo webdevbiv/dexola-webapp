@@ -25,7 +25,8 @@ export const MainClaimRewards = () => {
     args: [userWalletAddress],
     watch: true,
     onSuccess: (data) => {
-      if (data) setBalanceToDisplay(data);
+      if (data) setBalanceToDisplay(formatEther(data));
+      console.log(formatEther(data));
     },
   });
 

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import s from "./MainTitle.module.scss";
+import { roundToDecimalPlaces } from "../../utils/utils";
 
 export const MainTitle = ({ pageName, rewardRate = 0 }) => {
   return (
@@ -8,7 +9,9 @@ export const MainTitle = ({ pageName, rewardRate = 0 }) => {
       {pageName === "Stake" && (
         <div>
           <span className={s.label}>Reward rate:</span>
-          <span className={s.labelValue}>{rewardRate}</span>
+          <span className={s.labelValue}>
+            {roundToDecimalPlaces(rewardRate, 4)}
+          </span>
           <span className={s.labelUnit}>stru/week</span>
         </div>
       )}
@@ -18,5 +21,5 @@ export const MainTitle = ({ pageName, rewardRate = 0 }) => {
 
 MainTitle.propTypes = {
   pageName: PropTypes.string.isRequired,
-  rewardRate: PropTypes.string,
+  rewardRate: PropTypes.number,
 };
