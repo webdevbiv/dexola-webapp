@@ -2,7 +2,8 @@ import { formatEther } from "viem";
 
 export function roundToDecimalPlaces(formatted, decimalPlaces) {
   if (!formatted || !decimalPlaces) return;
-  return parseFloat(formatted).toFixed(decimalPlaces);
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.floor(parseFloat(formatted) * factor) / factor;
 }
 
 // Calculate APR
@@ -38,13 +39,13 @@ export const sanitizeInputValue = (value) => {
     const integerPart = sanitizedValue.slice(0, decimalIndex);
     const decimalPart = sanitizedValue.slice(
       decimalIndex + 1,
-      decimalIndex + 6
+      decimalIndex + 19
     ); // Allow only 5 characters after "."
     return `${integerPart}.${decimalPart}`;
   }
 
   // Limit the sanitized value to 15 characters
-  const limitedValue = sanitizedValue.slice(0, 15);
+  const limitedValue = sanitizedValue.slice(0, 21);
 
   return limitedValue;
 };
@@ -86,6 +87,7 @@ export const calculateRewardRateForUser = (
   return rewardRateForUserPerWeek;
 };
 
+// Sanitize to display
 export const sanitizeToDisplay = (value) => {
   const formattedValue = formatEther(value);
   const number = parseFloat(formattedValue);

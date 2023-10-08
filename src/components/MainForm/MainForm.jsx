@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import s from "./MainForm.module.scss";
 import { useWindowWidth } from "../../Hooks/";
 import { LARGE_WIDTH } from "../../constants/constants";
+import { sanitizeToDisplay } from "../../utils/utils";
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
@@ -32,7 +33,9 @@ export const MainForm = ({
   onWithdrawAllClaimRewardsClick,
 }) => {
   const windowWidth = useWindowWidth();
+
   console.log(balanceToDisplay);
+
   return (
     <Formik
       initialValues={{
@@ -76,9 +79,7 @@ export const MainForm = ({
             <div className={s.balance}>
               <span className={s.balanceLabel}>Available:</span>
               <span className={s.balanceValue}>
-                {Number(balanceToDisplay) === 0
-                  ? "0.00"
-                  : Number(balanceToDisplay).toFixed(4).toString()}
+                {Number(balanceToDisplay) === 0 ? "0.00" : balanceToDisplay}
               </span>
               <span className={s.balanceUnit}>STRU</span>
             </div>

@@ -161,13 +161,14 @@ export const MainStake = () => {
     waitForApproveIsLoading ||
     waitForStakeIsLoading;
 
+  console.log(`balanceToDisplay`, balanceToDisplay, typeof balanceToDisplay);
   return (
     <MainContainer>
       <MainTitle
         pageName='Stake'
         rewardRate={
           userRewardRate !== undefined && userRewardRate !== 0
-            ? parseFloat(userRewardRate.toFixed(6)).toString()
+            ? roundToDecimalPlaces(userRewardRate, 4)
             : "0"
         }
       />
@@ -178,7 +179,7 @@ export const MainStake = () => {
         isAnyLoading={isAnyLoading}
         balanceToDisplay={
           balanceToDisplay && userBalanceOfStarRunner
-            ? balanceToDisplay
+            ? roundToDecimalPlaces(balanceToDisplay, 4)
             : "0.00"
         }
         buttonText={"Stake"}
