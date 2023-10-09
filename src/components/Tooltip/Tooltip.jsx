@@ -28,7 +28,7 @@ export const Tooltip = ({ text, id }) => {
     if (!isModalActive) {
       timeoutId = setTimeout(() => {
         setIsModalOpen(false);
-      }, 1000);
+      }, 600);
     }
 
     return () => clearTimeout(timeoutId);

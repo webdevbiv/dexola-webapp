@@ -11,13 +11,13 @@
 }
 
 .backdropActive {
-  background-color: rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.2s ease-in-out;
 }
 
 .backdropNotActive {
   background-color: rgba(0, 0, 0, 0);
-  animation: fadeOut 0.3s ease-in-out;
+  animation: fadeOut 0.2s ease-in-out;
 }
 
 .container {
@@ -33,12 +33,12 @@
 
 .containerActive {
   transform: translateY(0);
-  animation: slideIn 0.7s ease-in-out;
+  animation: slideIn 0.3s ease-in-out;
 }
 
 .containerNotActive {
   transform: translateY(100%);
-  animation: slideOut 0.7s ease-in-out;
+  animation: slideOut 0.3s ease-in-out;
 }
 
 .grabber {
@@ -76,13 +76,13 @@
     background-color: rgba(0, 0, 0, 0);
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 }
 
 @keyframes fadeOut {
   0% {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
   }
   100% {
     background-color: rgba(0, 0, 0, 0);
