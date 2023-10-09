@@ -28,8 +28,8 @@ export const TooltipModal = ({ onClick, text, isActive, id }) => {
 };
 
 TooltipModal.propTypes = {
-  onClick: PropTypes.any,
-  text: PropTypes.any,
-  isActive: PropTypes.any,
-  id: PropTypes.any,
+  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
 };

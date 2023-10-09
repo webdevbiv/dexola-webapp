@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Tooltip as TooltipReact } from "react-tooltip";
 import { TooltipModal } from "../TooltipModal/TooltipModal";
@@ -9,16 +9,30 @@ import s from "./Tooltip.module.scss";
 
 export const Tooltip = ({ text, id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+
   const windowWidth = useWindowWidth();
   const openModal = () => {
     setIsModalOpen(true);
+    setIsModalActive(true);
     document.body.style.overflow = "hidden"; // Disable scrolling on the body
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalActive(false);
     document.body.style.overflow = "auto"; // Enable scrolling on the body
   };
+
+  useEffect(() => {
+    let timeoutId;
+    if (!isModalActive) {
+      timeoutId = setTimeout(() => {
+        setIsModalOpen(false);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [isModalActive]);
 
   const defaultStyle = {
     backgroundColor: "rgba(255, 255, 255, 1)",
@@ -79,7 +93,7 @@ export const Tooltip = ({ text, id }) => {
             <TooltipModal
               onClick={closeModal}
               text={text}
-              isActive={isModalOpen}
+              isActive={isModalActive}
               id={id}
             />
           )}
@@ -90,6 +104,6 @@ export const Tooltip = ({ text, id }) => {
 };
 
 Tooltip.propTypes = {
-  text: PropTypes.any,
-  id: PropTypes.any,
+  text: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
