@@ -10,7 +10,7 @@
   z-index: -1;
 
   @media screen and (min-width: $breakpoint-medium) {
-    bottom: -42px;
+    bottom: -50px;
     left: 60%;
   }
   @media screen and (min-width: $breakpoint-large) {
@@ -39,9 +39,12 @@
 
 // Success Toast
 .successTextWrapper {
+  display: flex;
+  flex-wrap: wrap;
   @media screen and (min-width: $breakpoint-medium) {
     display: flex;
     white-space: nowrap;
+    flex-wrap: nowrap;
   }
 }
 
@@ -56,6 +59,7 @@
     line-height: 1.5;
   }
 }
+
 .successValue {
   font-family: $font-roboto-mono;
   font-size: 14px;
@@ -127,10 +131,15 @@
 }
 
 .pendingText {
+  display: flex;
+  flex-wrap: wrap;
   font-family: $font-roboto-mono;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.7;
+  @media screen and (min-width: $breakpoint-medium) {
+    flex-wrap: nowrap;
+  }
 }
 
 .pendingValue {

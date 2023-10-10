@@ -1,5 +1,6 @@
 import { formatEther } from "viem";
 
+// Round to decimal places
 export function roundToDecimalPlaces(formatted, decimalPlaces) {
   if (!formatted || !decimalPlaces) return;
   const factor = Math.pow(10, decimalPlaces);

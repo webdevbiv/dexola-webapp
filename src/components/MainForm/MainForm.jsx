@@ -34,8 +34,6 @@ export const MainForm = ({
 }) => {
   const windowWidth = useWindowWidth();
 
-  console.log(balanceToDisplay);
-
   return (
     <Formik
       initialValues={{
@@ -129,11 +127,11 @@ export const MainForm = ({
 
 MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  isInputDisplayed: PropTypes.bool,
-  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  buttonText: PropTypes.string.isRequired,
   balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
-  buttonText: PropTypes.string.isRequired,
+  isInputDisplayed: PropTypes.bool,
+  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onWithdrawAllClaimRewardsClick: PropTypes.func,
   handleChange: PropTypes.func,
 };
