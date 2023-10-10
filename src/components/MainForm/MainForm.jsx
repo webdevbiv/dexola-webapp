@@ -57,6 +57,7 @@ export const MainForm = ({
                 <Field
                   type='text'
                   name='amount'
+                  inputMode='numeric'
                   onChange={(e) => {
                     handleChange(e);
                     const newValue = e.target.value;

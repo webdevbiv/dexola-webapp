@@ -34,18 +34,18 @@ export const sanitizeInputValue = (value) => {
   // Remove any non-numeric characters except the decimal point
   const sanitizedValue = stringValue.replace(/[^\d.]/g, "");
 
-  // Limit the number of characters after the decimal point to 5
+  // Limit the number of characters after the decimal point to 18
   const decimalIndex = sanitizedValue.indexOf(".");
   if (decimalIndex !== -1) {
     const integerPart = sanitizedValue.slice(0, decimalIndex);
     const decimalPart = sanitizedValue.slice(
       decimalIndex + 1,
       decimalIndex + 19
-    ); // Allow only 5 characters after "."
+    ); // Allow only 18 characters after "."
     return `${integerPart}.${decimalPart}`;
   }
 
-  // Limit the sanitized value to 15 characters
+  // Limit the sanitized value to 21 characters
   const limitedValue = sanitizedValue.slice(0, 21);
 
   return limitedValue;
