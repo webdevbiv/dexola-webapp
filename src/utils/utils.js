@@ -1,8 +1,10 @@
 import { formatEther } from "viem";
 
+// Round to decimal places
 export function roundToDecimalPlaces(formatted, decimalPlaces) {
   if (!formatted || !decimalPlaces) return;
-  return parseFloat(formatted).toFixed(decimalPlaces);
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.floor(parseFloat(formatted) * factor) / factor;
 }
 
 // Calculate APR
@@ -24,48 +26,31 @@ export function calculateDaysRemaining(periodFinish) {
   return result;
 }
 
-//Sanitize input value
-// export const sanitizeInputValue = (value) => {
-//   // If the value is empty or consists of only whitespace, return an empty string
-//   if (!value.trim()) {
-//     return "";
-//   }
-
-//   // Remove leading zeros
-//   value = value.replace(/^0+/, "");
-
-//   // Remove any negative signs
-//   value = value.replace("-", "");
-
-//   // Remove any decimal points
-//   value = value.split(".")[0];
-
-//   // Convert the string to a number for range checks
-//   let numValue = Number(value);
-
-//   // Ensure the value is within the range [0]
-//   if (numValue < 0) numValue = 0;
-
-//   return String(numValue);
-// };
-
+// Sanitize input value
 export const sanitizeInputValue = (value) => {
-  // If the value is empty or consists of only whitespace, return an empty string
-  if (!value.trim()) {
-    return "";
+  // Ensure the input is a string
+  const stringValue = String(value);
+
+  // Remove any non-numeric characters except the decimal point
+  const sanitizedValue = stringValue.replace(/[^\d.]/g, "");
+
+  // Limit the number of characters after the decimal point to 18
+  const decimalIndex = sanitizedValue.indexOf(".");
+  if (decimalIndex !== -1) {
+    const integerPart = sanitizedValue.slice(0, decimalIndex);
+    const decimalPart = sanitizedValue.slice(
+      decimalIndex + 1,
+      decimalIndex + 19
+    ); // Allow only 18 characters after "."
+    return `${integerPart}.${decimalPart}`;
   }
 
-  // Use a regular expression to remove non-numeric characters and leading zeros
-  value = value.replace(/[^0-9]/g, "").replace(/^0+/, "");
+  // Limit the sanitized value to 21 characters
+  const limitedValue = sanitizedValue.slice(0, 21);
 
-  // Convert the string to a number for range checks
-  let numValue = Number(value);
-
-  // Ensure the value is within the range [0]
-  if (isNaN(numValue) || numValue < 0) numValue = 0;
-
-  return String(numValue);
+  return limitedValue;
 };
+
 export const calculateRewardRateForUser = (
   inputValue,
   userStakedBalanceOfStarRunner,
@@ -97,9 +82,16 @@ export const calculateRewardRateForUser = (
     inputValueFormatted;
 
   // Calculate reward rate per week and format as an integer
-  const rewardRateForUserPerWeek = Math.floor(
-    rewardRateForUser / weeksRemaining
-  );
+  const rewardRateForUserPerWeek = rewardRateForUser / weeksRemaining;
 
+  // console.log(rewardRateForUserPerWeek);
   return rewardRateForUserPerWeek;
+};
+
+// Sanitize to display
+export const sanitizeToDisplay = (value) => {
+  const formattedValue = formatEther(value);
+  const number = parseFloat(formattedValue);
+  const truncatedNumber = Math.floor(number * 10000) / 10000;
+  return truncatedNumber.toFixed(4);
 };

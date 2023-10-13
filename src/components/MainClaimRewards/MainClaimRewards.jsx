@@ -25,7 +25,7 @@ export const MainClaimRewards = () => {
     args: [userWalletAddress],
     watch: true,
     onSuccess: (data) => {
-      if (data) setBalanceToDisplay(Number(formatEther(data)).toFixed(2));
+      if (data) setBalanceToDisplay(formatEther(data));
     },
   });
 
@@ -62,7 +62,6 @@ export const MainClaimRewards = () => {
   };
 
   const isAnyLoading = claimRewardsIsLoading || waitClaimRewardsIsLoading;
-
   return (
     <MainContainer>
       <MainTitle pageName='Claim rewards' />

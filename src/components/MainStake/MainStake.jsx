@@ -20,7 +20,6 @@ import { MainForm } from "../MainForm/MainForm";
 import {
   sanitizeInputValue,
   calculateRewardRateForUser,
-  roundToDecimalPlaces,
 } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
 
@@ -38,10 +37,7 @@ export const MainStake = () => {
     token: TOKEN,
     watch: true,
     onSuccess: (data) => {
-      if (data)
-        setBalanceToDisplay(
-          Math.floor(roundToDecimalPlaces(data?.formatted, 2))
-        );
+      if (data) setBalanceToDisplay(data?.formatted);
     },
   });
 
@@ -97,6 +93,7 @@ export const MainStake = () => {
   const {
     data: stakeData,
     isSuccess: stakeIsSuccess,
+    isLoading: stakeIsLoading,
     write: stakeWrite,
   } = useContractWrite({
     address: CONTRACT,
@@ -146,9 +143,8 @@ export const MainStake = () => {
     setInputValue(sanitizedValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue === "") return console.log("Please enter a value");
+  const handleSubmit = () => {
+    if (inputValue === "") return;
     if (Number(inputValue) > Number(balanceToDisplay))
       return console.log("Insufficient balance");
     setToastValue(inputValue);
@@ -158,27 +154,27 @@ export const MainStake = () => {
     });
   };
 
-  // const isAnyLoading =
-  //   approveIsLoading ||
-  //   stakeIsLoading ||
-  //   waitForApproveIsLoading ||
-  //   waitForStakeIsLoading;
+  const isAnyLoading =
+    approveIsLoading ||
+    stakeIsLoading ||
+    waitForApproveIsLoading ||
+    waitForStakeIsLoading;
 
+  // console.log(`balanceToDisplay`, balanceToDisplay, typeof balanceToDisplay);
+  // console.log(`userRewardRate`, userRewardRate, typeof userRewardRate);
   return (
     <MainContainer>
       <MainTitle
         pageName='Stake'
-        rewardRate={userRewardRate !== undefined ? userRewardRate : "0"}
+        rewardRate={userRewardRate ? userRewardRate : 0}
       />
       <MainForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         inputValue={inputValue}
-        // isAnyLoading={isAnyLoading}
+        isAnyLoading={isAnyLoading}
         balanceToDisplay={
-          balanceToDisplay && userBalanceOfStarRunner
-            ? balanceToDisplay
-            : "0.00"
+          balanceToDisplay && userBalanceOfStarRunner ? balanceToDisplay : "0"
         }
         buttonText={"Stake"}
       />

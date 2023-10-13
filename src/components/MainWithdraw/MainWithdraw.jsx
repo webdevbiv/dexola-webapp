@@ -9,7 +9,7 @@ import {
   useContractWrite,
 } from "wagmi";
 import { formatEther, parseEther } from "viem";
-import { sanitizeInputValue } from "../../utils/utils";
+import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 import { Toast } from "../Toast/Toast";
 
@@ -66,8 +66,7 @@ export const MainWithdraw = () => {
     isLoading: waitForWithdrawIsLoading,
   } = useWaitForTransaction({
     hash: withdrawData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForWithdraw", { data, error });
+    onSettled() {
       setToastType("success");
       setInputValue("");
     },
@@ -110,9 +109,7 @@ export const MainWithdraw = () => {
     setInputValue(sanitizedValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     if (inputValue === "") return console.log("Please enter a value");
     if (Number(inputValue) > Number(balanceToDisplay)) {
       console.log("Insufficient balance");
@@ -124,13 +121,6 @@ export const MainWithdraw = () => {
       args: [amountToWithdraw],
     });
   };
-
-  console.log(
-    `balanceToDisplay`,
-    typeof balanceToDisplay,
-    `rewards`,
-    typeof rewards
-  );
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
     setToastType("pending");

@@ -9,12 +9,8 @@ import { Main } from "../components/Main/Main";
 import { Background } from "../components/Background/Background";
 import { HeaderBar } from "../components/HeaderBar/HeaderBar";
 import { LoadingSpinner } from "../components/LoadingSpinner/LoadingSpinner";
-// import useWindowWidth from "../Hooks/useWindowWidth";
-// import { MobileScroll } from "../components/MobileScroll/MobileScroll";
 
 export const SharedLayout = () => {
-  // const windowWidth = useWindowWidth();
-
   return (
     <>
       <Header>

@@ -2,19 +2,16 @@
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: 157px;
+  bottom: 135px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  width: fit-content;
-
   opacity: 1;
   z-index: -1;
 
-  // outline: 1px solid $accent-blue;
   @media screen and (min-width: $breakpoint-medium) {
-    bottom: -42px;
-    left: 71%;
+    bottom: -50px;
+    left: 60%;
   }
   @media screen and (min-width: $breakpoint-large) {
     bottom: -70px;
@@ -33,6 +30,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.7;
+
   @media screen and (min-width: $breakpoint-medium) {
     font-size: 16px;
     line-height: 1.5;
@@ -41,12 +39,15 @@
 
 // Success Toast
 .successTextWrapper {
-  width: 177px;
+  display: flex;
+  flex-wrap: wrap;
   @media screen and (min-width: $breakpoint-medium) {
     display: flex;
     white-space: nowrap;
+    flex-wrap: nowrap;
   }
 }
+
 .successText {
   font-family: $font-roboto-mono;
   font-weight: 400;
@@ -58,6 +59,7 @@
     line-height: 1.5;
   }
 }
+
 .successValue {
   font-family: $font-roboto-mono;
   font-size: 14px;
@@ -119,14 +121,25 @@
 
 .pendingTextWrapper {
   display: flex;
-  white-space: nowrap;
+  width: 295px;
+  flex-wrap: wrap;
+  text-wrap: wrap;
+  @media screen and (min-width: $breakpoint-medium) {
+    width: auto;
+    white-space: nowrap;
+  }
 }
 
 .pendingText {
+  display: flex;
+  flex-wrap: wrap;
   font-family: $font-roboto-mono;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.7;
+  @media screen and (min-width: $breakpoint-medium) {
+    flex-wrap: nowrap;
+  }
 }
 
 .pendingValue {

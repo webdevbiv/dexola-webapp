@@ -5,6 +5,28 @@
   justify-content: space-between;
 }
 
+.formikWrapper {
+  position: relative;
+}
+
+.error {
+  font-family: $font-roboto-mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: $warning-rose;
+
+  position: absolute;
+  top: 40px;
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+
+    top: 43px;
+  }
+}
+
 .input {
   font-family: $font-roboto-mono;
   font-weight: 400;
@@ -23,6 +45,7 @@
   &:focus {
     outline: none;
     color: $white;
+    border-bottom: 1px solid $accent-blue;
   }
   @media screen and (min-width: $breakpoint-medium) {
     font-size: 16px;
@@ -82,7 +105,7 @@
 .buttonWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 90px;
   @media screen and (min-width: $breakpoint-medium) {
     margin-top: 62px;
     justify-content: start;

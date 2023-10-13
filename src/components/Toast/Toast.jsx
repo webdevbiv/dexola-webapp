@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import s from "./Toast.module.scss";
 import toastSuccess from "../../assets/images/icons/toast_success.svg";
 import toastError from "../../assets/images/icons/toast_error.svg";
-import { useEffect, useState } from "react";
+import { roundToDecimalPlaces } from "../../utils/utils";
 
 export const Toast = ({ toastType, value, pageName }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const amountToDisplay = roundToDecimalPlaces(value, 7);
 
   useEffect(() => {
     if (toastType === "pending") {
@@ -33,7 +35,9 @@ export const Toast = ({ toastType, value, pageName }) => {
           />
           <div className={s.message}>
             <p className={s.successTextWrapper}>
-              <span className={s.successValue}>{value}&nbsp;stru&nbsp;</span>
+              <span className={s.successValue}>
+                {amountToDisplay}&nbsp;stru&nbsp;
+              </span>
               {pageName === "stake" && (
                 <span className={s.successText}>
                   successfully added to Staking
@@ -98,20 +102,26 @@ export const Toast = ({ toastType, value, pageName }) => {
               {pageName === "stake" && (
                 <span className={s.pendingText}>
                   Adding&nbsp;
-                  <span className={s.pendingValue}>{value}&nbsp;stru</span>
+                  <span className={s.pendingValue}>
+                    {amountToDisplay}&nbsp;stru
+                  </span>
                   &nbsp;to Staking
                 </span>
               )}
               {pageName === "withdraw" && (
                 <span className={s.pendingText}>
                   Withdrawing&nbsp;
-                  <span className={s.pendingValue}>{value}&nbsp;stru</span>
+                  <span className={s.pendingValue}>
+                    {amountToDisplay}&nbsp;stru
+                  </span>
                 </span>
               )}
               {pageName === "claimRewards" && (
                 <span className={s.pendingText}>
                   Claiming&nbsp;
-                  <span className={s.pendingValue}>{value}&nbsp;stru</span>
+                  <span className={s.pendingValue}>
+                    {amountToDisplay}&nbsp;stru
+                  </span>
                   &nbsp;rewards
                 </span>
               )}

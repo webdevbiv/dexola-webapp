@@ -1,75 +1,138 @@
 import PropTypes from "prop-types";
-import s from "./MainForm.module.scss";
+import { Form, Field, ErrorMessage, Formik } from "formik";
+import * as Yup from "yup";
 import { useWindowWidth } from "../../Hooks/";
+import { roundToDecimalPlaces } from "../../utils/utils";
 import { LARGE_WIDTH } from "../../constants/constants";
+import s from "./MainForm.module.scss";
+
+const validationSchema = Yup.object().shape({
+  amount: Yup.number()
+    .typeError("Amount is required")
+    .positive("Amount must be positive")
+    .max(
+      999999999999999,
+      "Amount must be less than or equal to 999999999999999"
+    )
+    .test("balance", "Insufficient funds", function () {
+      const { amount, balance } = this.parent;
+      console.log(`value: ${amount} balance: ${balance}`);
+      console.log(this.parent);
+      return amount <= balance;
+    })
+    .required("Amount is required"),
+});
 
 export const MainForm = ({
   handleSubmit,
-  handleChange,
   isInputDisplayed = true,
   inputValue,
-  isAnyLoading,
   balanceToDisplay,
   buttonText,
+  handleChange,
   onWithdrawAllClaimRewardsClick,
 }) => {
   const windowWidth = useWindowWidth();
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={s.form}
+    <Formik
+      initialValues={{
+        amount: "",
+        balance: "",
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        console.log("submit");
+        console.log(values);
+        handleSubmit();
+
+        setSubmitting(false);
+      }}
     >
-      <div className={s.inputWrapper}>
-        {isInputDisplayed && (
-          <input
-            type='text'
-            placeholder={`Enter ${buttonText.toLowerCase()} amount`}
-            name='amount'
-            value={inputValue}
-            onChange={handleChange}
-            className={s.input}
-            inputMode='numeric'
-            pattern='[0-9]*'
-            maxLength='15'
-          />
-        )}
-        <div className={s.balance}>
-          <span className={s.balanceLabel}>Available:</span>
-          <span className={s.balanceValue}>{balanceToDisplay}</span>
-          <span className={s.balanceUnit}>STRU</span>
-        </div>
-      </div>
-      <div className={s.buttonWrapper}>
-        <button
-          disabled={isAnyLoading}
-          type='submit'
-          className={`${s.button} ${isAnyLoading ? s.buttonDisabled : ""}`}
-        >
-          {buttonText}
-        </button>
-        {buttonText.toLowerCase() === "withdraw" &&
-          windowWidth >= LARGE_WIDTH && (
-            <button
-              className={s.withdrawAllClaimRewardsButton}
-              onClick={onWithdrawAllClaimRewardsClick}
-            >
-              withdraw all & claim rewards
-            </button>
-          )}
-      </div>
-    </form>
+      {({ isSubmitting, setFieldValue }) => (
+        <Form className={s.form}>
+          <div className={s.inputWrapper}>
+            {isInputDisplayed && (
+              <div className={s.formikWrapper}>
+                <Field
+                  type='text'
+                  name='amount'
+                  inputMode='numeric'
+                  onChange={(e) => {
+                    handleChange(e);
+                    const newValue = e.target.value;
+                    setFieldValue("amount", parseFloat(newValue));
+                    setFieldValue("balance", parseFloat(balanceToDisplay));
+                  }}
+                  value={inputValue}
+                  placeholder={`Enter ${buttonText.toLowerCase()} amount`}
+                  className={s.input}
+                />
+                <ErrorMessage
+                  name='amount'
+                  component='div'
+                  className={s.error}
+                />
+              </div>
+            )}
+            <div className={s.balance}>
+              <span className={s.balanceLabel}>Available:</span>
+              <span className={s.balanceValue}>
+                {Number(balanceToDisplay) === 0
+                  ? "0.00"
+                  : roundToDecimalPlaces(balanceToDisplay, 4)}
+              </span>
+              <span className={s.balanceUnit}>STRU</span>
+            </div>
+          </div>
+          <div className={s.buttonWrapper}>
+            {buttonText.toLowerCase() === "claim rewards" ? (
+              <button
+                type='button'
+                className={`${s.button} ${
+                  isSubmitting ? s.buttonDisabled : ""
+                }`}
+                disabled={isSubmitting}
+                onClick={handleSubmit}
+              >
+                {buttonText}
+              </button>
+            ) : (
+              <button
+                type='submit'
+                className={`${s.button} ${
+                  isSubmitting ? s.buttonDisabled : ""
+                }`}
+                disabled={isSubmitting}
+              >
+                {buttonText}
+              </button>
+            )}
+
+            {buttonText.toLowerCase() === "withdraw" &&
+              windowWidth >= LARGE_WIDTH && (
+                <button
+                  type='button'
+                  className={s.withdrawAllClaimRewardsButton}
+                  onClick={onWithdrawAllClaimRewardsClick}
+                >
+                  withdraw all & claim rewards
+                </button>
+              )}
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
 MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  onWithdrawAllClaimRewardsClick: PropTypes.func,
-  handleChange: PropTypes.func,
-  isInputDisplayed: PropTypes.bool,
-  isAnyLoading: PropTypes.bool,
-  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  buttonText: PropTypes.string.isRequired,
   balanceToDisplay: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
-  buttonText: PropTypes.string.isRequired,
+  isInputDisplayed: PropTypes.bool,
+  inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onWithdrawAllClaimRewardsClick: PropTypes.func,
+  handleChange: PropTypes.func,
 };

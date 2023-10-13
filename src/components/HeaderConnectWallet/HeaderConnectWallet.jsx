@@ -9,7 +9,7 @@ import starRunnerImgMobile from "../../assets/images/crypto/sr.png";
 import sepoliaImg from "../../assets/images/crypto/sep.webp";
 import sepoliaImgMobile from "../../assets/images/crypto/sep.png";
 import s from "./HeaderConnectWallet.module.scss";
-import { MEDIUM_WIDTH } from "../../constants/constants";
+import { MEDIUM_WIDTH, TOKEN } from "../../constants/constants";
 
 export const HeaderConnectWallet = () => {
   const windowWidth = useWindowWidth();
@@ -19,21 +19,17 @@ export const HeaderConnectWallet = () => {
   //Wagmi User Account data
   const { address: userWalletAddress, isConnected } = useAccount();
 
+  // User balance of Sepolia
   const { data: userBalanceOfSepolia } = useBalance({
     address: userWalletAddress,
     watch: true,
   });
 
-  // User balance of Sepolia
-  const formattedBalanceOfSepolia = roundToDecimalPlaces(
-    userBalanceOfSepolia?.formatted,
-    2
-  );
-
   //User balance of StarRunner
-  const userBalanceOfStarRunner = useUserBalanceOfStarRunner({
-    userWalletAddress,
-    formatted: true,
+  const { data: userBalanceOfStarRunner } = useBalance({
+    address: userWalletAddress,
+    token: TOKEN,
+    watch: true,
   });
 
   return (
@@ -52,7 +48,10 @@ export const HeaderConnectWallet = () => {
           />
           <div className={s.walletValues}>
             {userBalanceOfStarRunner
-              ? `${userBalanceOfStarRunner} STRU`
+              ? `${roundToDecimalPlaces(
+                  userBalanceOfStarRunner?.formatted,
+                  2
+                )} STRU`
               : "0 STRU"}
           </div>
           <img
@@ -61,11 +60,12 @@ export const HeaderConnectWallet = () => {
             className={s.walletLogo}
           />
           <div className={s.walletValues}>
-            {formattedBalanceOfSepolia
-              ? Number(formattedBalanceOfSepolia) % 1 === 0
-                ? `${Math.floor(formattedBalanceOfSepolia)} ETH`
-                : `${formattedBalanceOfSepolia} ETH`
-              : "Invalid data"}
+            {userBalanceOfSepolia
+              ? `${roundToDecimalPlaces(
+                  userBalanceOfSepolia?.formatted,
+                  2
+                )} ETH`
+              : "0 ETH"}
             {windowWidth >= MEDIUM_WIDTH && userWalletAddress && (
               <div className={s.walletAddress}>
                 <span>|</span>

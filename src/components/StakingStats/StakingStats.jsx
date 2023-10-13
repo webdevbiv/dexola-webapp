@@ -1,13 +1,20 @@
-import s from "./StakingStats.module.scss";
-import infoImg from "../../assets/images/icons/info.svg";
-import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
-import { useWindowWidth } from "../../Hooks/";
-import { useContractRead } from "wagmi";
-import { useAccount } from "wagmi";
-import { formatEther } from "viem";
 import { useEffect, useState } from "react";
-import { CONTRACT, CONTRACT_ABI, LARGE_WIDTH } from "../../constants/constants";
+import { useAccount, useContractRead } from "wagmi";
+import { formatEther } from "viem";
+import {
+  calculateAPR,
+  calculateDaysRemaining,
+  roundToDecimalPlaces,
+} from "../../utils/utils";
+import { useWindowWidth } from "../../Hooks/";
+import {
+  CONTRACT,
+  CONTRACT_ABI,
+  LARGE_WIDTH,
+  MEDIUM_WIDTH,
+} from "../../constants/constants";
 import { Tooltip } from "../Tooltip/Tooltip";
+import s from "./StakingStats.module.scss";
 
 export const StakingStats = () => {
   const windowWidth = useWindowWidth();
@@ -67,7 +74,9 @@ export const StakingStats = () => {
   const statsData = [
     {
       value: userStakedBalanceOfStarRunner
-        ? formatEther(userStakedBalanceOfStarRunner)
+        ? windowWidth < MEDIUM_WIDTH
+          ? roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 1)
+          : roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 4)
         : "0",
       label: "Staked balance",
       id: "stakedBalance",
@@ -87,7 +96,11 @@ export const StakingStats = () => {
       label: "Days",
     },
     {
-      value: userRewards ? Number(formatEther(userRewards)).toFixed(2) : "0.00",
+      value: userRewards
+        ? windowWidth < MEDIUM_WIDTH
+          ? roundToDecimalPlaces(formatEther(userRewards), 1)
+          : roundToDecimalPlaces(formatEther(userRewards), 4)
+        : "0",
       label: "Rewards",
       id: "rewards",
       suffix: "stru",
