@@ -8,10 +8,11 @@ import { Web3Modal } from "@web3modal/react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { PROJECT_ID, API_KEY } from "../constants/constants";
 
 const chains = [sepolia];
-const projectId = import.meta.env.VITE_PROJECT_ID;
-const apiKey = import.meta.env.VITE_ALCHEMY_KEY;
+const projectId = PROJECT_ID;
+const apiKey = API_KEY;
 
 const { publicClient } = configureChains(chains, [
   alchemyProvider({ apiKey }),
