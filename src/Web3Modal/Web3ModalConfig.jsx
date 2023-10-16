@@ -30,7 +30,6 @@ function Web3ModalConfig({ children }) {
   return (
     <>
       <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
-
       <Web3Modal
         projectId={projectId}
         ethereumClient={ethereumClient}

@@ -84,7 +84,6 @@ export const calculateRewardRateForUser = (
   // Calculate reward rate per week and format as an integer
   const rewardRateForUserPerWeek = rewardRateForUser / weeksRemaining;
 
-  // console.log(rewardRateForUserPerWeek);
   return rewardRateForUserPerWeek;
 };
 

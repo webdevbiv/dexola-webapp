@@ -4,7 +4,6 @@ function Withdraw() {
   return (
     <>
       <MainWithdraw />
-      {/* <div>Main Withdraw</div> */}
     </>
   );
 }

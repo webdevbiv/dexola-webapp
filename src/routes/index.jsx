@@ -1,15 +1,15 @@
+import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+
 import { SharedLayout } from "../layouts/SharedLayout";
 import { useAccount } from "wagmi";
-
-import { lazy } from "react";
-
 import { ConnectWallet } from "../pages/ConnectWallet";
-import { LoadingSpinner } from "../components/LoadingSpinner/LoadingSpinner";
 
-const Stake = lazy(() => import("../pages/Stake"));
-const Withdraw = lazy(() => import("../pages/Withdraw"));
-const ClaimRewards = lazy(() => import("../pages/ClaimRewards"));
+const Stake = lazy(() => import("../components/MainStake/MainStake"));
+const Withdraw = lazy(() => import("../components/MainWithdraw/MainWithdraw"));
+const ClaimRewards = lazy(() =>
+  import("../components/MainClaimRewards/MainClaimRewards")
+);
 
 export const AppRoutes = () => {
   const { isConnected } = useAccount();

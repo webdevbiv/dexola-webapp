@@ -4,7 +4,6 @@ function ClaimRewards() {
   return (
     <>
       <MainClaimRewards />
-      {/* <div>Claim Rewards</div> */}
     </>
   );
 }

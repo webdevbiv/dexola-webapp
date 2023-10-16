@@ -4,7 +4,6 @@ function Stake() {
   return (
     <>
       <MainStake />
-      {/* <div>Main Stake</div> */}
     </>
   );
 }
