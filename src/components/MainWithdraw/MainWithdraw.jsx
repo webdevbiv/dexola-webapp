@@ -13,7 +13,7 @@ import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 import { Toast } from "../Toast/Toast";
 
-export const MainWithdraw = () => {
+function MainWithdraw() {
   const [inputValue, setInputValue] = useState("");
   const [balanceToDisplay, setBalanceToDisplay] = useState(0);
   const [toastType, setToastType] = useState("");
@@ -153,4 +153,6 @@ export const MainWithdraw = () => {
       />
     </MainContainer>
   );
-};
+}
+
+export default MainWithdraw;

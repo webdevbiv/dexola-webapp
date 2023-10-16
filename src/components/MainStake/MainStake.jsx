@@ -23,7 +23,7 @@ import {
 } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
 
-export const MainStake = () => {
+function MainStake() {
   const [inputValue, setInputValue] = useState("");
   const [userRewardRate, setUserRewardRate] = useState(0);
   const [balanceToDisplay, setBalanceToDisplay] = useState(0);
@@ -185,4 +185,6 @@ export const MainStake = () => {
       />
     </MainContainer>
   );
-};
+}
+
+export default MainStake;

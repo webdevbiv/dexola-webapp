@@ -12,7 +12,7 @@ import { useState } from "react";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 import { Toast } from "../Toast/Toast";
 
-export const MainClaimRewards = () => {
+function MainClaimRewards() {
   const { address: userWalletAddress } = useAccount();
   const [balanceToDisplay, setBalanceToDisplay] = useState("0.00");
   const [toastType, setToastType] = useState("");
@@ -81,4 +81,6 @@ export const MainClaimRewards = () => {
       />
     </MainContainer>
   );
-};
+}
+
+export default MainClaimRewards;
