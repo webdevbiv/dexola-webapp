@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import s from "./TooltipModal.module.scss";
+
 export const TooltipModal = ({ onClick, text, isActive, id }) => {
   return (
     <div

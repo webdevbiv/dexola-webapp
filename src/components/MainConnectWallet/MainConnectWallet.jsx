@@ -1,6 +1,7 @@
 import s from "./MainConnectWallet.module.scss";
 import img from "../../assets/images/icons/connect.svg";
 import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
+
 export const MainConnectWallet = () => {
   return (
     <div className={`mainContainer ${s.container}`}>

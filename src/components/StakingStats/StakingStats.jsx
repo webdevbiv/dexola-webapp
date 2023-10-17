@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead } from "wagmi";
-import { formatEther } from "viem";
-import {
-  calculateAPR,
-  calculateDaysRemaining,
-  roundToDecimalPlaces,
-} from "../../utils/utils";
+import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useWindowWidth } from "../../Hooks/";
 import {
   CONTRACT,
@@ -14,6 +9,7 @@ import {
   MEDIUM_WIDTH,
 } from "../../constants/constants";
 import { Tooltip } from "../Tooltip/Tooltip";
+import statsData from "./statsData";
 import s from "./StakingStats.module.scss";
 
 export const StakingStats = () => {
@@ -71,50 +67,21 @@ export const StakingStats = () => {
     }
   }, [getRewardForDuration, totalSupply, periodFinish]);
 
-  const statsData = [
-    {
-      value: userStakedBalanceOfStarRunner
-        ? windowWidth < MEDIUM_WIDTH
-          ? roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 1)
-          : roundToDecimalPlaces(formatEther(userStakedBalanceOfStarRunner), 4)
-        : "0",
-      label: "Staked balance",
-      id: "stakedBalance",
-      suffix: "stru",
-      showInfoIcon: true,
-      text: "Staking rewards get allocated on this sum",
-    },
-    {
-      value: APR ? `≈${APR}%` : "≈0%",
-      id: "apr",
-      label: "APR",
-      showInfoIcon: true,
-      text: "Displays the average for APR. Interest rate is calculated for each amount of tokens.",
-    },
-    {
-      value: daysRemaining ? daysRemaining : "0",
-      label: "Days",
-    },
-    {
-      value: userRewards
-        ? windowWidth < MEDIUM_WIDTH
-          ? roundToDecimalPlaces(formatEther(userRewards), 1)
-          : roundToDecimalPlaces(formatEther(userRewards), 4)
-        : "0",
-      label: "Rewards",
-      id: "rewards",
-      suffix: "stru",
-      showInfoIcon: true,
-      text: "Rewards get allocated every second",
-    },
-  ];
+  const data = statsData(
+    userStakedBalanceOfStarRunner,
+    APR,
+    daysRemaining,
+    userRewards,
+    windowWidth,
+    MEDIUM_WIDTH
+  );
 
   return (
     <div className={s.container}>
       <h1 className={s.title}>StarRunner Token staking</h1>
       <div>
         <ul className={s.listStats}>
-          {statsData.map((stat, index) => (
+          {data.map((stat, index) => (
             <li
               key={index}
               className={s.item}

@@ -12,6 +12,7 @@ export const Tooltip = ({ text, id }) => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   const windowWidth = useWindowWidth();
+
   const openModal = () => {
     setIsModalOpen(true);
     setIsModalActive(true);

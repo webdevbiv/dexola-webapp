@@ -1,17 +1,12 @@
 import { NavLink } from "react-router-dom";
+import navLinks from "./navLinks";
 import s from "./Nav.module.scss";
 
 export const Nav = () => {
-  const links = [
-    { path: "/stake", label: "Stake" },
-    { path: "/withdraw", label: "Withdraw" },
-    { path: "/claimrewards", label: "Claim rewards" },
-  ];
-
   return (
     <div className={s.container}>
       <nav className={s.nav}>
-        {links.map((link) => (
+        {navLinks.map((link) => (
           <NavLink
             key={link.path}
             to={link.path}

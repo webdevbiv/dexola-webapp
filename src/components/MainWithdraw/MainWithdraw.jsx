@@ -121,6 +121,7 @@ function MainWithdraw() {
       args: [amountToWithdraw],
     });
   };
+
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
     setToastType("pending");
