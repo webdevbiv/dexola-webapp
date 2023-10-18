@@ -7,15 +7,17 @@ export const Nav = () => {
     <div className={s.container}>
       <nav className={s.nav}>
         {navLinks.map((link) => (
-          <NavLink
-            key={link.path}
-            to={link.path}
-            className={({ isActive }) =>
-              isActive ? `${s.link} ${s.linkSelected}` : `${s.link}`
-            }
-          >
-            {link.label}
-          </NavLink>
+          <>
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) =>
+                isActive ? `${s.link} ${s.linkSelected}` : `${s.link}`
+              }
+            >
+              {link.label}
+            </NavLink>
+          </>
         ))}
       </nav>
     </div>

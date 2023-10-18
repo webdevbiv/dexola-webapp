@@ -82,32 +82,36 @@ export const StakingStats = () => {
       <div>
         <ul className={s.listStats}>
           {data.map((stat, index) => (
-            <li
-              key={index}
-              className={s.item}
-            >
-              <div className={s.valueWrapper}>
-                <span className={s.value}>{stat.value}</span>
-                {stat.suffix && <span className={s.suffix}>{stat.suffix}</span>}
-                {stat.showInfoIcon && windowWidth < LARGE_WIDTH && (
-                  <Tooltip
-                    text={stat.text}
-                    id={stat.id}
-                  />
-                )}
-              </div>
-              <div className={s.labelWrapper}>
-                <span className={s.label}>{stat.label}</span>
-                {stat.showInfoIcon && windowWidth >= LARGE_WIDTH && (
-                  <>
+            <>
+              <li
+                key={index}
+                className={s.item}
+              >
+                <div className={s.valueWrapper}>
+                  <span className={s.value}>{stat.value}</span>
+                  {stat.suffix && (
+                    <span className={s.suffix}>{stat.suffix}</span>
+                  )}
+                  {stat.showInfoIcon && windowWidth < LARGE_WIDTH && (
                     <Tooltip
                       text={stat.text}
                       id={stat.id}
                     />
-                  </>
-                )}
-              </div>
-            </li>
+                  )}
+                </div>
+                <div className={s.labelWrapper}>
+                  <span className={s.label}>{stat.label}</span>
+                  {stat.showInfoIcon && windowWidth >= LARGE_WIDTH && (
+                    <>
+                      <Tooltip
+                        text={stat.text}
+                        id={stat.id}
+                      />
+                    </>
+                  )}
+                </div>
+              </li>
+            </>
           ))}
         </ul>
       </div>

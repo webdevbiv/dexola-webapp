@@ -4,6 +4,7 @@ import { Tooltip as TooltipReact } from "react-tooltip";
 import { TooltipModal } from "../TooltipModal/TooltipModal";
 import { useWindowWidth } from "../../Hooks";
 import { MEDIUM_WIDTH } from "../../constants/constants";
+import { defaultStyle, getMaxWidth } from "./defaultStyle";
 import infoImg from "../../assets/images/icons/info.svg";
 import s from "./Tooltip.module.scss";
 
@@ -35,25 +36,8 @@ export const Tooltip = ({ text, id }) => {
     return () => clearTimeout(timeoutId);
   }, [isModalActive]);
 
-  const defaultStyle = {
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    background: "rgba(255, 255, 255, 1)",
-    color: "black",
-    padding: "8px 12px",
-    fontSize: "14px",
-    lineHeight: "1.14",
-    borderRadius: "0",
-  };
-
-  // Define maxWidth based on the id prop
-  let maxWidth;
-  if (id === "stakedBalance") {
-    maxWidth = "165px";
-  } else if (id === "apr") {
-    maxWidth = "349px";
-  } else if (id === "rewards") {
-    maxWidth = "152px";
-  }
+  // get MaxWidth of Tooltip based on id
+  let maxWidth = getMaxWidth(id);
 
   return (
     <>
