@@ -1,27 +1,10 @@
 import PropTypes from "prop-types";
 import { Form, Field, ErrorMessage, Formik } from "formik";
-import * as Yup from "yup";
 import { useWindowWidth } from "../../Hooks/";
 import { roundToDecimalPlaces } from "../../utils/utils";
 import { LARGE_WIDTH } from "../../constants/constants";
+import { validationSchema } from "./formValidation";
 import s from "./MainForm.module.scss";
-
-const validationSchema = Yup.object().shape({
-  amount: Yup.number()
-    .typeError("Amount is required")
-    .positive("Amount must be positive")
-    .max(
-      999999999999999,
-      "Amount must be less than or equal to 999999999999999"
-    )
-    .test("balance", "Insufficient funds", function () {
-      const { amount, balance } = this.parent;
-      console.log(`value: ${amount} balance: ${balance}`);
-      console.log(this.parent);
-      return amount <= balance;
-    })
-    .required("Amount is required"),
-});
 
 export const MainForm = ({
   handleSubmit,
