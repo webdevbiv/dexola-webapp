@@ -90,10 +90,12 @@ export const StakingStats = () => {
                 <span className={s.value}>{stat.value}</span>
                 {stat.suffix && <span className={s.suffix}>{stat.suffix}</span>}
                 {stat.showInfoIcon && windowWidth < LARGE_WIDTH && (
-                  <Tooltip
-                    text={stat.text}
-                    id={stat.id}
-                  />
+                  <>
+                    <Tooltip
+                      text={stat.text}
+                      id={stat.id}
+                    />
+                  </>
                 )}
               </div>
               <div className={s.labelWrapper}>

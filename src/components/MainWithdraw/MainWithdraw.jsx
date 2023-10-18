@@ -96,7 +96,7 @@ function MainWithdraw() {
     isLoading: waitForWithdrawAllClaimRewardsIsLoading,
   } = useWaitForTransaction({
     hash: withdrawAllClaimRewardsData?.hash,
-    onSettled(data, error) {
+    onSettled() {
       setToastType("success");
       setInputValue("");
     },
