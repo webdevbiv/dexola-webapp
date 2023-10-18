@@ -13,17 +13,11 @@ export const useContractWrite = ({
   onErrorCallback = null,
   onSettledCallback = null,
 }) => {
-  const defaultSuccessCallback = (data) => {
-    console.log(`Success ${functionName}`, data);
-  };
+  const defaultSuccessCallback = () => {};
 
-  const defaultErrorCallback = (error) => {
-    console.log(`Error ${functionName}`, error);
-  };
+  const defaultErrorCallback = () => {};
 
-  const defaultSettledCallback = (data) => {
-    console.log(`Settled ${functionName}`, data);
-  };
+  const defaultSettledCallback = () => {};
 
   const config = {
     address: token ? TOKEN : CONTRACT,

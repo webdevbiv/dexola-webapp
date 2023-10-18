@@ -10,8 +10,6 @@ export const validationSchema = Yup.object().shape({
     )
     .test("balance", "Insufficient funds", function () {
       const { amount, balance } = this.parent;
-      console.log(`value: ${amount} balance: ${balance}`);
-      console.log(this.parent);
       return amount <= balance;
     })
     .required("Amount is required"),

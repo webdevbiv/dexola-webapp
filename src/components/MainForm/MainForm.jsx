@@ -25,8 +25,6 @@ export const MainForm = ({
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log("submit");
-        console.log(values);
         handleSubmit();
 
         setSubmitting(false);

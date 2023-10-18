@@ -26,15 +26,11 @@ export const useContractRead = ({
   };
 
   if (successMessage) {
-    config.onSuccess = (data) => {
-      console.log(`Success ${functionName}`, data);
-    };
+    config.onSuccess = () => {};
   }
 
   if (errorMessage) {
-    config.onError = (error) => {
-      console.log(`Error ${functionName}`, error);
-    };
+    config.onError = () => {};
   }
 
   return useContractReadWagmi(config);

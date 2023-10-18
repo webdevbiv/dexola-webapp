@@ -146,8 +146,7 @@ function MainStake() {
   const handleSubmit = () => {
     if (inputValue === "") return;
     if (Number(inputValue) > Number(balanceToDisplay))
-      return console.log("Insufficient balance");
-    setToastValue(inputValue);
+      setToastValue(inputValue);
     setToastType("pending");
     approveWrite({
       args: [CONTRACT, amountToApprove],
@@ -160,8 +159,6 @@ function MainStake() {
     waitForApproveIsLoading ||
     waitForStakeIsLoading;
 
-  // console.log(`balanceToDisplay`, balanceToDisplay, typeof balanceToDisplay);
-  // console.log(`userRewardRate`, userRewardRate, typeof userRewardRate);
   return (
     <MainContainer>
       <MainTitle

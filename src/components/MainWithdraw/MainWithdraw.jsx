@@ -97,7 +97,6 @@ function MainWithdraw() {
   } = useWaitForTransaction({
     hash: withdrawAllClaimRewardsData?.hash,
     onSettled(data, error) {
-      console.log("Settled waitForWithdrawAllClaimRewards", { data, error });
       setToastType("success");
       setInputValue("");
     },
@@ -110,9 +109,8 @@ function MainWithdraw() {
   };
 
   const handleSubmit = () => {
-    if (inputValue === "") return console.log("Please enter a value");
+    if (inputValue === "") return;
     if (Number(inputValue) > Number(balanceToDisplay)) {
-      console.log("Insufficient balance");
       return;
     }
     setToastValue(inputValue);

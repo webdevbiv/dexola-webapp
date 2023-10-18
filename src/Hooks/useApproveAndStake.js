@@ -27,8 +27,7 @@ export const useApproveAndStake = (amountApprove) => {
     isLoading: waitForApproveIsLoading,
   } = useWaitForTransaction({
     hash: approveData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForApprove", { data, error });
+    onSettled() {
       stakeWrite({ args: [amountApprove] });
     },
   });
@@ -39,9 +38,7 @@ export const useApproveAndStake = (amountApprove) => {
     isLoading: waitForStakeIsLoading,
   } = useWaitForTransaction({
     hash: stakeData?.hash,
-    onSettled(data, error) {
-      console.log("Settled waitForStake", { data, error });
-    },
+    onSettled() {},
   });
 
   return {
