@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { SharedLayout } from "../layouts/SharedLayout";
 import { MainConnectWallet as ConnectWallet } from "../components/MainConnectWallet/MainConnectWallet";
-import { useUserWalletStatus } from "../Hooks/";
+import { useAccount } from "wagmi";
 
 const Stake = lazy(() => import("../components/MainStake/MainStake"));
 const Withdraw = lazy(() => import("../components/MainWithdraw/MainWithdraw"));
@@ -12,7 +12,7 @@ const ClaimRewards = lazy(() =>
 );
 
 export const AppRoutes = () => {
-  const { userWalletIsConnected } = useUserWalletStatus();
+  const { isConnected } = useAccount();
   return (
     <>
       <Routes>
@@ -26,17 +26,15 @@ export const AppRoutes = () => {
           />
           <Route
             path='/stake'
-            element={userWalletIsConnected ? <Stake /> : <ConnectWallet />}
+            element={isConnected ? <Stake /> : <ConnectWallet />}
           />
           <Route
             path='/withdraw'
-            element={userWalletIsConnected ? <Withdraw /> : <ConnectWallet />}
+            element={isConnected ? <Withdraw /> : <ConnectWallet />}
           />
           <Route
             path='/claimrewards'
-            element={
-              userWalletIsConnected ? <ClaimRewards /> : <ConnectWallet />
-            }
+            element={isConnected ? <ClaimRewards /> : <ConnectWallet />}
           />
         </Route>
       </Routes>

@@ -5,4 +5,3 @@ export { useRewardRateForUser } from "./useRewardRateForUser";
 export { useUserBalanceOfStarRunner } from "./useUserBalanceOfStarRunner";
 export { useWindowWidth } from "./useWindowWidth";
 export { useUserStakedBalance } from "./useUserStakedBalance";
-export { useUserWalletStatus } from "./useUserWalletStatus";

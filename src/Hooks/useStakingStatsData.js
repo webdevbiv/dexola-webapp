@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useContractRead } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { calculateAPR, calculateDaysRemaining } from "../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../constants/constants";
-import { useUserWalletStatus } from "./useUserWalletStatus";
 
 export const useStakingStatsData = () => {
-  const { userWalletAddress, userWalletIsConnected } = useUserWalletStatus();
+  const { data: userWalletAddress, isConnected } = useAccount();
   const [APR, setAPR] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(null);
 
@@ -14,8 +13,8 @@ export const useStakingStatsData = () => {
     abi: CONTRACT_ABI,
     functionName: "balanceOf",
     args: [userWalletAddress],
-    watch: userWalletIsConnected,
-    enabled: userWalletIsConnected,
+    watch: isConnected,
+    enabled: isConnected,
   });
 
   const { data: userRewards } = useContractRead({
@@ -23,8 +22,8 @@ export const useStakingStatsData = () => {
     abi: CONTRACT_ABI,
     functionName: "earned",
     args: [userWalletAddress],
-    watch: userWalletIsConnected,
-    enabled: userWalletIsConnected,
+    watch: isConnected,
+    enabled: isConnected,
   });
 
   const { data: totalSupply } = useContractRead({
