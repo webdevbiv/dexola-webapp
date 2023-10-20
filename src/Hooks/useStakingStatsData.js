@@ -8,6 +8,8 @@ export const useStakingStatsData = () => {
   const [APR, setAPR] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(null);
 
+  console.log(isConnected);
+
   const { data: userStakedBalanceOfStarRunner } = useContractRead({
     address: CONTRACT,
     abi: CONTRACT_ABI,
