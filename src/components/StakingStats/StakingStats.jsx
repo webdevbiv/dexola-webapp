@@ -1,71 +1,14 @@
-import { useEffect, useState } from "react";
-import { useAccount, useContractRead } from "wagmi";
-import { calculateAPR, calculateDaysRemaining } from "../../utils/utils";
 import { useWindowWidth } from "../../Hooks/";
-import {
-  CONTRACT,
-  CONTRACT_ABI,
-  LARGE_WIDTH,
-  MEDIUM_WIDTH,
-} from "../../constants/constants";
+import { LARGE_WIDTH, MEDIUM_WIDTH } from "../../constants/constants";
 import { Tooltip } from "../Tooltip/Tooltip";
 import statsData from "./statsData";
 import s from "./StakingStats.module.scss";
+import { useStakingStatsData } from "../../Hooks/useStakingStatsData";
 
 export const StakingStats = () => {
   const windowWidth = useWindowWidth();
-  const { address: userWalletAddress, isConnected } = useAccount();
-  const [APR, setAPR] = useState(null);
-  const [daysRemaining, setDaysRemaining] = useState(null);
-
-  const { data: userStakedBalanceOfStarRunner } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "balanceOf",
-    args: [userWalletAddress],
-    watch: isConnected,
-    enabled: isConnected,
-  });
-
-  const { data: userRewards } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "earned",
-    args: [userWalletAddress],
-    watch: isConnected,
-    enabled: isConnected,
-  });
-
-  const { data: totalSupply } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "totalSupply",
-    watch: true,
-  });
-
-  const { data: getRewardForDuration } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "getRewardForDuration",
-    watch: true,
-  });
-
-  const { data: periodFinish } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "periodFinish",
-    watch: true,
-  });
-
-  useEffect(() => {
-    if (periodFinish) {
-      setDaysRemaining(calculateDaysRemaining(periodFinish));
-    }
-
-    if (getRewardForDuration && totalSupply) {
-      setAPR(calculateAPR(getRewardForDuration, totalSupply));
-    }
-  }, [getRewardForDuration, totalSupply, periodFinish]);
+  const { userStakedBalanceOfStarRunner, APR, daysRemaining, userRewards } =
+    useStakingStatsData();
 
   const data = statsData(
     userStakedBalanceOfStarRunner,

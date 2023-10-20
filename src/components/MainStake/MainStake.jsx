@@ -22,6 +22,7 @@ import {
   calculateRewardRateForUser,
 } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
+import { useUserWalletStatus } from "../../Hooks/";
 
 function MainStake() {
   const [inputValue, setInputValue] = useState("");
@@ -30,7 +31,7 @@ function MainStake() {
   const [toastType, setToastType] = useState("");
   const [toastValue, setToastValue] = useState(0);
 
-  const { address: userWalletAddress } = useAccount();
+  const { userWalletAddress } = useUserWalletStatus();
 
   const { data: userBalanceOfStarRunner } = useBalance({
     address: userWalletAddress,
