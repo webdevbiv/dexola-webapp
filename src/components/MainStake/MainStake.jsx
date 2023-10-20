@@ -22,9 +22,6 @@ function MainStake() {
   const amountToApprove = parseEther(inputValue.toString());
   const { userRewardRate, balanceToDisplay, userBalanceOfStarRunner } =
     useRewardRateForUser(inputValue);
-  console.log(
-    `userRewardRate: ${userRewardRate}, balanceToDisplay: ${balanceToDisplay}, userBalanceOfStarRunner: ${userBalanceOfStarRunner}`
-  );
 
   const {
     data: approveData,
