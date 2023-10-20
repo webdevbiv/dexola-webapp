@@ -1,4 +1,4 @@
-// default style
+// default style of Tooltip
 export const defaultStyle = {
   backgroundColor: "rgba(255, 255, 255, 1)",
   background: "rgba(255, 255, 255, 1)",
