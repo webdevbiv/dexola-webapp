@@ -1,48 +1,69 @@
+import { useEffect, useState } from "react";
+import { useAccount, useBalance } from "wagmi";
+import { TOKEN } from "../constants/constants";
+import { calculateRewardRateForUser } from "../utils/utils";
 import { useContractRead } from "./useContractRead";
-import { formatEther } from "viem";
 
-export const useRewardRateForUser = (
-  inputValue,
-  userStakedBalanceOfStarRunner
-) => {
-  const inputValueFormatted = Number(inputValue);
+export const useRewardRateForUser = (inputValue) => {
+  const [userRewardRate, setUserRewardRate] = useState(0);
+  const [balanceToDisplay, setBalanceToDisplay] = useState(0);
 
-  const userStakedBalanceOfStarRunnerFormatted = Number(
-    formatEther(userStakedBalanceOfStarRunner)
-  );
+  const { address: userWalletAddress } = useAccount();
 
-  const SECONDS_IN_A_WEEK = 7 * 24 * 60 * 60;
+  const { data: userBalanceOfStarRunner } = useBalance({
+    address: userWalletAddress,
+    token: TOKEN,
+    watch: true,
+    onSuccess: (data) => {
+      if (data) setBalanceToDisplay(data?.formatted);
+    },
+  });
+
+  const {
+    data: userStakedBalanceOfStarRunner,
+    isSuccess: userStakedBalanceOfStarRunnerIsSuccess,
+  } = useContractRead({
+    functionName: "balanceOf",
+    args: [userWalletAddress],
+    watch: true,
+  });
+
   const { data: periodFinish } = useContractRead({
     functionName: "periodFinish",
   });
-  const periodFinishFormatted = Number(periodFinish);
 
-  const { data: rewardRate } = useContractRead({ functionName: "rewardRate" });
-  const rewardRateFormatted = Number(formatEther(rewardRate));
+  const { data: rewardRate, isSuccess: rewardRateIsSuccess } = useContractRead({
+    functionName: "rewardRate",
+  });
 
   const { data: totalSupply } = useContractRead({
     functionName: "totalSupply",
   });
-  const totalSupplyFormatted = Number(formatEther(totalSupply));
 
-  // Calculate total available rewards
-  const currentTimestamp = Math.floor(Date.now() / 1000);
-  const remaining = periodFinishFormatted - currentTimestamp;
-  const weeksRemaining = Math.ceil(remaining / SECONDS_IN_A_WEEK);
-  const totalAvailableRewards = remaining * rewardRateFormatted;
+  useEffect(() => {
+    if (!userStakedBalanceOfStarRunnerIsSuccess || !rewardRateIsSuccess) return;
+    setUserRewardRate(
+      calculateRewardRateForUser(
+        inputValue,
+        userStakedBalanceOfStarRunner,
+        periodFinish,
+        rewardRate,
+        totalSupply
+      )
+    );
+  }, [
+    inputValue,
+    userStakedBalanceOfStarRunner,
+    periodFinish,
+    rewardRate,
+    totalSupply,
+    userStakedBalanceOfStarRunnerIsSuccess,
+    rewardRateIsSuccess,
+  ]);
 
-  // Calculate reward rate using the formula
-  const rewardRateForUser =
-    (userStakedBalanceOfStarRunnerFormatted * totalAvailableRewards) /
-      totalSupplyFormatted +
-    inputValueFormatted;
-
-  // Calculate reward rate per week
-  const rewardRateForUserPerWeek = Math.floor(
-    rewardRateForUser / weeksRemaining
-  ).toFixed(0);
-
-  const result = rewardRateForUserPerWeek;
-
-  return result;
+  return {
+    userRewardRate,
+    balanceToDisplay,
+    userBalanceOfStarRunner,
+  };
 };

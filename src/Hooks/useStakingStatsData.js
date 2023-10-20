@@ -4,7 +4,7 @@ import { calculateAPR, calculateDaysRemaining } from "../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../constants/constants";
 
 export const useStakingStatsData = () => {
-  const { data: userWalletAddress, isConnected } = useAccount();
+  const { address: userWalletAddress, isConnected } = useAccount();
   const [APR, setAPR] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(null);
 

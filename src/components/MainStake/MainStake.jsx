@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
-import {
-  useAccount,
-  useBalance,
-  useWaitForTransaction,
-  useContractWrite,
-} from "wagmi";
+import { useState } from "react";
+import { useWaitForTransaction, useContractWrite } from "wagmi";
 import { parseEther } from "viem";
-import { useContractRead } from "../../Hooks";
+import { useRewardRateForUser } from "../../Hooks";
 
 import {
   CONTRACT,
@@ -17,52 +12,19 @@ import {
 import { MainTitle } from "../MainTitle/MainTitle";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
-import {
-  sanitizeInputValue,
-  calculateRewardRateForUser,
-} from "../../utils/utils";
+import { sanitizeInputValue } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
 
 function MainStake() {
   const [inputValue, setInputValue] = useState("");
-  const [userRewardRate, setUserRewardRate] = useState(0);
-  const [balanceToDisplay, setBalanceToDisplay] = useState(0);
   const [toastType, setToastType] = useState("");
   const [toastValue, setToastValue] = useState(0);
-
-  const { address: userWalletAddress } = useAccount();
-
-  const { data: userBalanceOfStarRunner } = useBalance({
-    address: userWalletAddress,
-    token: TOKEN,
-    watch: true,
-    onSuccess: (data) => {
-      if (data) setBalanceToDisplay(data?.formatted);
-    },
-  });
-
   const amountToApprove = parseEther(inputValue.toString());
-
-  const {
-    data: userStakedBalanceOfStarRunner,
-    isSuccess: userStakedBalanceOfStarRunnerIsSuccess,
-  } = useContractRead({
-    functionName: "balanceOf",
-    args: [userWalletAddress],
-    watch: true,
-  });
-
-  const { data: periodFinish } = useContractRead({
-    functionName: "periodFinish",
-  });
-
-  const { data: rewardRate, isSuccess: rewardRateIsSuccess } = useContractRead({
-    functionName: "rewardRate",
-  });
-
-  const { data: totalSupply } = useContractRead({
-    functionName: "totalSupply",
-  });
+  const { userRewardRate, balanceToDisplay, userBalanceOfStarRunner } =
+    useRewardRateForUser(inputValue);
+  console.log(
+    `userRewardRate: ${userRewardRate}, balanceToDisplay: ${balanceToDisplay}, userBalanceOfStarRunner: ${userBalanceOfStarRunner}`
+  );
 
   const {
     data: approveData,
@@ -116,27 +78,6 @@ function MainStake() {
       setInputValue("");
     },
   });
-
-  useEffect(() => {
-    if (!userStakedBalanceOfStarRunnerIsSuccess || !rewardRateIsSuccess) return;
-    setUserRewardRate(
-      calculateRewardRateForUser(
-        inputValue,
-        userStakedBalanceOfStarRunner,
-        periodFinish,
-        rewardRate,
-        totalSupply
-      )
-    );
-  }, [
-    inputValue,
-    userStakedBalanceOfStarRunner,
-    periodFinish,
-    rewardRate,
-    totalSupply,
-    userStakedBalanceOfStarRunnerIsSuccess,
-    rewardRateIsSuccess,
-  ]);
 
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);
