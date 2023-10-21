@@ -2,7 +2,7 @@ import { useAccount, useBalance } from "wagmi";
 import { useWeb3Modal } from "@web3modal/react";
 import { roundToDecimalPlaces } from "../../utils/utils";
 import ButtonConnectWallet from "../ButtonConnectWallet/ButtonConnectWallet";
-import { useUserBalanceOfStarRunner, useWindowWidth } from "../../Hooks";
+import { useWindowWidth } from "../../Hooks";
 
 import starRunnerImg from "../../assets/images/crypto/sr.webp";
 import starRunnerImgMobile from "../../assets/images/crypto/sr.png";
