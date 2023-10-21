@@ -2,8 +2,8 @@ import { lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { SharedLayout } from "../layouts/SharedLayout";
-import { useAccount } from "wagmi";
 import { MainConnectWallet as ConnectWallet } from "../components/MainConnectWallet/MainConnectWallet";
+import { useAccount } from "wagmi";
 
 const Stake = lazy(() => import("../components/MainStake/MainStake"));
 const Withdraw = lazy(() => import("../components/MainWithdraw/MainWithdraw"));

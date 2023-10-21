@@ -2,105 +2,20 @@ import { useState } from "react";
 import { MainContainer } from "../MainContainer/MainContainer";
 import { MainForm } from "../MainForm/MainForm";
 import { MainTitle } from "../MainTitle/MainTitle";
-import {
-  useAccount,
-  useContractRead,
-  useWaitForTransaction,
-  useContractWrite,
-} from "wagmi";
-import { formatEther, parseEther } from "viem";
-import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
-import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
+import { parseEther } from "viem";
+import { sanitizeInputValue } from "../../utils/utils";
 import { Toast } from "../Toast/Toast";
+import { useWithdrawUserData, useWithdrawOperations } from "../../Hooks";
 
 function MainWithdraw() {
   const [inputValue, setInputValue] = useState("");
-  const [balanceToDisplay, setBalanceToDisplay] = useState(0);
-  const [toastType, setToastType] = useState("");
   const [toastValue, setToastValue] = useState(0);
-  const [rewards, setRewards] = useState(0);
+  const [toastType, setToastType] = useState("");
+  const { balanceToDisplay, userRewards } = useWithdrawUserData();
   const amountToWithdraw = parseEther(inputValue.toString());
 
-  const { address: userWalletAddress } = useAccount();
-
-  const { data: userStakedBalanceOfStarRunner } = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "balanceOf",
-    args: [userWalletAddress],
-    watch: true,
-    onSuccess: (data) => {
-      setBalanceToDisplay(formatEther(data));
-    },
-  });
-
-  const userRewards = useContractRead({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "earned",
-    args: [userWalletAddress],
-    watch: true,
-    onSuccess: (data) => {
-      if (data) setRewards(Number(formatEther(data)).toFixed(2));
-    },
-  });
-
-  const {
-    data: withdrawData,
-    isLoading: withdrawIsLoading,
-    isSuccess: withdrawIsSuccess,
-    write: withdrawWrite,
-  } = useContractWrite({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "withdraw",
-    onError() {
-      setToastType("error");
-      setInputValue("");
-    },
-  });
-
-  const {
-    data: waitForWithdraw,
-    isError: waitForWithdrawIsError,
-    isLoading: waitForWithdrawIsLoading,
-  } = useWaitForTransaction({
-    hash: withdrawData?.hash,
-    onSettled() {
-      setToastType("success");
-      setInputValue("");
-    },
-    onError() {
-      setToastType("error");
-      setInputValue("");
-    },
-  });
-
-  // Withdraw All & Claim Rewards
-  const {
-    data: withdrawAllClaimRewardsData,
-    isSuccess: withdrawAllClaimRewardsIsSuccess,
-    write: withdrawAllClaimRewardsWrite,
-  } = useContractWrite({
-    address: CONTRACT,
-    abi: CONTRACT_ABI,
-    functionName: "exit",
-    onError() {
-      setToastType("error");
-      setInputValue("");
-    },
-  });
-
-  const {
-    data: waitForWithdrawAllClaimRewards,
-    isLoading: waitForWithdrawAllClaimRewardsIsLoading,
-  } = useWaitForTransaction({
-    hash: withdrawAllClaimRewardsData?.hash,
-    onSettled() {
-      setToastType("success");
-      setInputValue("");
-    },
-  });
+  const { isAnyLoading, handleWithdrawAll, handleWithdraw } =
+    useWithdrawOperations({ amountToWithdraw, setInputValue, setToastType });
 
   // Handle Actions
   const handleChange = (e) => {
@@ -114,21 +29,16 @@ function MainWithdraw() {
       return;
     }
     setToastValue(inputValue);
-    setToastType("pending");
-    withdrawWrite({
-      args: [amountToWithdraw],
-    });
+    handleWithdraw();
   };
 
   const handleWithdrawAllClaimRewardsClick = (e) => {
     e.preventDefault();
-    setToastType("pending");
-    userRewards && setToastValue(Number(balanceToDisplay) + Number(rewards));
-
-    withdrawAllClaimRewardsWrite();
+    userRewards &&
+      setToastValue(Number(balanceToDisplay) + Number(userRewards));
+    handleWithdrawAll();
   };
 
-  const isAnyLoading = withdrawIsLoading || waitForWithdrawIsLoading;
   return (
     <MainContainer>
       <MainTitle pageName='Withdraw' />
@@ -138,11 +48,7 @@ function MainWithdraw() {
         onWithdrawAllClaimRewardsClick={handleWithdrawAllClaimRewardsClick}
         inputValue={inputValue}
         isAnyLoading={isAnyLoading}
-        balanceToDisplay={
-          balanceToDisplay && userStakedBalanceOfStarRunner
-            ? balanceToDisplay
-            : "0"
-        }
+        balanceToDisplay={balanceToDisplay ? balanceToDisplay : "0"}
         buttonText={"Withdraw"}
       />
       <Toast
