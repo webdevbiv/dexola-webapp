@@ -9,7 +9,7 @@ import {
   useContractWrite,
 } from "wagmi";
 import { formatEther, parseEther } from "viem";
-import { roundToDecimalPlaces, sanitizeInputValue } from "../../utils/utils";
+import { sanitizeInputValue } from "../../utils/utils";
 import { CONTRACT, CONTRACT_ABI } from "../../constants/constants";
 import { Toast } from "../Toast/Toast";
 
@@ -124,7 +124,6 @@ function MainWithdraw() {
     e.preventDefault();
     setToastType("pending");
     userRewards && setToastValue(Number(balanceToDisplay) + Number(rewards));
-
     withdrawAllClaimRewardsWrite();
   };
 
