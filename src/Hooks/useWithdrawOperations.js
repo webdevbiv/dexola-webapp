@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { useContractWrite, useWaitForTransaction } from "wagmi";
 import { CONTRACT, CONTRACT_ABI } from "../constants/constants";
 
-export const useWithdrawOperations = ({ amountToWithdraw, setInputValue }) => {
-  const [toastType, setToastType] = useState("");
-
+export const useWithdrawOperations = ({
+  amountToWithdraw,
+  setInputValue,
+  setToastType,
+}) => {
   const {
     data: withdrawData,
     isLoading: withdrawIsLoading,
@@ -72,7 +73,6 @@ export const useWithdrawOperations = ({ amountToWithdraw, setInputValue }) => {
     waitForWithdrawAllClaimRewardsIsLoading;
 
   return {
-    toastType,
     isAnyLoading,
     handleWithdrawAll,
     handleWithdraw,

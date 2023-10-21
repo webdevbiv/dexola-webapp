@@ -10,13 +10,18 @@ import { Toast } from "../Toast/Toast";
 function MainStake() {
   const [inputValue, setInputValue] = useState("");
   const [toastValue, setToastValue] = useState(0);
+  const [toastType, setToastType] = useState("");
+
   const amountToApprove = parseEther(inputValue.toString());
 
   const { userRewardRate, balanceToDisplay, userBalanceOfStarRunner } =
     useRewardRateForUser(inputValue);
 
-  const { isAnyLoading, toastType, handleWrite } =
-    useApproveAndStake(amountToApprove);
+  const { isAnyLoading, handleWrite } = useApproveAndStake({
+    amountToApprove,
+    setInputValue,
+    setToastType,
+  });
 
   const handleChange = (e) => {
     const sanitizedValue = sanitizeInputValue(e.target.value);

@@ -10,11 +10,12 @@ import { useWithdrawUserData, useWithdrawOperations } from "../../Hooks";
 function MainWithdraw() {
   const [inputValue, setInputValue] = useState("");
   const [toastValue, setToastValue] = useState(0);
+  const [toastType, setToastType] = useState("");
   const { balanceToDisplay, userRewards } = useWithdrawUserData();
   const amountToWithdraw = parseEther(inputValue.toString());
 
-  const { toastType, isAnyLoading, handleWithdrawAll, handleWithdraw } =
-    useWithdrawOperations({ amountToWithdraw, setInputValue });
+  const { isAnyLoading, handleWithdrawAll, handleWithdraw } =
+    useWithdrawOperations({ amountToWithdraw, setInputValue, setToastType });
 
   // Handle Actions
   const handleChange = (e) => {

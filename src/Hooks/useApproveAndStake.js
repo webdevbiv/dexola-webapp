@@ -10,18 +10,13 @@ import {
   TOKEN,
   TOKEN_ABI,
 } from "../constants/constants";
-import { useState } from "react";
 
-/**
- * A custom hook to handle the approval and staking process in a smart contract.
- *
- * @param {number} amountToApprove - The amount to be approved for staking.
- * @return {object} - Returns an object containing functions and states for managing the approval and staking process.
- */
-
-export const useApproveAndStake = (amountToApprove) => {
+export const useApproveAndStake = ({
+  amountToApprove,
+  setInputValue,
+  setToastType,
+}) => {
   const { address: userWalletAddress, isConnected } = useAccount();
-  const [toastType, setToastType] = useState("");
 
   // Fetching the current allowance for the user to interact with the contract.
   const { data: currentAllowance } = useContractRead({
@@ -45,6 +40,7 @@ export const useApproveAndStake = (amountToApprove) => {
     token: true,
     onError() {
       setToastType("error");
+      setInputValue("");
     },
   });
 
@@ -56,13 +52,13 @@ export const useApproveAndStake = (amountToApprove) => {
     },
     onError() {
       setToastType("error");
+      setInputValue("");
     },
   });
 
   // Hook to call the 'stake' function on the CONTRACT.
   const {
     data: stakeData,
-    isSuccess: stakeIsSuccess,
     isLoading: stakeIsLoading,
     writeAsync: stakeWrite,
   } = useContractWrite({
@@ -71,6 +67,7 @@ export const useApproveAndStake = (amountToApprove) => {
     functionName: "stake",
     onError() {
       setToastType("error");
+      setInputValue("");
     },
   });
 
@@ -79,9 +76,11 @@ export const useApproveAndStake = (amountToApprove) => {
     hash: stakeData?.hash,
     onSettled() {
       setToastType("success");
+      setInputValue("");
     },
     onError() {
       setToastType("error");
+      setInputValue("");
     },
   });
 
@@ -106,10 +105,6 @@ export const useApproveAndStake = (amountToApprove) => {
     waitForStakeIsLoading;
 
   return {
-    approveWrite,
-    toastType,
-    stakeIsLoading,
-    stakeIsSuccess,
     isAnyLoading,
     handleWrite,
   };
