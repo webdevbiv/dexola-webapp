@@ -12,6 +12,13 @@ import {
 } from "../constants/constants";
 import { useState } from "react";
 
+/**
+ * A custom hook to handle the approval and staking process in a smart contract.
+ *
+ * @param {number} amountToApprove - The amount to be approved for staking.
+ * @return {object} - Returns an object containing functions and states for managing the approval and staking process.
+ */
+
 export const useApproveAndStake = (amountToApprove) => {
   const { address: userWalletAddress, isConnected } = useAccount();
   const [toastType, setToastType] = useState("");

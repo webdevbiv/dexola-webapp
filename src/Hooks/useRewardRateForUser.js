@@ -4,6 +4,13 @@ import { TOKEN } from "../constants/constants";
 import { calculateRewardRateForUser } from "../utils/utils";
 import { useContractRead } from "./useContractRead";
 
+/**
+ * Calculates the reward rate for a user.
+ *
+ * @param inputValue - The input value.
+ * @return An object containing the user reward rate, balance to display, and user balance of Star Runner.
+ */
+
 export const useRewardRateForUser = (inputValue) => {
   const [userRewardRate, setUserRewardRate] = useState(0);
   const [balanceToDisplay, setBalanceToDisplay] = useState(0);
