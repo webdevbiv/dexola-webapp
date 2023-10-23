@@ -11,7 +11,6 @@ Dexola WebApp is a decentralized application built on the Ethereum blockchain, e
 - [Configuration](#configuration)
 - [Project Structure](#project-structure)
 - [Features](#features)
-- [Contact](#contact)
 
 ## Technical Task
 This project is organized by [Dexola](https://dexola.com/).<br />
@@ -85,7 +84,10 @@ VITE_CONTRACT=your-contract-address
 - **`.gitignore`**: Specifies files and directories to be ignored by Git.
 - **`.env`**: Holds environment variables (ensure to keep this file secure and untracked by Git).
 
-## User Usage
+## Live Link
+[Dexola WebApp](https://dexola-dapp.netlify.app/)
+
+## Features
 
 The Dexola WebApp allows users to interact with Ethereum blockchain to manage token staking. Here's how you can use the app:
 
