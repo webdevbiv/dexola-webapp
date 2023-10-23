@@ -10,9 +10,7 @@ Dexola WebApp is a decentralized application built on the Ethereum blockchain, e
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Project Structure](#project-structure)
-- [Custom Hooks](#custom-hooks)
-- [Technologies Used](#technologies-used)
-
+- [Features](#features)
 - [Contact](#contact)
 
 ## Technical Task
@@ -87,4 +85,23 @@ VITE_CONTRACT=your-contract-address
 - **`.gitignore`**: Specifies files and directories to be ignored by Git.
 - **`.env`**: Holds environment variables (ensure to keep this file secure and untracked by Git).
 
+## User Usage
 
+The Dexola WebApp allows users to interact with Ethereum blockchain to manage token staking. Here's how you can use the app:
+
+### Connecting a Wallet
+
+1. Click on the **Connect Wallet** button on the top right corner.
+2. Select your wallet type and follow the prompts to connect your Ethereum wallet.
+
+### Staking Tokens
+
+1. Once your wallet is connected, navigate to the **Stake** page via the navigation bar.
+2. Enter the amount of tokens you wish to stake in the input field.
+3. Click on the **Stake** button and confirm the transaction in your wallet.
+
+### Withdrawing Staked Tokens
+
+1. Navigate to the **Withdraw** page via the navigation bar.
+2. Enter the amount of tokens you wish to withdraw in the input field.
+3. Click on the **Withdraw** button and confirm the transaction in your wallet.
