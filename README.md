@@ -19,9 +19,9 @@ Dexola WebApp is a decentralized application built on the Ethereum blockchain, e
 - [Contact](#contact)
 
 ## Technical Task
-This project is organized by [Dexola](https://dexola.com/).__
-The technical task for this project can be found in the [project documentation](https://docs.google.com/document/d/14Dl0ljfAjNTY32InJRtHVtvHJGYpzGP3NjN3pwRCbAo/edit#heading=h.kybbdiqof5h0).__
-The design assets and guidelines are provided in the [Figma design file](https://www.figma.com/file/ncCGplINbkkYQW5E59z6zH/Dexola-Camp?type=design&node-id=446-398&mode=design&t=VLW629i0pdKzUyuN-0).__
+This project is organized by [Dexola](https://dexola.com/).<br />
+The technical task for this project can be found in the [project documentation](https://docs.google.com/document/d/14Dl0ljfAjNTY32InJRtHVtvHJGYpzGP3NjN3pwRCbAo/edit#heading=h.kybbdiqof5h0).<br />
+The design assets and guidelines are provided in the [Figma design file](https://www.figma.com/file/ncCGplINbkkYQW5E59z6zH/Dexola-Camp?type=design&node-id=446-398&mode=design&t=VLW629i0pdKzUyuN-0).<br />
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/)
