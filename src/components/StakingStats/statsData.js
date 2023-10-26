@@ -29,7 +29,7 @@ const statsData = (
     text: "Displays the average for APR. Interest rate is calculated for each amount of tokens.",
   },
   {
-    value: daysRemaining ? daysRemaining : "0",
+    value: daysRemaining && daysRemaining > 0 ? daysRemaining : "0",
     label: "Days",
   },
   {
